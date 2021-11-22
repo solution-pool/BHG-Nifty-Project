@@ -1,0 +1,81 @@
+.project {
+    .panel-title {
+        margin-bottom: 0px;
+        margin-top: 2.5rem;
+        font: {
+            size: 1.2rem;
+            weight: 700;
+        }
+    }
+    .project-panel {
+        border: 1px solid gray;
+        border-radius: 0.5rem;
+        padding: 1rem 2rem 1rem 2rem;
+    }
+    .project-detail {
+        .project-name {
+            text-align: center;
+            font-weight: 700;
+        }
+        .project-condition {
+            margin-bottom: 2.5rem;
+            div {
+                width: 33.33%;
+                text-align: center;
+                float:left;
+                font-size: 1.2rem;
+                opacity: 0.7;
+                line-height: 1rem;
+            }
+        }
+        .project-thumbnail {
+            text-align: center;
+            margin-bottom: 3rem;
+            img {
+                width: 75%;
+                box-shadow: 10px 10px 8px #888888;
+            }
+        }
+        .project-upvote {
+            // text-align: center;
+            position: relative;
+            button {
+                border-radius: 1rem;
+                color : $white;
+                margin: auto;
+                position: absolute;
+                top: 0;
+                left: calc(50% - 5.5rem);
+                font-weight: 500;
+                i {
+                    font-size: 1.2rem;
+                    font-weight: 900;
+                }
+            }
+        }
+    }
+    .project-rate {
+        margin-top: 0.8rem;
+        p {
+            margin-bottom: 0px;
+            text-align: center;
+            font-size: 0.75rem;
+            font-weight: 800;
+            line-height: 0.8rem;
+        }
+        .one-col {
+            border: 1px solid gray;
+            border-radius: 1rem;
+            padding: 0rem;
+            margin: 0.25rem;
+            .dv-star-rating {
+                .dv-star-rating-star {
+                    i {
+                        font-size: 0.9rem;
+                        padding: .05rem;
+                    }
+                }
+            }
+        }
+    }
+}
