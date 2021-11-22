@@ -1,0 +1,166 @@
+.home {
+    .parent-container {
+        padding: 3rem;
+        margin-top: 4rem;
+        .idea {
+            .requirement {
+                .nifty-image {
+                    width: 13rem;
+                    display: inline-block;
+                }
+                .io {
+                    font-size: 4rem;
+                    vertical-align: middle;
+                }
+                h1 {
+                    font : {
+                        size : 3rem !important;
+                        weight : 750;
+                    }
+                    padding-left: 0.5rem;
+                    color: $black;
+                }
+                ul {
+                    padding-left: 1rem !important;
+                    list-style: '-';
+                    li {
+                        font : {
+                            size : 2.2rem;
+                            weight : 300;
+                        }
+                        padding-left: 0.5rem;
+                        line-height: 1;
+                        word-break: break-all;
+                    }
+                }
+                
+            }
+            .idea-image {
+                width: 100%;
+            }
+        }
+        .sort-section {
+            background-color: $content-background-color;
+            margin-top: 4rem;
+            position: relative;
+            display: flex;
+            border : 1px solid $light-button-hover;
+            border-radius: 0.5rem;
+
+            ul {
+                margin-top: auto;
+                display: inline-block;
+                position: absolute;
+                top: 1rem;
+                list-style: none;
+                li {
+                    float: left;
+                    font-size: 1.4rem;
+                }
+
+                li + li {
+                    padding-left: 4rem;
+                }
+            }
+            .sort {
+                // position: absolute;
+                float: right;
+                // right: 0;
+                // display: inline-block;
+                // display: flex;
+                // flex-basis: auto;
+                // width:15rem;
+                // float: right;
+                // margin: auto;
+            }
+        }
+        .outside-project {
+            margin-top: 3rem;
+            border-radius: 0.5rem;
+            border : 1px solid $light-button-hover;
+            padding: 1rem 2rem 1rem 2rem;
+            box-shadow: 5px 10px 50px #888888;
+
+            .main-container {
+                width: 100%;
+                padding: .5rem 1rem .5rem 1rem;
+                background-color: #adadad;
+                border-radius: 5px;
+                position: relative;
+                display: inline-block;
+                i {
+                    font-size: 2.5rem;
+                    color: $white;
+                }
+                span {
+                    padding-left: 0.5rem;
+                    position:absolute;
+                    text-align: center;
+                    font-size: 1.1rem;
+                    margin: auto;
+                    top : 0.25rem;
+                    color: $white;
+                    line-height: 1.4rem;
+                }
+            }
+        }
+        .submit-project {
+            margin-top: 3rem;
+            border-radius: 1rem;
+            border : 1px solid $light-button-hover;
+            padding: 2rem 2rem 2rem 2rem;
+            box-shadow: 5px 10px 50px #888888;
+            
+            .main-container {
+                width: 100%;
+                padding: 1rem 2rem 0.2rem 2rem;
+                background-color: #adadad;
+                border-radius: 1rem;
+                h3 {
+                    color: $white;
+                    font-size: 1.6rem;
+                }
+                .icon-section {
+                    text-align: center;
+                    padding-top: 4rem;
+                    padding-bottom: 2rem;
+                    i {
+                        color: $white;
+                        font-size: 7rem;
+                    }
+                }
+                .question {
+                    font : {
+                        size : 1.1rem;
+                        weight: 300;
+                    }
+                    color: $white;
+                }
+            }
+            .footer-container {
+                margin-top: 0.8rem;
+                p {
+                    margin-bottom: 0px;
+                    text-align: center;
+                    font-size: 0.75rem;
+                    font-weight: 800;
+                    line-height: 0.8rem;
+                }
+                .one-col {
+                    border: 1px solid gray;
+                    border-radius: 1rem;
+                    padding: 0rem;
+                    margin: 0.25rem;
+                    .dv-star-rating {
+                        .dv-star-rating-star {
+                            i {
+                                font-size: 0.9rem;
+                                padding: .05rem;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

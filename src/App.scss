@@ -10,7 +10,12 @@ $black: #000000;
     padding-bottom: 70px;
 }
 
+a {
+    text-decoration: none !important;
+}
+
 @import "./assets/stylesheet/header.scss";
 @import "./assets/stylesheet/avatar.scss";
 @import "./assets/stylesheet/content.scss";
 @import "./assets/stylesheet/proposal.scss";
+@import "./assets/stylesheet/home.scss";
