@@ -1,6 +1,10 @@
+import Header from '../components/Header';
+
 const Project = () => {
     return (
-        <div></div>
+        <div>
+            <Header />
+        </div>
     );
 }
 

@@ -1,0 +1,23 @@
+.interest-panel {
+    .interest-body {
+        background-color: $white;
+        padding: 2rem 4rem 2rem 4rem;
+        --bs-gutter-x : 0;
+    }
+    .interest {
+        display: inline-block !important;
+        padding-left: 0.5rem;
+    }
+    .form-check {
+        padding-left: 3rem !important;
+    }
+    .form-label {
+        small {
+            font-weight: 300 !important;
+        }
+    }
+}
+
+.control-bundle {
+    padding-top: 2.5rem;
+}
