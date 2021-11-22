@@ -2,7 +2,7 @@ import { Navbar, Container, Nav, Button } from "react-bootstrap";
 
 const Header = (props) => {
     return (
-        <Navbar collapseOnSelect expand="lg" bg="light" variant="light">
+        <Navbar collapseOnSelect expand="lg" variant="light">
             <Container>
                 <Navbar.Brand href="#">
                     <img src={require('../assets/img/nifty.svg').default} />
