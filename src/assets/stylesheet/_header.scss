@@ -1,7 +1,5 @@
-$content-background-color: #f2f2f2;
-$light-button-hover: #8b8b8b;
 .navbar {
-    background-color:  $content-background-color;
+    background-color:  $content-background-color !important;
     .container {
         .navbar-collapse {
             .me-auto {

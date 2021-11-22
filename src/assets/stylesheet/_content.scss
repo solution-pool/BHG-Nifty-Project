@@ -1,0 +1,76 @@
+.content {
+    background-color: $content-background-color;
+    .main-col {
+        padding: 2.5rem 2.5rem 0 2.5rem;
+    }
+    .checkbox-panel {
+        padding: 2rem;
+        background-color: $white;
+        border-radius: 5px;
+        .checkbox-col {
+            padding-left: 6.5vw;
+            .form-check-label {
+                word-break: break-all !important;
+            }
+        }
+    }
+    .footer-element {
+        height: 10rem;
+    }
+    .file-panel {
+        text-align: center;
+        margin: auto;
+        background-color: $white;
+        overflow: auto;
+
+        button {
+            top: 45%;
+            position: relative;
+        }
+    }
+    .submit-panel {
+        text-align: center;
+        margin:auto;
+        position: relative;
+        button {
+            bottom: 0;
+            position: absolute;
+            right: 0;
+        }
+    }
+    .form-label {
+        margin-bottom: 0.2rem;
+        font: {
+            weight: 500;
+            size: 1rem;
+            family : 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+    }
+    .form-check-label:hover {
+        cursor: pointer;
+    }
+    .margin-top-30 {
+        margin-top: 30px;
+    }
+    #file-upload-button {
+        word-break: break-all;
+        margin: 10px
+    }
+    #file-upload-button:hover {
+        border: 1px solid $light-button-hover;
+    }
+    .pull-right {
+        float: right;
+    }
+    .padding-bottom-20 {
+        padding-bottom: 20px;
+    }
+    .back {
+        color: $black;
+        text-decoration: none;
+    }
+    .back:hover {
+        font-weight: 600;
+    }
+}
+
