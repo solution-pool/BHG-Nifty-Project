@@ -1,0 +1,34 @@
+$content-background-color: #f2f2f2;
+$light-button-hover: #8b8b8b;
+.navbar {
+    background-color:  $content-background-color;
+    .container {
+        .navbar-collapse {
+            .me-auto {
+                img {
+                    padding-left: 2rem;
+                }
+            }
+            .navbar-nav  {
+                #connect-wallet {
+                    outline: unset;
+                    border: unset;
+                    font-size: 28px;
+                    line-height: 33px;
+                    text-overflow: ellipsis;
+                    white-space: break-spaces;
+                    overflow: hidden;
+                    max-width: 10em;
+                    color: #000;
+                    background-color: #fff;
+                    padding: 10px 30px;
+                }
+
+                #connect-wallet:hover {
+                    border: 1px solid $light-button-hover;
+                }
+            }
+        }
+    }
+}
+            
