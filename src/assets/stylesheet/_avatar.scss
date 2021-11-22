@@ -1,6 +1,6 @@
 .avatar {
     position: relative;
-    .title {
+    .avatar-title {
         margin-top : 2rem;
         color : black !important;
         font : {
@@ -10,7 +10,7 @@
         padding: 0;
     }
 
-    .content {
+    .avatar-content {
         font-size: 0.875rem;
         line-height: 1.1;
         padding: 0;
@@ -33,7 +33,7 @@
         z-index: 100;
     }
 
-    .description {
+    .avatar-description {
         margin-bottom: 0px !important;
         margin-top: 0.3rem;
         span {

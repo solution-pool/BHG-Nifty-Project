@@ -1,3 +1,15 @@
 $asset-base-path: './assets';
+$content-background-color: #f2f2f2;
+$light-button-hover: #8b8b8b;
+
+$white: #FFFFFF;
+$black: #000000;
+
+
+.padding-bottom-70 {
+    padding-bottom: 70px;
+}
 
 @import "./assets/stylesheet/header.scss";
+@import "./assets/stylesheet/avatar.scss";
+@import "./assets/stylesheet/content.scss";
