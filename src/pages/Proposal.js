@@ -1,18 +1,192 @@
 import Header from '../components/Header';
 import Avatar from '../components/Avatar';
 import { Container, Row, Col, Form, Button, Spinner } from 'react-bootstrap';
+import { useState, useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
+import { database, storage } from '../config/firebase';
+import {NotificationContainer, NotificationManager} from 'react-notifications';
+import 'react-notifications/lib/notifications.css';
 
 const Proposal = () => {
     const title = "Project Proposal";
     const content = "Share alpha with the nifty fam by submitting an outside project that you think has potential!";
 
-    const handleSubmit = () => {
+    const [projectName, setProjectName] = useState('');
+    const [briefProjectSummary, setBriefProjectSummary] = useState('');
+    const [supply, setSupply] = useState('');
+    const [price, setPrice] = useState('');
+    const [detailedProjectDescription, setDetailedProjectDiscription] = useState('');
+    const [interest, setInterest] = useState({});
+    const [inputFile, setInputFile] = useState({});
+    const [files, setFiles] = useState([])
+    const [selFileContainer, setFileContainer] = useState(null)
+    const [isLoading, setLoading] = useState(false)
+    
 
+    useEffect( async () => {
+        setInputFile(document.getElementById('input-file'))
+        fillFileContainer()
+    }, [files] )
+    const changeProjectName = (e) => {
+        setProjectName(e.target.value);
+    }
+
+    const changeBriefProjectSummary = (e) => {
+        setBriefProjectSummary(e.target.value);
+    }
+
+    const changeInterest = (e) => {
+        const valueString = e.target.value
+        const value = valueString[0]
+        const read  = document.getElementById('checkbox_interest_' + value + '_' + 'A').checked
+        const write = document.getElementById('checkbox_interest_' + value + '_' + 'B').checked
+        
+        if(read && write) {
+            interest[value] = 3
+        } else if(read) {
+            interest[value] = 1
+        } else if(write) {
+            interest[value] = 2
+        } else {
+            interest[value] = 0
+        }
+
+        setInterest(interest)
+    }
+
+    const changeSupply = (e) => {
+        setSupply(e.target.value)
+    }
+
+    const changePrice = (e) => {
+        setPrice(e.target.value)
+    }
+
+    const changeDetailedProjectDescription = (e) => {
+        setDetailedProjectDiscription(e.target.value)
+    }
+
+    const changeFile = async (e) => {
+        const newFile = e.target.files[0]
+        let fileContainer = []
+        for(let i = 0 ; i < files.length; i ++ ) {
+            fileContainer.push(new File([files[i]], files[i].name))
+        }
+        const selectedFile = new File([newFile], newFile.name)
+        fileContainer.push(selectedFile)
+        setFiles(fileContainer)
+    }
+
+    const fillFileContainer = () => {
+        let container = [];
+        for(let i = 0; i < files.length; i ++ ) {
+            const oneFile = files[i]
+            const element = <Col lg="4" md="4" sm="6" xs="12"> <span title={oneFile.name} onClick={deleteFile}> {oneFile.name} </span></Col> 
+            container.push(element)
+        }
+
+        setFileContainer(container)
+    }
+
+    const setFile = () => {
+        inputFile?.click();
+    }
+    
+    const deleteFile = async (e) => {
+        const fileName = e.target.innerHTML
+        let removeID = -1
+        let fileContainer = []
+
+        for(let i = 0 ; i < files.length; i ++ ) {
+            const oneFile = files[i]
+            if(fileName.trim() == oneFile.name.trim()) {
+                removeID = i
+                break;
+            }
+        }
+        
+        for(let i = 0; i < files.length; i ++ ) {
+            if(i == removeID) {
+                continue;
+            }
+            fileContainer.push(new File([files[i]], files[i].name))
+        }
+        setFiles(fileContainer)
+        document.getElementById('input-file').files =  null
+    }
+
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+        setLoading('border')
+        let load = {
+            name: projectName,
+            supply: supply,
+            brief: briefProjectSummary,
+            price: price,
+            description: detailedProjectDescription,
+            interest: JSON.stringify(interest),
+        }
+
+        for(let p in load) {
+            if(p[1] ===  undefined) {
+                window.scrollTo(0, 0)
+                setLoading(false)
+                NotificationManager.error('An error occurred while typing data. Please reload the page and try again.', 'Error', 5000)
+                return
+            }
+        }
+        
+        let fileUrl = []
+        if(files){
+            for(let i = 0; i < files.length; i ++ ) {
+                let file = files[i]
+                let fileLink = await new Promise((resolve, reject) => {
+                    const url = "/project_proposal/file/" + file.name;
+                    storage.ref(url).put(file).then(function(snapshot) {
+                        storage.ref(url).getDownloadURL().then((link) => {
+                            console.log("resolve.......")
+                        resolve(link)
+                        }).catch((error) => {
+                            console.log("reject.......")
+                        reject('')
+                        })
+                    }).catch((error) => {
+                        console.log("catch.......")
+                        reject('')
+                    })
+                })
+
+                fileUrl.push(fileLink)
+            }   
+        }
+
+        load.files = JSON.stringify(fileUrl)
+        
+        const proposalRef   = database.ref('project_proposal')
+        const newProposalRef    = proposalRef.push()
+        newProposalRef.set(load) 
+        window.scrollTo(0, 0)
+        NotificationManager.success('The project proposal was successfully submitted.', 'Success', 5000)
+        setLoading(false)
+        reset()
+    }
+
+    const reset = () => {
+        setProjectName('');
+        setSupply('');
+        setPrice('');
+        setBriefProjectSummary('');
+        setDetailedProjectDiscription('');
+        setInterest({})
+        setInputFile(document.getElementById('input-file'))
+        setFiles([])
+        setFileContainer(null)
     }
     return (
         <div>
             <Header />
             <Container className="padding-bottom-70">
+                <NotificationContainer />
                 <Avatar title={title} content={content} />
                 <Row className="content">
                     <Form onSubmit={handleSubmit} encType="multipart/form-data">
@@ -20,36 +194,39 @@ const Proposal = () => {
                             <Col lg="4" md="6" sm="12" className="main-col">
                                 <Form.Group controlId="formProjectName">
                                     <Form.Label>Project Name</Form.Label>
-                                    <Form.Control type="text" placeholder="What do yo call your project?" />
+                                    <Form.Control type="text" placeholder="What do yo call your project?" value={projectName} onChange={changeProjectName} required />
                                 </Form.Group>
                                 <Form.Group controlId="formBriefProjectSummary" className="control-bundle">
                                     <Form.Label>Brief Project Summary</Form.Label>
-                                    <Form.Control type="text" placeholder="Sum up the project in a sentence or two" />
+                                    <Form.Control type="text" placeholder="Sum up the project in a sentence or two" value={briefProjectSummary} onChange={changeBriefProjectSummary} required />
                                 </Form.Group>
                             </Col>
                             <Col lg="4" md="6" sm="12" className="main-col">
                                 <Form.Group controlId="formSupply">
                                     <Form.Label>Supply</Form.Label>
-                                    <Form.Control type="text" placeholder="How many items in your project?" required />
+                                    <Form.Control type="text" placeholder="How many items in your project?" required value={supply} onChange={changeSupply} />
                                 </Form.Group>
                                 <Form.Group controlId="formPrice" className="control-bundle">
                                     <Form.Label>Price</Form.Label>
-                                    <Form.Control type="text" placeholder="Your proposed selling price." required />
+                                    <Form.Control type="text" placeholder="Your proposed selling price." required value={price} onChange={changePrice} />
                                 </Form.Group>
                             </Col>
                             <Col lg="4" md="6" sm="12" className="main-col">
                                 <Form.Group className="mb-4">
                                     <Form.Label>Files<small>(please provide art examples or any relevant files)</small></Form.Label>
                                     <div className="footer-element file-panel">
-                                        <input id="input-file" type="file" name="file" className="d-none" />
-                                        <Button variant="light" id="file-upload-button">Add File</Button>
+                                        <input id="input-file" type="file" name="file" className="d-none" onChange={changeFile} multiple />
+                                        <Button variant="light" id="file-upload-button" onClick={setFile}>Add File</Button>
+                                        <Row className="selected-files">
+                                            {selFileContainer}
+                                        </Row>
                                     </div>
                                 </Form.Group>
                             </Col>
                             <Col lg="12" md="12" sm="12" className="main-col">
                                 <Form.Group controlId="formProjectDescription">
                                     <Form.Label>Detailed Project Discription</Form.Label>
-                                    <Form.Control as="textarea" className="footer-element" placeholder="Describe all aspects of your proposed project in detail." />
+                                    <Form.Control as="textarea" className="footer-element" placeholder="Describe all aspects of your proposed project in detail." value={detailedProjectDescription} onChange={changeDetailedProjectDescription} />
                                 </Form.Group>
                             </Col>
                             <Col lg="12" md="12" sm="12" className="main-col interest-panel">
@@ -67,92 +244,92 @@ const Proposal = () => {
                                         </Col>
                                         <Col lg={4} md={6} sm={12}>
                                             <Form.Group className="mb-3" controlId="formInterestDataA">
-                                                <Form.Check type="checkbox" label="" className="interest" id="checkbox_interest_A_A" value="A_A" />
-                                                <Form.Check type="checkbox" label="Artist" className="interest" id="checkbox_interest_A_B" value="A_B" />
+                                                <Form.Check type="checkbox" label="" className="interest" id="checkbox_interest_A_A" value="A_A" onChange={changeInterest} />
+                                                <Form.Check type="checkbox" label="Artist" className="interest" id="checkbox_interest_A_B" value="A_B" onChange={changeInterest} />
                                             </Form.Group>
                                         </Col>
                                         <Col lg={4} md={6} sm={12}>
                                             <Form.Group className="mb-3" controlId="formInterestDataB">
-                                                <Form.Check type="checkbox" label="" className="interest" id="checkbox_interest_B_A" value="B_A" />
-                                                <Form.Check type="checkbox" label="Game Developer" className="interest" id="checkbox_interest_B_B" value="B_B" />
+                                                <Form.Check type="checkbox" label="" className="interest" id="checkbox_interest_B_A" value="B_A" onChange={changeInterest} />
+                                                <Form.Check type="checkbox" label="Game Developer" className="interest" id="checkbox_interest_B_B" value="B_B" onChange={changeInterest} />
                                             </Form.Group>
                                         </Col>
                                         <Col lg={4} md={6} sm={12}>
                                             <Form.Group className="mb-3" controlId="formInterestDataC">
-                                                <Form.Check type="checkbox" label="" className="interest" id="checkbox_interest_C_A" value="C_A" />
-                                                <Form.Check type="checkbox" label="Community Manager" className="interest" id="checkbox_interest_C_B" value="C_B" />
+                                                <Form.Check type="checkbox" label="" className="interest" id="checkbox_interest_C_A" value="C_A" onChange={changeInterest} />
+                                                <Form.Check type="checkbox" label="Community Manager" className="interest" id="checkbox_interest_C_B" value="C_B" onChange={changeInterest} />
                                             </Form.Group>
                                         </Col>
                                         <Col lg={4} md={6} sm={12}>
                                             <Form.Group className="mb-3" controlId="formInterestDataD">
-                                                <Form.Check type="checkbox" label="" className="interest" id="checkbox_interest_H" value="D_A" />
-                                                <Form.Check type="checkbox" label="Project Manager" className="interest" id="checkbox_interest_D_B" value="D_B" />
+                                                <Form.Check type="checkbox" label="" className="interest" id="checkbox_interest_D_A" value="D_A" onChange={changeInterest} />
+                                                <Form.Check type="checkbox" label="Project Manager" className="interest" id="checkbox_interest_D_B" value="D_B" onChange={changeInterest} />
                                             </Form.Group>
                                         </Col>
                                         <Col lg={4} md={6} sm={12}>
                                             <Form.Group className="mb-3" controlId="formInterestDataE">
-                                                <Form.Check type="checkbox" label="" className="interest" id="checkbox_interest_E_A" value="E_A" />
-                                                <Form.Check type="checkbox" label="Musician" className="interest" id="checkbox_interest_E_B" value="E_B" />
+                                                <Form.Check type="checkbox" label="" className="interest" id="checkbox_interest_E_A" value="E_A" onChange={changeInterest} />
+                                                <Form.Check type="checkbox" label="Musician" className="interest" id="checkbox_interest_E_B" value="E_B" onChange={changeInterest} />
                                             </Form.Group>
                                         </Col>
                                         <Col lg={4} md={6} sm={12}>
                                             <Form.Group className="mb-3" controlId="formInterestDataF">
-                                                <Form.Check type="checkbox" label="" className="interest" id="checkbox_interest_F_A" value="F_A" />
-                                                <Form.Check type="checkbox" label="Photographer" className="interest" id="checkbox_interest_F_B" value="F_B" />
+                                                <Form.Check type="checkbox" label="" className="interest" id="checkbox_interest_F_A" value="F_A" onChange={changeInterest} />
+                                                <Form.Check type="checkbox" label="Photographer" className="interest" id="checkbox_interest_F_B" value="F_B" onChange={changeInterest} />
                                             </Form.Group>
                                         </Col>
                                         <Col lg={4} md={6} sm={12}>
                                             <Form.Group className="mb-3" controlId="formInterestDataG">
-                                                <Form.Check type="checkbox" label="" className="interest" id="checkbox_interest_G_A" value="G_A" />
-                                                <Form.Check type="checkbox" label="Marketing Plan/ Manager" className="interest" id="checkbox_interest_G_B" value="G_B" />
+                                                <Form.Check type="checkbox" label="" className="interest" id="checkbox_interest_G_A" value="G_A" onChange={changeInterest} />
+                                                <Form.Check type="checkbox" label="Marketing Plan/ Manager" className="interest" id="checkbox_interest_G_B" value="G_B" onChange={changeInterest} />
                                             </Form.Group>
                                         </Col>
                                         <Col lg={4} md={6} sm={12}>
                                             <Form.Group className="mb-3" controlId="formInterestDataH">
-                                                <Form.Check type="checkbox" label="" className="interest" id="checkbox_interest_H_A" value="H_A" />
-                                                <Form.Check type="checkbox" label="Business Developer" className="interest" id="checkbox_interest_H_B" value="H_B" />
+                                                <Form.Check type="checkbox" label="" className="interest" id="checkbox_interest_H_A" value="H_A" onChange={changeInterest} />
+                                                <Form.Check type="checkbox" label="Business Developer" className="interest" id="checkbox_interest_H_B" value="H_B" onChange={changeInterest} />
                                             </Form.Group>
                                         </Col>
                                         <Col lg={4} md={6} sm={12}>
                                             <Form.Group className="mb-3" controlId="formInterestDataI">
-                                                <Form.Check type="checkbox" label="" className="interest" id="checkbox_interest_I_A" value="I_A" />
-                                                <Form.Check type="checkbox" label="Social Media Manager" className="interest" id="checkbox_interest_I_B" value="I_B" />
+                                                <Form.Check type="checkbox" label="" className="interest" id="checkbox_interest_I_A" value="I_A" onChange={changeInterest} />
+                                                <Form.Check type="checkbox" label="Social Media Manager" className="interest" id="checkbox_interest_I_B" value="I_B" onChange={changeInterest} />
                                             </Form.Group>
                                         </Col>
                                         <Col lg={4} md={6} sm={12}>
                                             <Form.Group className="mb-3" controlId="formInterestDataJ">
-                                                <Form.Check type="checkbox" label="" className="interest" id="checkbox_interest_J_A" value="J_A" />
-                                                <Form.Check type="checkbox" label="Smart Contract Developer" className="interest" id="checkbox_interest_J_B" value="J_B" />
+                                                <Form.Check type="checkbox" label="" className="interest" id="checkbox_interest_J_A" value="J_A" onChange={changeInterest} />
+                                                <Form.Check type="checkbox" label="Smart Contract Developer" className="interest" id="checkbox_interest_J_B" value="J_B" onChange={changeInterest} />
                                             </Form.Group>
                                         </Col>
                                         <Col lg={4} md={6} sm={12}>
                                             <Form.Group className="mb-3" controlId="formInterestDataK">
-                                                <Form.Check type="checkbox" label="" className="interest" id="checkbox_interest_K_A" value="K_A" />
-                                                <Form.Check type="checkbox" label="Data Analyst" className="interest" id="checkbox_interest_K_B" value="K_B" />
+                                                <Form.Check type="checkbox" label="" className="interest" id="checkbox_interest_K_A" value="K_A" onChange={changeInterest} />
+                                                <Form.Check type="checkbox" label="Data Analyst" className="interest" id="checkbox_interest_K_B" value="K_B" onChange={changeInterest} />
                                             </Form.Group>
                                         </Col>
                                         <Col lg={4} md={6} sm={12}>
                                             <Form.Group className="mb-3" controlId="formInterestDataL">
-                                                <Form.Check type="checkbox" label="" className="interest" id="checkbox_interest_L_A" value="L_A" />
-                                                <Form.Check type="checkbox" label="Discord Moderator" className="interest" id="checkbox_interest_L_B" value="L_B" />
+                                                <Form.Check type="checkbox" label="" className="interest" id="checkbox_interest_L_A" value="L_A" onChange={changeInterest} />
+                                                <Form.Check type="checkbox" label="Discord Moderator" className="interest" id="checkbox_interest_L_B" value="L_B" onChange={changeInterest} />
                                             </Form.Group>
                                         </Col>
                                         <Col lg={4} md={6} sm={12}>
                                             <Form.Group className="mb-3" controlId="formInterestDataM">
-                                                <Form.Check type="checkbox" label="" className="interest" id="checkbox_interest_M_A" value="M_A" />
-                                                <Form.Check type="checkbox" label="Web Developer" className="interest" id="checkbox_interest_M_B" value="M_B" />
+                                                <Form.Check type="checkbox" label="" className="interest" id="checkbox_interest_M_A" value="M_A" onChange={changeInterest} />
+                                                <Form.Check type="checkbox" label="Web Developer" className="interest" id="checkbox_interest_M_B" value="M_B" onChange={changeInterest} />
                                             </Form.Group>
                                         </Col>
                                         <Col lg={4} md={6} sm={12}>
                                             <Form.Group className="mb-3" controlId="formInterestDataN">
-                                                <Form.Check type="checkbox" label="" className="interest" id="checkbox_interest_N_A" value="N_A" />
-                                                <Form.Check type="checkbox" label="AI Developer" className="interest" id="checkbox_interest_N_B" value="N_B" />
+                                                <Form.Check type="checkbox" label="" className="interest" id="checkbox_interest_N_A" value="N_A" onChange={changeInterest} />
+                                                <Form.Check type="checkbox" label="AI Developer" className="interest" id="checkbox_interest_N_B" value="N_B" onChange={changeInterest} />
                                             </Form.Group>
                                         </Col>
                                         <Col lg={4} md={6} sm={12}>
                                             <Form.Group className="mb-3" controlId="formInterestDataO">
-                                                <Form.Check type="checkbox" label="" className="interest" id="checkbox_interest_O_A" value="O_A" />
-                                                <Form.Check type="checkbox" label="Other" className="interest" id="checkbox_interest_O_B" value="O_B" />
+                                                <Form.Check type="checkbox" label="" className="interest" id="checkbox_interest_O_A" value="O_A" onChange={changeInterest} />
+                                                <Form.Check type="checkbox" label="Other" className="interest" id="checkbox_interest_O_B" value="O_B" onChange={changeInterest} />
                                             </Form.Group>
                                         </Col>
                                     </Row>
@@ -160,16 +337,19 @@ const Proposal = () => {
                             </Col>
                             <Col lg="9" md="6" className="main-col"></Col>
                             <Col lg="12" className="main-col padding-bottom-20">
-                                <a href="" className="back">	&lt;&lt;-back to projects</a>
-                                <Button variant="secondary" type="submit" className="pull-right">
-                                    <Spinner
-                                    as="span"
-                                    // animation={isLoading}
-                                    size="sm"
-                                    role="status"
-                                    aria-hidden="false"
-                                    />
-                                    &nbsp; Submit</Button>
+                                <Link to="/">&lt;&lt;-back to projects</Link>
+                                <div className="pull-right" style={{display:'inline-block'}}>
+                                    <Form.Check type="checkbox" label="I have read the disclaimer and I agree to the terms." className="interest" />
+                                    <Button variant="secondary" type="submit">
+                                        <Spinner
+                                        as="span"
+                                        animation={isLoading}
+                                        size="sm"
+                                        role="status"
+                                        aria-hidden="false"
+                                        />
+                                        &nbsp; Submit</Button>
+                                </div>
                             </Col>
                         </Row>
                     </Form>
