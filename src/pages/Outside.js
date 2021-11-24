@@ -100,7 +100,7 @@ const Outside = (props) => {
         setLoading('border')
 
         let load = {
-            projectName: projectName,
+            name: projectName,
             supply: supply,
             website: website,
             highlight: highlight,
@@ -121,9 +121,9 @@ const Outside = (props) => {
             }
         }
 
-        let fileLink = "";
+        let fileUrl = [];
         if(file){
-            fileLink = await new Promise((resolve, reject) => {
+            let fileLink = await new Promise((resolve, reject) => {
                 const url = "/project_outside/file/" + file.name;
                 storage.ref(url).put(file).then(function(snapshot) {
                     storage.ref(url).getDownloadURL().then((link) => {
@@ -138,10 +138,10 @@ const Outside = (props) => {
                     reject('')
                 })
             })
-
+            fileUrl.push(fileLink)
         }
 
-        load.file = fileLink
+        load.files = fileUrl
         
         const outsideRef   = database.ref('project_outside')
         const newOutsideRef    = outsideRef.push()
