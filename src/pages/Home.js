@@ -7,47 +7,45 @@ import { database, storage } from '../config/firebase';
 import Panel from '../components/Panel';
 
 const Home = () => {
-    const [sort, setSort] = useState(1)
+    const [sort, setSort] = useState(2)
     const [projectContainer, setProposalContainer] = useState([])
 
     useEffect( async () => {
-        // await loadOutSideProject()
-        // await loadProposals()
-        display(sort)
+        await display(sort)
     })
 
-    const changeSort = (e) => {
+    const changeSort = async (e) => {
         setSort(e.target.value)
-        display(e.target.value)
+        await display(e.target.value)
     }
 
     const display = async (sortValue) => {
         let container = []
         if(sortValue == 3) {
-            let proposals = await loadProposals()
-            container.push(...proposals)
-            let outsides  = await loadOutsides()
-            container.push(...outsides)
-            setProposalContainer(container)
-        } else if(sortValue == 1) {
-            let proposals = await loadProposals().then( res => {
-                console.log(res)
-            }).catch((e) => {
-                console.log(e)
+            await loadProposals().then( async proposals => {
+                container.push(...proposals)
+                await loadOutsides().then( outsides => {
+                    container.push(...outsides)        
+                    // container.sort( (a, b) => {
+
+                    // } )
+                    setProposalContainer(container)
+                } )
             })
-            // console.log(proposals)
-            // container.push(...proposals)
-            // setProposalContainer(container)
+        } else if(sortValue == 1) {
+            await loadProposals().then( res => {
+                setProposalContainer(res)
+            })
         } else {
-            let outsides = await loadOutsides()
-            container.push(...outsides)
-            setProposalContainer(container)
+            await loadOutsides().then( res => {
+                setProposalContainer(res)
+            })
         }
 
     }
- 
 
     const loadProposals = async () => {
+        let proposalContainer = []
         const proposalRef = database.ref('project_proposal')
         await proposalRef.get().then( (snapshot) => {
             
@@ -55,53 +53,36 @@ const Home = () => {
                 const newAry = snapshot.val()
                 if(newAry) {
 
-                    let proposalContainer = []
                     for(let i in newAry) {
                         let data = newAry[i]
                         data.id = i
             
                         proposalContainer.push(<Panel proposal={data} />)
                     }
-                    // setProposalContainer(proposalContainer) 
-                    return proposalContainer;
                 }
-                return [1]
             }
-            return [2]
         } )
-        return [3]
+        return proposalContainer
     }
 
     const loadOutsides = async () => {
+        let outsideContainer = []
         const outsideRef = database.ref('project_outside')
         await outsideRef.get().then( (snapshot) => {
+
             if(snapshot.exists) {
                 const newAry = snapshot.val()
                 if(newAry) {
 
-                    let outsideContainer = []
                     for(let i in newAry) {
                         let data = newAry[i]
                         data.id = i
                         outsideContainer.push(<Panel proposal={data} />)
                     }
-                    return outsideContainer;
-                    // setProposalContainer(proposalContainer) 
                 }
             }
-            return []
         } )
-    }
-
-    const loadProjectProposal = async () => {
-        const proposalRef = database.ref('project_proposal')
-        await proposalRef.get().then( (snapshot) => {
-            if(snapshot.exists) {
-                const newAry = snapshot.val()
-                if(newAry) {
-                } 
-            }
-        } )
+        return outsideContainer;
     }
 
     return (
@@ -173,22 +154,22 @@ const Home = () => {
                                                 name="project"
                                                 value="3"
                                                 checked={sort == 3 ? true : false}
-                                                onClick={changeSort}
+                                                onChange={changeSort}
                                             />
                                         </Form.Group>
                                     </li>
                                     <li>
-                                    <Form.Group controlId="formNifty">
-                                        <Form.Check 
-                                            type="radio"
-                                            id=""
-                                            label="Nifty Projects"
-                                            name="project"
-                                            value="1"
-                                            checked={sort == 1 ? true : false}
-                                            onClick={changeSort}
-                                        />
-                                    </Form.Group>
+                                        <Form.Group controlId="formNifty">
+                                            <Form.Check 
+                                                type="radio"
+                                                id=""
+                                                label="Nifty Projects"
+                                                name="project"
+                                                value="1"
+                                                checked={sort == 1 ? true : false}
+                                                onChange={changeSort}
+                                            />
+                                        </Form.Group>
                                     </li>
                                     <li>
                                     <Form.Group controlId="formOutside">
@@ -199,7 +180,7 @@ const Home = () => {
                                             name="project"
                                             value="2"
                                             checked={sort == 2 ? true : false}
-                                            onClick={changeSort}
+                                            onChange={changeSort}
                                         />
                                     </Form.Group>
                                     </li>
