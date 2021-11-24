@@ -12,7 +12,7 @@ const Home = () => {
     // const [outsides, setOutsides] = useState([])
 
     useEffect( async () => {
-        await loadOutSideProject()
+        // await loadOutSideProject()
         // await loadProjectProposal()
     })
 
@@ -51,40 +51,62 @@ const Home = () => {
     return (
         <div className="home">
             <Header />
-            <Container className="parent-container">
-                <Row className="idea">
-                    <Col lg="6" md="6" sm="12" className="requirement">
-                        <div>
-                            <img src={require('../assets/img/nifty.svg').default} className="nifty-image" />
-                            <span className="io">.io</span>
+            <Container>
+                <Row>
+                    <Col lg="6" md="6" sm="12">
+                        <div className="requirement">
+                            <div className="nifty-image">
+                                <img src={require('../assets/img/nifty.svg').default}/>
+                                <span className="io">.io</span>
+                            </div>
+                            <h1>NFT Projects</h1>
+                            <ul id="up-ul">
+                                <li>
+                                    -Submit your idea for consideration
+                                </li>
+                                <li>
+                                    -Get assigned a team
+                                </li>
+                                <li>
+                                    -Get funded
+                                </li>
+                                <li>
+                                    -Build
+                                </li>
+                                <li>
+                                    -Launch
+                                </li>
+                            </ul>
                         </div>
-                        <h1>NFT Projects</h1>
-                        <ul>
-                            <li>
-                                Submit your idea for consideration
-                            </li>
-                            <li>
-                                Get assigned a team
-                            </li>
-                            <li>
-                                Get funded
-                            </li>
-                            <li>
-                                Build
-                            </li>
-                            <li>
-                                Launch
-                            </li>
-                        </ul>
                     </Col>
                     <Col lg="6" md="6" sm="12">
-                        <img src={require('../assets/img/idea.png').default} className="idea-image" />
+                        <div className="idea">
+                            <img src={require('../assets/img/idea.png').default} className="idea-image" />
+                        </div>
+                        <div>
+                            <ul>
+                                <li>
+                                    -Submit your idea for consideration
+                                </li>
+                                <li>
+                                    -Get assigned a team
+                                </li>
+                                <li>
+                                    -Get funded
+                                </li>
+                                <li>
+                                    -Build
+                                </li>
+                                <li>
+                                    -Launch
+                                </li>
+                            </ul>
+                        </div>
                     </Col>
-                </Row>
-                <Row>
                     <Col lg="12" md="12" sm="12">
                         <div className="sort-section">
-                            <div>
+                            <Row>
+                            <Col lg="8" md="12" sm="12">
                                 <ul>
                                     <li>
                                         <Form.Group>
@@ -117,128 +139,134 @@ const Home = () => {
                                     </Form.Group>
                                     </li>
                                 </ul>
+                            </Col>
+                            <Col lg="4" md="12" sm="12">
+                                <Form.Group className="sort">
+                                    <Form.Label>Sort by : </Form.Label>
+                                    <Form.Select>
+                                        <option>Newest</option>
+                                        <option>Name</option>
+                                        <option>User</option>
+                                    </Form.Select>
+                                </Form.Group>
+                            </Col>
+                            </Row>
+                        </div>
+                    </Col>
+                    <Col lg="4" md="6" sm="12">
+                        <div className="panel">
+                            <div className="outside-project">
+                                <Link to="/outside">
+                                    <div className="background-section">
+                                        <div className="icon-section">
+                                            <i className="fa fa-plus"></i>
+                                        </div>
+                                        <div className="link-section">
+                                            Submit Outside Project<br />
+                                            (share Alpha with the Nifty fam)
+                                        </div>
+                                    </div>
+                                </Link>
                             </div>
-                            <Form.Group className="sort">
-                                {/* <Form.Label></Form.Label>
-                                <Form.Select>
-                                    <option>Newest</option>
-                                    <option>Name</option>
-                                    <option>User</option>
-                                </Form.Select> */}
-                            </Form.Group>
                         </div>
                     </Col>
-                </Row>
-                <Row>
+                    <Col lg="8" md="6" sm="12"></Col>
                     <Col lg="4" md="6" sm="12">
-                        <div className="outside-project">
-                            <Link to="/outside">
-                                <div className="main-container">
-                                    <i className="fa fa-plus"></i>
-                                    <span>
-                                        Submit Outside Project<br />
-                                        (share Alpha with the Nifty fam)
-                                    </span>
+                        <div className="panel">
+                            <div className="submit-project">
+                                <Link to="/proposal">
+                                    <div className="background-section">
+                                        <h3>Submit Project Proposal</h3>
+                                        <p className="icon-section">
+                                            <i className="fa fa-plus"></i>
+                                        </p>
+                                        <p className="question">
+                                            Have a great idea? Get funded, developed, and launched right here!
+                                        </p>
+                                    </div>
+                                </Link>
+                                <div className="rating-section">
+                                    <Row>
+                                        <Col lg="4" md="6" sm="12" className="rating-star">
+                                            <div className="one-col">
+                                                <p>Art</p>
+                                                <p>
+                                                    <StarRatingComponent 
+                                                        name="rate1" 
+                                                        starCount={5}
+                                                        value={0}
+                                                        emptyStarColor={'#e5e5e5'}
+                                                    />
+                                                </p>
+                                            </div>
+                                        </Col>
+                                        <Col lg="4" md="6" sm="12" className="rating-star">
+                                            <div className="one-col">
+                                                <p>Roadmap</p>
+                                                <p>
+                                                    <StarRatingComponent 
+                                                        name="rate1" 
+                                                        starCount={5}
+                                                        value={0}
+                                                        emptyStarColor={'#e5e5e5'}
+                                                    />
+                                                </p>
+                                            </div>
+                                        </Col>
+                                        <Col lg="4" md="6" sm="12" className="rating-star">
+                                            <div className="one-col">
+                                                <p>Utility</p>
+                                                <p>
+                                                    <StarRatingComponent 
+                                                        name="rate1" 
+                                                        starCount={5}
+                                                        value={0}
+                                                        emptyStarColor={'#e5e5e5'}
+                                                    />
+                                                </p>
+                                            </div>
+                                        </Col>
+                                        <Col lg="4" md="6" sm="12" className="rating-star">
+                                            <div className="one-col">
+                                                <p>Community</p>
+                                                <p>
+                                                    <StarRatingComponent 
+                                                        name="rate1" 
+                                                        starCount={5}
+                                                        value={0}
+                                                        emptyStarColor={'#e5e5e5'}
+                                                    />
+                                                </p>
+                                            </div>
+                                        </Col>
+                                        <Col lg="4" md="6" sm="12" className="rating-star">
+                                            <div className="one-col">
+                                                <p>Team</p>
+                                                <p>
+                                                    <StarRatingComponent 
+                                                        name="rate1" 
+                                                        starCount={5}
+                                                        value={0}
+                                                        emptyStarColor={'#e5e5e5'}
+                                                    />
+                                                </p>
+                                            </div>
+                                        </Col>
+                                        <Col lg="4" md="6" sm="12" className="rating-star">
+                                            <div className="one-col">
+                                                <p>Originality</p>
+                                                <p>
+                                                    <StarRatingComponent 
+                                                        name="rate1" 
+                                                        starCount={5}
+                                                        value={0}
+                                                        emptyStarColor={'#e5e5e5'}
+                                                    />
+                                                </p>
+                                            </div>
+                                        </Col>
+                                    </Row>
                                 </div>
-                            </Link>
-                        </div>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col lg="4" md="6" sm="12">
-                        <div className="submit-project">
-                            <Link to="/proposal">
-                                <div className="main-container">
-                                    <h3>Submit Project Proposal</h3>
-                                    <p className="icon-section">
-                                        <i className="fa fa-plus"></i>
-                                    </p>
-                                    <p className="question">
-                                        Have a great idea? Get funded, developed, and launched right here!
-                                    </p>
-                                </div>
-                            </Link>
-                            <div className="footer-container">
-                                <Row>
-                                    <Col lg="4" md="6" sm="12" className="rating-star">
-                                        <div className="one-col">
-                                            <p>Art</p>
-                                            <p>
-                                                <StarRatingComponent 
-                                                    name="rate1" 
-                                                    starCount={5}
-                                                    value={0}
-                                                    emptyStarColor={'#e5e5e5'}
-                                                />
-                                            </p>
-                                        </div>
-                                    </Col>
-                                    <Col lg="4" md="6" sm="12" className="rating-star">
-                                        <div className="one-col">
-                                            <p>Roadmap</p>
-                                            <p>
-                                                <StarRatingComponent 
-                                                    name="rate1" 
-                                                    starCount={5}
-                                                    value={0}
-                                                    emptyStarColor={'#e5e5e5'}
-                                                />
-                                            </p>
-                                        </div>
-                                    </Col>
-                                    <Col lg="4" md="6" sm="12" className="rating-star">
-                                        <div className="one-col">
-                                            <p>Utility</p>
-                                            <p>
-                                                <StarRatingComponent 
-                                                    name="rate1" 
-                                                    starCount={5}
-                                                    value={0}
-                                                    emptyStarColor={'#e5e5e5'}
-                                                />
-                                            </p>
-                                        </div>
-                                    </Col>
-                                    <Col lg="4" md="6" sm="12" className="rating-star">
-                                        <div className="one-col">
-                                            <p>Community</p>
-                                            <p>
-                                                <StarRatingComponent 
-                                                    name="rate1" 
-                                                    starCount={5}
-                                                    value={0}
-                                                    emptyStarColor={'#e5e5e5'}
-                                                />
-                                            </p>
-                                        </div>
-                                    </Col>
-                                    <Col lg="4" md="6" sm="12" className="rating-star">
-                                        <div className="one-col">
-                                            <p>Team</p>
-                                            <p>
-                                                <StarRatingComponent 
-                                                    name="rate1" 
-                                                    starCount={5}
-                                                    value={0}
-                                                    emptyStarColor={'#e5e5e5'}
-                                                />
-                                            </p>
-                                        </div>
-                                    </Col>
-                                    <Col lg="4" md="6" sm="12" className="rating-star">
-                                        <div className="one-col">
-                                            <p>Originality</p>
-                                            <p>
-                                                <StarRatingComponent 
-                                                    name="rate1" 
-                                                    starCount={5}
-                                                    value={0}
-                                                    emptyStarColor={'#e5e5e5'}
-                                                />
-                                            </p>
-                                        </div>
-                                    </Col>
-                                </Row>
                             </div>
                         </div>
                     </Col>
