@@ -10,7 +10,7 @@ const Panel = (props) => {
                     <Link to="/proposal">
                         <div className="background-section" 
                             style={{
-                                backgroundImage: "url(" + JSON.parse(props.proposal.files)[0] + ")",
+                                backgroundImage: "url(" + (props.proposal.files ? props.proposal.files[0] : '') + ")",
                                 backgroundSize: "100%",
                                 backgroundRepeat: "no-repeat",
                                 backgroundColor: "black",
