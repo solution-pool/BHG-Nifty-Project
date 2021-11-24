@@ -1,6 +1,7 @@
 import { Navbar, Container, Nav, Button } from "react-bootstrap";
 import Web3 from 'web3';
 import { useEffect, useState } from 'react';
+import { Link } from "react-router-dom";
 const Header = () => {
 
     const [walletAddress, setAddress] = useState('');
@@ -24,9 +25,9 @@ const Header = () => {
     return (
         <Navbar collapseOnSelect expand="lg" variant="light">
             <Container>
-                <Navbar.Brand href="#">
+                <Link to="/">
                     <img src={require('../assets/img/nifty.svg').default} />
-                </Navbar.Brand>
+                </Link>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="me-auto">
