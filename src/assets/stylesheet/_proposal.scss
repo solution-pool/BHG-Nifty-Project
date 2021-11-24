@@ -43,6 +43,9 @@
         display: flex;
         .interest {
             padding-top: 0.4rem;
+            .disclaimer {
+                text-decoration: underline;
+            }
         }
         button {
             vertical-align: center;

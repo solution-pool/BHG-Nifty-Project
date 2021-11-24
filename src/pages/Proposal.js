@@ -1,11 +1,12 @@
 import Header from '../components/Header';
 import Avatar from '../components/Avatar';
-import { Container, Row, Col, Form, Button, Spinner } from 'react-bootstrap';
+import { Container, Row, Col, Form, Button, Spinner, Overlay, Popover } from 'react-bootstrap';
 import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { database, storage } from '../config/firebase';
 import {NotificationContainer, NotificationManager} from 'react-notifications';
 import 'react-notifications/lib/notifications.css';
+import ReactHtmlParser from 'react-html-parser'
 
 const Proposal = () => {
     const title = "Project Proposal";
@@ -21,6 +22,8 @@ const Proposal = () => {
     const [files, setFiles] = useState([])
     const [selFileContainer, setFileContainer] = useState(null)
     const [isLoading, setLoading] = useState(false)
+    const [show, setShow] = useState(false)
+    const [target, setTarget] = useState(null)
     
 
     useEffect( async () => {
@@ -182,6 +185,12 @@ const Proposal = () => {
         setFiles([])
         setFileContainer(null)
     }
+
+    const handleClick = (e) => {
+        setShow(!show);
+        setTarget(e.target);
+    }
+
     return (
         <div>
             <Header />
@@ -339,9 +348,15 @@ const Proposal = () => {
                             <Col lg="12" className="main-col padding-bottom-20">
                                 <Link to="/" id="link">&lt;&lt;-back to projects</Link>
                                 <div className="pull-right">
-                                    <Form.Group controlId="policy">
-                                        <Form.Check type="checkbox" label="I have read the disclaimer and I agree to the terms." className="interest" />
-                                    </Form.Group>
+                                    <div>
+                                        <div class="interest form-check">
+                                            <input type="checkbox" class="form-check-input" />
+                                            <label title="" class="form-check-label">
+                                                I have read the <span class="disclaimer" onClick={handleClick}>disclaimer</span> and I agree to the terms.
+                                                  
+                                            </label>
+                                        </div>
+                                    </div>
                                     <Button variant="secondary" type="submit">
                                         <Spinner
                                         as="span"
@@ -357,6 +372,34 @@ const Proposal = () => {
                     </Form>
                 </Row>
             </Container>
+            <Overlay
+                show={show}
+                target={target}
+                placement="top"
+                // container={ref}
+                containerPadding={20}
+            >
+                <Popover id="popover-contained">
+                <Popover.Body>
+                    <p>IMPORTANT NOTICE*</p>
+                    <p>MAKING A SUBMISSION, YOU ARE ACCEPTING AND AGREEING TO THE Nify, LLC TERMS OF USE. 
+                        You understand that your submission is not confidential nor submitted in confidence or 
+                        trust and do confidential or fiduciary relationship is intended or created by making an email
+                        submission. You understand that Nifty may possess or come to possess information similar or
+                        identical to information contained in your submission, and you agree that any such similarity or 
+                        identity shall not give rise to any claim or entitlement,
+                        whether for compensation, credit or otherwise.
+                        By making a submission, you hereby release Nifty and their respective directors, officers, shareholders, employees, licensees, assigns and successors from any and all claims
+                        relating to your submission, including without limitation arising from the risk of misdirection or misdelivery of 
+                        your submission.
+                        By checking box below and submitting this form, you acknowledge that Nifty will receive tha personal
+                        information you provide in connection with this application and will use it to consider your submission as a potential project for development.
+                        You also understand and agree that Nifty has the sole discretion to make determinations of participant eligibility, and that 
+                        Nifty reserves the right to change any of the eligibility requirements at any time.
+                    </p>
+                </Popover.Body>
+                </Popover>
+            </Overlay>
         </div>
     );
 }
