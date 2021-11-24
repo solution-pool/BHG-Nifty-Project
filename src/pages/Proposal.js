@@ -213,7 +213,7 @@ const Proposal = () => {
                             </Col>
                             <Col lg="4" md="6" sm="12" className="main-col">
                                 <Form.Group className="mb-4">
-                                    <Form.Label>Files<small>(please provide art examples or any relevant files)</small></Form.Label>
+                                    <Form.Label>Files<small> (please provide art examples or any relevant files)</small></Form.Label>
                                     <div className="footer-element file-panel">
                                         <input id="input-file" type="file" name="file" className="d-none" onChange={changeFile} multiple />
                                         <Button variant="light" id="file-upload-button" onClick={setFile}>Add File</Button>
@@ -231,16 +231,16 @@ const Proposal = () => {
                             </Col>
                             <Col lg="12" md="12" sm="12" className="main-col interest-panel">
                                 <Form.Group className="mb-4">
-                                    <Form.Label>Expertise/ Interest<small>(check all that apply)</small></Form.Label>
+                                    <Form.Label>Expertise / Interest<small> (check all that apply)</small></Form.Label>
                                     <Row className="interest-body">
                                         <Col lg={4} md={6} sm={12}>
-                                            have/read
+                                            have / read
                                         </Col>
                                         <Col lg={4} md={6} id="second-label">
-                                            have/read
+                                            have / read
                                         </Col>
                                         <Col lg={4} id="third-label">
-                                            have/read
+                                            have / read
                                         </Col>
                                         <Col lg={4} md={6} sm={12}>
                                             <Form.Group className="mb-3" controlId="formInterestDataA">

@@ -12,14 +12,14 @@
             padding-left: 0.5rem;
         }
         .form-check {
-            margin-left: 2rem !important;
+            margin-left: 3rem !important;
             .form-check-input {
                 padding-left: 1rem !important;
             }
         }
         .form-label {
             small {
-                font-weight: 300 !important;
+                font-weight: 400 !important;
             }
         }
     }
@@ -43,9 +43,10 @@
         display: flex;
         .interest {
             padding-top: 0.4rem;
-            button {
-                vertical-align: center;
-            }
+        }
+        button {
+            vertical-align: center;
+            margin-left: 1vw;
         }
     }
 }

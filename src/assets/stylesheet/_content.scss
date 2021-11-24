@@ -75,6 +75,9 @@
             size: 1rem;
             family : 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
+        small {
+            font-weight: 400;
+        }
     }
     .form-check-label:hover {
         cursor: pointer;
