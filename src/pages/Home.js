@@ -7,20 +7,50 @@ import { database, storage } from '../config/firebase';
 import Panel from '../components/Panel';
 
 const Home = () => {
-    const [sort, setSort] = useState(0)
-    // const [proposals, setProposals] = useState([])
-    // const [outsides, setOutsides] = useState([])
+    const [sort, setSort] = useState(1)
+    const [projectContainer, setProposalContainer] = useState([])
 
     useEffect( async () => {
         // await loadOutSideProject()
-        await loadProposal()
+        // await loadProposals()
+        display(sort)
     })
 
-    const [proposalContainer, setProposalContainer] = useState([])
+    const changeSort = (e) => {
+        setSort(e.target.value)
+        display(e.target.value)
+    }
 
-    const loadProposal = async () => {
+    const display = async (sortValue) => {
+        let container = []
+        if(sortValue == 3) {
+            let proposals = await loadProposals()
+            container.push(...proposals)
+            let outsides  = await loadOutsides()
+            container.push(...outsides)
+            setProposalContainer(container)
+        } else if(sortValue == 1) {
+            let proposals = await loadProposals().then( res => {
+                console.log(res)
+            }).catch((e) => {
+                console.log(e)
+            })
+            // console.log(proposals)
+            // container.push(...proposals)
+            // setProposalContainer(container)
+        } else {
+            let outsides = await loadOutsides()
+            container.push(...outsides)
+            setProposalContainer(container)
+        }
+
+    }
+ 
+
+    const loadProposals = async () => {
         const proposalRef = database.ref('project_proposal')
         await proposalRef.get().then( (snapshot) => {
+            
             if(snapshot.exists) {
                 const newAry = snapshot.val()
                 if(newAry) {
@@ -29,11 +59,37 @@ const Home = () => {
                     for(let i in newAry) {
                         let data = newAry[i]
                         data.id = i
+            
                         proposalContainer.push(<Panel proposal={data} />)
                     }
-                    setProposalContainer(proposalContainer) 
+                    // setProposalContainer(proposalContainer) 
+                    return proposalContainer;
+                }
+                return [1]
+            }
+            return [2]
+        } )
+        return [3]
+    }
+
+    const loadOutsides = async () => {
+        const outsideRef = database.ref('project_outside')
+        await outsideRef.get().then( (snapshot) => {
+            if(snapshot.exists) {
+                const newAry = snapshot.val()
+                if(newAry) {
+
+                    let outsideContainer = []
+                    for(let i in newAry) {
+                        let data = newAry[i]
+                        data.id = i
+                        outsideContainer.push(<Panel proposal={data} />)
+                    }
+                    return outsideContainer;
+                    // setProposalContainer(proposalContainer) 
                 }
             }
+            return []
         } )
     }
 
@@ -109,32 +165,41 @@ const Home = () => {
                             <Col lg="8" md="12" sm="12">
                                 <ul>
                                     <li>
-                                        <Form.Group>
+                                        <Form.Group controlId="formAll">
                                             <Form.Check 
                                                 type="radio"
                                                 id=""
                                                 label="All"
                                                 name="project"
+                                                value="3"
+                                                checked={sort == 3 ? true : false}
+                                                onClick={changeSort}
                                             />
                                         </Form.Group>
                                     </li>
                                     <li>
-                                    <Form.Group>
+                                    <Form.Group controlId="formNifty">
                                         <Form.Check 
                                             type="radio"
                                             id=""
                                             label="Nifty Projects"
                                             name="project"
+                                            value="1"
+                                            checked={sort == 1 ? true : false}
+                                            onClick={changeSort}
                                         />
                                     </Form.Group>
                                     </li>
                                     <li>
-                                    <Form.Group>
+                                    <Form.Group controlId="formOutside">
                                         <Form.Check 
                                             type="radio"
                                             id=""
                                             label="Outside Projects"
                                             name="project"
+                                            value="2"
+                                            checked={sort == 2 ? true : false}
+                                            onClick={changeSort}
                                         />
                                     </Form.Group>
                                     </li>
@@ -142,7 +207,7 @@ const Home = () => {
                             </Col>
                             <Col lg="4" md="12" sm="12">
                                 <Form.Group className="sort">
-                                    <Form.Label>Sort by : </Form.Label>
+                                    <Form.Label>Sort by :&nbsp; </Form.Label>
                                     <Form.Select>
                                         <option>Newest</option>
                                         <option>Name</option>
@@ -270,7 +335,7 @@ const Home = () => {
                             </div>
                         </div>
                     </Col>
-                    {proposalContainer}
+                    {projectContainer}
                 </Row>
             </Container>
         </div>
