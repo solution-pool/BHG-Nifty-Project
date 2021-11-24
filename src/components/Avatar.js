@@ -5,38 +5,35 @@ const Avatar = (props) => {
 
     const imageRef = useRef(null);
 
-    const changeImage = () => {
-
-    }
-
-    const handleImage = () => {
-
-    }
-
     return (
         <Row className="avatar">
-            <Col lg={5}>
+            <Col lg="5" md="8" sm="8" xs="12">
                 <h1 className="avatar-title">{ props.title }</h1>
                 <p className="avatar-content">{ props.content }</p>
             </Col>
-            <Col lg={3}>
-                <input id="input-image" accept="image/*" type="file" name="image" className="d-none" onChange={changeImage} />
-                <img ref={imageRef} src={require('../assets/img/avatar.png').default} onClick={handleImage}/>
+            <Col lg="2" md="4" sm="4" xs="12" className="avatar-container">
+                <img ref={imageRef} src={require('../assets/img/avatar.png').default} />
             </Col>
-            <Col lg={4}>
+            <Col lg="5" md="12" sm="12" xs="12">
                 <p className="avatar-description">
-                    <span>submitted by:</span> <br />
-                    <span>submission date:</span> <br />
-                    <span>total projects submitted:</span> <br />
-                    <span>nodestones held:</span>
+                    <p>
+                        <Col lg="6" md="6" sm="6" xs="6" className="avatar-label">submitted by:</Col>
+                        <Col lg="6" md="6" sm="6" xs="6" className="avatar-profile"></Col>
+                    </p>
+                    <p>
+                        <Col lg="6" md="6" sm="6" xs="6" className="avatar-label">submission date:</Col>
+                        <Col lg="6" md="6" sm="6" xs="6" className="avatar-profile"></Col>
+                    </p>
+                    <p>
+                        <Col lg="6" md="6" sm="6" xs="6" className="avatar-label">total projects submitted:</Col>
+                        <Col lg="6" md="6" sm="6" xs="6" className="avatar-profile"></Col>
+                    </p>
+                    <p>
+                        <Col lg="6" md="6" sm="6" xs="6" className="avatar-label">nodestones held:</Col>
+                        <Col lg="6" md="6" sm="6" xs="6" className="avatar-profile"></Col>
+                    </p>
                 </p>
             </Col>
-            {/* <h1>{ props.title }</h1>
-            <p>
-                <span>{ props.content }</span>
-                <input id="input-image" accept="image/*" type="file" name="image" className="d-none" onChange={changeImage} />
-                <img ref={imageRef} src={require('../assets/img/avatar.png').default} onClick={handleImage}/>
-            </p> */}
         </Row>
     );
 }
