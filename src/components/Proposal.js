@@ -8,7 +8,7 @@ const Proposal = (props) => {
         <Col lg="4" md="6" sm="12">
             <div className="submit-project">
                 <p className="panel-title"><b>Submitted by:</b> doodoobacon2 <strong>Price:</strong> {props.proposal.price} <strong>Supply:</strong> {props.proposal.supply}</p>
-                <Link to="/proposal">
+                <Link to={"/project?id=" +  props.proposal.id} >
                     <div className="main-container" style={{ 
                             backgroundColor : 'black',
                             backgroundImage: "url(" + JSON.parse(props.proposal.files)[0] + ")" , 

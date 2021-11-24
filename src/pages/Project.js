@@ -1,9 +1,36 @@
+import { useState, useEffect, useRef } from 'react';
 import Header from '../components/Header';
 import { Container, Row, Col, Form, Button, Spinner } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import StarRatingComponent from 'react-star-rating-component';
+import { database, storage } from '../config/firebase';
 
 const Project = () => {
+
+    const [project, setProject] = useState(null)
+
+
+    useEffect( () => {
+        getProject()
+    } )
+    
+    const getProject = async () => {
+        let index ='-MpDTy3Xg0k4wJnGT1RJ'
+        const proposalRef = database.ref('project_proposal')
+        await proposalRef.get().then( (snapshot) => {
+            if(snapshot.exists) {
+                const newAry = snapshot.val()
+                if(newAry) {
+                    for(let i in newAry) {
+                        if(i == index) {
+                            setProject(newAry[i])
+                            break
+                        }
+                    }
+                }
+            }
+        } )
+    }
     return (
         <div>
             <Header />
@@ -12,11 +39,11 @@ const Project = () => {
                     <Col lg={5} md={12} sm={12}>
                         <p className="panel-title">Project</p>
                         <div className="project-detail project-panel">
-                            <h1 className="project-name">Crypto Chimeras</h1>
+                            <h1 className="project-name">{ project ? project.projectName : '' }</h1>
                             <p className="project-condition">
-                                <div className="supply">Supply: 4444</div>
-                                <div className="price">Price: 0.5eth</div>
-                                <div className="votes">Votes: 112</div>
+                                <div className="supply">Supply: { project ? project.supply : '' }</div>
+                                <div className="price">Price: { project ? project.price : '' }</div>
+                                <div className="votes">Votes: </div>
                             </p>
                             <div className="project-thumbnail">
                                 <img src={require('../assets/img/idea.png').default} />
@@ -30,9 +57,22 @@ const Project = () => {
                     </Col>
                     <Col lg={7} md={12} sm={12}>
                         <p className="panel-title">Author</p>
-                        <div className="project-detail project-panel">
-                            <h1>Crypto Chimeras</h1>
-                            <p>Supply: 4444</p>
+                        <div className="project-avatar project-panel">
+                            <div className="photo">
+                                <img src={require('../assets/img/avatar.png').default} />
+                            </div>
+                            <div className="detail">
+                                <Row>
+                                    <Col lg="6" md="6" sm="6" xs="6" className="photo-label">submitted by :</Col>
+                                    <Col lg="6" md="6" sm="6" xs="6"><strong>doodoobacon2</strong></Col>
+                                    <Col lg="6" md="6" sm="6" xs="6" className="photo-label">submission date :</Col>
+                                    <Col lg="6" md="6" sm="6" xs="6"><strong>12/09/2021</strong></Col>
+                                    <Col lg="6" md="6" sm="6" xs="6" className="photo-label"> total projects submitted :</Col>
+                                    <Col lg="6" md="6" sm="6" xs="6"><strong>0</strong></Col>
+                                    <Col lg="6" md="6" sm="6" xs="6" className="photo-label">nodestones held : </Col>
+                                    <Col lg="6" md="6" sm="6" xs="6"><strong>2</strong></Col>
+                                </Row>
+                            </div>
                         </div>
                     </Col>
                 </Row>
@@ -56,7 +96,7 @@ const Project = () => {
                                 </Col>
                                 <Col lg={2} md={4} sm={6}>
                                     <div className="one-col">
-                                        <p>Art</p>
+                                        <p>Roadmap</p>
                                         <div>
                                             <StarRatingComponent 
                                                 name="rate1" 
@@ -69,7 +109,7 @@ const Project = () => {
                                 </Col>
                                 <Col lg={2} md={4} sm={6}>
                                     <div className="one-col">
-                                        <p>Art</p>
+                                        <p>Utility</p>
                                         <div>
                                             <StarRatingComponent 
                                                 name="rate1" 
@@ -82,7 +122,7 @@ const Project = () => {
                                 </Col>
                                 <Col lg={2} md={4} sm={6}>
                                     <div className="one-col">
-                                        <p>Art</p>
+                                        <p>Community</p>
                                         <div>
                                             <StarRatingComponent 
                                                 name="rate1" 
@@ -95,7 +135,7 @@ const Project = () => {
                                 </Col>
                                 <Col lg={2} md={4} sm={6}>
                                     <div className="one-col">
-                                        <p>Art</p>
+                                        <p>Team</p>
                                         <div>
                                             <StarRatingComponent 
                                                 name="rate1" 
@@ -108,7 +148,7 @@ const Project = () => {
                                 </Col>
                                 <Col lg={2} md={4} sm={6}>
                                     <div className="one-col">
-                                        <p>Art</p>
+                                        <p>Originality</p>
                                         <div>
                                             <StarRatingComponent 
                                                 name="rate1" 
@@ -128,7 +168,7 @@ const Project = () => {
                         <p className="panel-title">Description</p>
                         <div className="project-panel"> 
                             <p>
-                                A collection of 4444 generative hybrid animals. This would be a generative PFP project. There would be an upper, middle, and lower part of the bodies. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque.
+                            { project ? project.description : '' }
                             </p>
                         </div>
                     </Col>
@@ -136,23 +176,23 @@ const Project = () => {
                 <Row>
                     <Col lg="12" md="12" sm="12">
                         <p className="panel-title">Team Members Needed</p>
-                        <div className="project-panel"> 
+                        <div className="project-panel project-team"> 
                             <Container>
                                 <p>
                                     The following team members are needed for this project. Select a role if you would like to be considered.
                                 </p>
                                 <Row>
-                                    <Col lg="6" md="6" sm="12" className="text-center">
-                                        <p>Marketing Manager</p>
+                                    <Col lg="6" md="6" sm="12" className="text-center team-member-button" >
+                                        <Button variant="secondary">Marketing Manager</Button>
                                     </Col>
-                                    <Col lg="6" md="6" sm="12" className="text-center">
-                                        <p>Discord Moderator</p>
+                                    <Col lg="6" md="6" sm="12" className="text-center team-member-button">
+                                        <Button variant="secondary">Discord Moderator</Button>
                                     </Col>
-                                    <Col lg="6" md="6" sm="12" className="text-center">
-                                        <p>Smart Contract Developer</p>
+                                    <Col lg="6" md="6" sm="12" className="text-center team-member-button">
+                                        <Button variant="secondary">Smart Contract Developer</Button>
                                     </Col>
-                                    <Col lg="6" md="6" sm="12" className="text-center">
-                                        <p>Web Developer</p>
+                                    <Col lg="6" md="6" sm="12" className="text-center team-member-button">
+                                        <Button variant="secondary">Web Developer</Button>
                                     </Col>
                                 </Row>
                             </Container>
@@ -162,11 +202,71 @@ const Project = () => {
                 <Row>
                     <Col lg="12" md="12" sm="12">
                         <p className="panel-title">Discussion</p>
-                        <div className="project-panel">
-                            <Col lg="9" md="9" sm="6"></Col>
-                            <Col lg="3" md="3" sm="6">
-                                <Button variant="primary">Add new post</Button>
-                            </Col>
+                        <div className="project-discussion">
+                            <div className="project-discussion-header row">
+                                <Col lg="9" md="9" sm="6"></Col>
+                                <Col lg="3" md="3" sm="6">
+                                    <Button variant="primary">Add new post</Button>
+                                </Col>
+                            </div>
+                        </div>
+                        <div className="project-discussion-body">
+                            <Container>
+                                <Row>
+                                    <Col lg="2" md="2" sm="2" xs="2" className="discussion-button">
+                                        <div className="action">
+                                            <Button variant="success">
+                                                <i className="fa fa-arrow-up"></i>
+                                            </Button>
+                                            
+                                            <Button variant="primary">
+                                                <i className="fa fa-arrow-down"></i>
+                                            </Button>
+                                        </div>
+                                        <div className="vote-count">
+                                            <Button>
+                                                1
+                                            </Button>
+                                            
+                                            <Button variant="primary">
+                                                0
+                                            </Button>
+                                        </div>
+                                    </Col>
+                                    <Col lg="10" md="10" sm="10" xs="10" className="discussion-content">
+                                        <p>
+                                            Nullam aliquam convallis orci nec fringilla. Aliquam augue turpis, laoreet at egestas pretium, rutrum at nunc.
+                                        </p>
+                                    </Col>
+                                </Row>
+                                <Row>
+                                    <Col lg="2" md="2" sm="2" xs="2" className="discussion-button">
+                                        <div className="action">
+                                            <Button variant="success">
+                                                <i className="fa fa-arrow-up"></i>
+                                            </Button>
+                                            
+                                            <Button variant="primary">
+                                                <i className="fa fa-arrow-down"></i>
+                                            </Button>
+                                        </div>
+                                        <div className="vote-count">
+                                            <Button>
+                                                1
+                                            </Button>
+                                            
+                                            <Button variant="primary">
+                                                0
+                                            </Button>
+                                        </div>
+                                    </Col>
+                                    <Col lg="10" md="10" sm="10" xs="10" className="discussion-content">
+                                        <p>
+                                            Nullam aliquam convallis orci nec fringilla. Aliquam augue turpis, laoreet at egestas pretium, rutrum at nunc.
+                                        </p>
+                                    </Col>
+                                </Row>
+                            </Container>
                         </div>
                     </Col>
                 </Row>

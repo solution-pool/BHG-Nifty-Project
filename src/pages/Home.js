@@ -26,9 +26,10 @@ const Home = () => {
                 if(newAry) {
 
                     let proposalContainer = []
-
                     for(let i in newAry) {
-                        proposalContainer.push(<Proposal proposal={newAry[i]} />)
+                        let data = newAry[i]
+                        data.id = i
+                        proposalContainer.push(<Proposal proposal={data} />)
                     }
                     setProposalContainer(proposalContainer) 
                 }

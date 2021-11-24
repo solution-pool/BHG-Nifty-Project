@@ -11,6 +11,7 @@
         border: 1px solid gray;
         border-radius: 0.5rem;
         padding: 1rem 2rem 1rem 2rem;
+        box-shadow: 2px 2px 2px 0px rgba(#000000,0.5);
     }
     .project-detail {
         .project-name {
@@ -54,8 +55,25 @@
             }
         }
     }
+
+    .project-avatar {
+        .photo {
+            text-align: center;
+        }
+        .detail {
+            margin: 1rem;
+            p {
+                text-align: center;
+            }
+
+            .photo-label{
+                text-align: right;
+            }
+        }
+    }
+
+
     .project-rate {
-        margin-top: 0.8rem;
         p {
             margin-bottom: 0px;
             text-align: center;
@@ -64,16 +82,78 @@
             line-height: 0.8rem;
         }
         .one-col {
+            background-color: #f6f6f6;
             border: 1px solid gray;
-            border-radius: 1rem;
+            border-radius: 0.5rem;
             padding: 0rem;
+            line-height: 1rem;
+            text-align: center;
             margin: 0.25rem;
             .dv-star-rating {
                 .dv-star-rating-star {
                     i {
-                        font-size: 0.9rem;
+                        font-size: 1.3rem;
                         padding: .05rem;
                     }
+                }
+            }
+        }
+    }
+    .project-team {
+        p {
+            margin-bottom: 0px;
+            color: #afafaf;
+            font-size: 1.2vw;
+        }
+        .team-member-button {
+            margin-top: 0.5rem;
+            button {
+                width: 80%;
+            }
+            // background-color: #f4f4f4;
+        }
+    }
+    .project-discussion {
+        border: 1px solid gray;
+        border-radius: 0.5rem 0.5rem 0  0  ;
+        padding: 1rem 1.5rem 1rem 1.5rem;
+        box-shadow: 2px 0px 0px 0px rgba(#000000, 0.5);
+            background-color: #e8e8e8;
+    }
+
+    .project-discussion-body {
+        padding-top: 2rem;
+        border-radius: 0 0 0.5rem 0.5rem;
+        box-shadow: 2px 0px 0px 0px rgba(#000000, 0.5);
+        border: 1px solid gray;
+        background-color: white;
+        .container {
+            padding-left: 10vw;
+            padding-right: 10vw;
+            padding-bottom: 3vw;
+            .row {
+                margin-top: 1.5vw;
+                .discussion-button {
+                    .action {
+                        button {
+                            margin-left: 0.2rem;
+                        }
+                    }
+                    .vote-count {
+                        margin-top: 0.5rem;
+                        button {
+                            background-color: #faf4ec;
+                            color: black;
+                            margin-left: 0.2rem;
+                            border-radius: 0px;
+                            border-color: #faf4ec;
+                        }
+                    }
+                }
+
+                .discussion-content {
+                    padding: 1rem;
+                    background-color: #f2f2f2;
                 }
             }
         }
