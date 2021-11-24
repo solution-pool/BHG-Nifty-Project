@@ -160,7 +160,7 @@ const Proposal = () => {
             }   
         }
 
-        load.files = JSON.stringify(fileUrl)
+        load.files = fileUrl
         
         const proposalRef   = database.ref('project_proposal')
         const newProposalRef    = proposalRef.push()
