@@ -84,45 +84,47 @@ const Home = () => {
                 <Row>
                     <Col lg="12" md="12" sm="12">
                         <div className="sort-section">
-                            <ul>
-                                <li>
+                            <div>
+                                <ul>
+                                    <li>
+                                        <Form.Group>
+                                            <Form.Check 
+                                                type="radio"
+                                                id=""
+                                                label="All"
+                                                name="project"
+                                            />
+                                        </Form.Group>
+                                    </li>
+                                    <li>
                                     <Form.Group>
                                         <Form.Check 
                                             type="radio"
                                             id=""
-                                            label="All"
+                                            label="Nifty Projects"
                                             name="project"
                                         />
                                     </Form.Group>
-                                </li>
-                                <li>
-                                <Form.Group>
-                                    <Form.Check 
-                                        type="radio"
-                                        id=""
-                                        label="Nifty Projects"
-                                        name="project"
-                                    />
-                                </Form.Group>
-                                </li>
-                                <li>
-                                <Form.Group>
-                                    <Form.Check 
-                                        type="radio"
-                                        id=""
-                                        label="Outside Projects"
-                                        name="project"
-                                    />
-                                </Form.Group>
-                                </li>
-                            </ul>
+                                    </li>
+                                    <li>
+                                    <Form.Group>
+                                        <Form.Check 
+                                            type="radio"
+                                            id=""
+                                            label="Outside Projects"
+                                            name="project"
+                                        />
+                                    </Form.Group>
+                                    </li>
+                                </ul>
+                            </div>
                             <Form.Group className="sort">
-                                <Form.Label>Sort by:</Form.Label>
+                                {/* <Form.Label></Form.Label>
                                 <Form.Select>
                                     <option>Newest</option>
                                     <option>Name</option>
                                     <option>User</option>
-                                </Form.Select>
+                                </Form.Select> */}
                             </Form.Group>
                         </div>
                     </Col>

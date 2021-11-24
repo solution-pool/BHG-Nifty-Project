@@ -42,16 +42,16 @@
         .sort-section {
             background-color: $content-background-color;
             margin-top: 4rem;
-            position: relative;
+            // position: relative;
             display: flex;
             border : 1px solid $light-button-hover;
             border-radius: 0.5rem;
 
             ul {
-                margin-top: auto;
+                margin-top: 1.2rem;
                 display: inline-block;
-                position: absolute;
-                top: 1rem;
+                // position: absolute;
+                top: 2rem;
                 list-style: none;
                 li {
                     float: left;
