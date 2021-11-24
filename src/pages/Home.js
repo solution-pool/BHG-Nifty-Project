@@ -4,7 +4,7 @@ import Header from '../components/Header';
 import StarRatingComponent from 'react-star-rating-component';
 import { Link } from 'react-router-dom';
 import { database, storage } from '../config/firebase';
-import Proposal from '../components/Proposal';
+import Panel from '../components/Panel';
 
 const Home = () => {
     const [sort, setSort] = useState(0)
@@ -13,14 +13,14 @@ const Home = () => {
 
     useEffect( async () => {
         // await loadOutSideProject()
-        // await loadProjectProposal()
+        await loadProposal()
     })
 
     const [proposalContainer, setProposalContainer] = useState([])
 
-    const loadOutSideProject = async () => {
-        const outsideRef = database.ref('project_proposal')
-        await outsideRef.get().then( (snapshot) => {
+    const loadProposal = async () => {
+        const proposalRef = database.ref('project_proposal')
+        await proposalRef.get().then( (snapshot) => {
             if(snapshot.exists) {
                 const newAry = snapshot.val()
                 if(newAry) {
@@ -29,7 +29,7 @@ const Home = () => {
                     for(let i in newAry) {
                         let data = newAry[i]
                         data.id = i
-                        proposalContainer.push(<Proposal proposal={data} />)
+                        proposalContainer.push(<Panel proposal={data} />)
                     }
                     setProposalContainer(proposalContainer) 
                 }
