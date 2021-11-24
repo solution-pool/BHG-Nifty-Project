@@ -24,6 +24,7 @@ const Proposal = () => {
     const [isLoading, setLoading] = useState(false)
     const [show, setShow] = useState(false)
     const [target, setTarget] = useState(null)
+    const [decliamer, setDecliamer] = useState(false)
     
 
     useEffect( async () => {
@@ -36,6 +37,10 @@ const Proposal = () => {
 
     const changeBriefProjectSummary = (e) => {
         setBriefProjectSummary(e.target.value);
+    }
+
+    const changeDecliamer = (e) => {
+        setDecliamer(e.target.checked)
     }
 
     const changeInterest = (e) => {
@@ -350,14 +355,13 @@ const Proposal = () => {
                                 <div className="pull-right">
                                     <div>
                                         <div class="interest form-check">
-                                            <input type="checkbox" class="form-check-input" />
+                                            <input type="checkbox" class="form-check-input" value={decliamer} onChange={changeDecliamer} />
                                             <label title="" class="form-check-label">
                                                 I have read the <span class="disclaimer" onClick={handleClick}>disclaimer</span> and I agree to the terms.
-                                                  
                                             </label>
                                         </div>
                                     </div>
-                                    <Button variant="secondary" type="submit">
+                                    <Button variant="secondary" type="submit" disabled={!decliamer}>
                                         <Spinner
                                         as="span"
                                         animation={isLoading}
