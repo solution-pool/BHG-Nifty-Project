@@ -1,23 +1,75 @@
-.interest-panel {
-    .interest-body {
-        background-color: $white;
-        padding: 2rem 4rem 2rem 4rem;
-        --bs-gutter-x : 0;
+.proposal {
+    .interest-panel {
+        text-overflow: ellipsis;
+        word-break: break-all;
+        .interest-body {
+            background-color: $white;
+            padding: 2vw 4vw 2vw 4vw;
+            --bs-gutter-x : 0;
+        }
+        .interest {
+            display: inline-block !important;
+            padding-left: 0.5rem;
+        }
+        .form-check {
+            margin-left: 2rem !important;
+            .form-check-input {
+                padding-left: 1rem !important;
+            }
+        }
+        .form-label {
+            small {
+                font-weight: 300 !important;
+            }
+        }
     }
-    .interest {
-        display: inline-block !important;
-        padding-left: 0.5rem;
+
+    #second-label {
+        display: block;
     }
-    .form-check {
-        padding-left: 3rem !important;
+
+    #third-label {
+        display: block;
     }
-    .form-label {
-        small {
-            font-weight: 300 !important;
+
+    #link {
+        color: $black;
+    }
+    .control-bundle {
+        padding-top: 2.5rem;
+    }
+
+    .pull-right {
+        display: flex;
+        .interest {
+            padding-top: 0.4rem;
+            button {
+                vertical-align: center;
+            }
         }
     }
 }
 
-.control-bundle {
-    padding-top: 2.5rem;
+@media only screen and (max-width : 768px) and (min-width: 991px) {
+    .proposal {
+        #second-label {
+            display: block;
+        }
+
+        #third-label {
+            display: none;
+        }
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    .proposal {
+        #second-label {
+            display: none;
+        }
+        
+        #third-label {
+            display: none;
+        }
+    }
 }

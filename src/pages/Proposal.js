@@ -185,7 +185,7 @@ const Proposal = () => {
     return (
         <div>
             <Header />
-            <Container className="padding-bottom-70">
+            <Container className="padding-bottom-70 proposal">
                 <NotificationContainer />
                 <Avatar title={title} content={content} />
                 <Row className="content">
@@ -236,10 +236,10 @@ const Proposal = () => {
                                         <Col lg={4} md={6} sm={12}>
                                             have/read
                                         </Col>
-                                        <Col lg={4} md={6} sm={12}>
+                                        <Col lg={4} md={6} id="second-label">
                                             have/read
                                         </Col>
-                                        <Col lg={4} md={6} sm={12}>
+                                        <Col lg={4} id="third-label">
                                             have/read
                                         </Col>
                                         <Col lg={4} md={6} sm={12}>
@@ -337,9 +337,11 @@ const Proposal = () => {
                             </Col>
                             <Col lg="9" md="6" className="main-col"></Col>
                             <Col lg="12" className="main-col padding-bottom-20">
-                                <Link to="/">&lt;&lt;-back to projects</Link>
-                                <div className="pull-right" style={{display:'inline-block'}}>
-                                    <Form.Check type="checkbox" label="I have read the disclaimer and I agree to the terms." className="interest" />
+                                <Link to="/" id="link">&lt;&lt;-back to projects</Link>
+                                <div className="pull-right">
+                                    <Form.Group controlId="policy">
+                                        <Form.Check type="checkbox" label="I have read the disclaimer and I agree to the terms." className="interest" />
+                                    </Form.Group>
                                     <Button variant="secondary" type="submit">
                                         <Spinner
                                         as="span"
