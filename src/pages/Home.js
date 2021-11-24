@@ -51,7 +51,7 @@ const Home = () => {
     return (
         <div className="home">
             <Header />
-            <Container>
+            <Container className="page-container">
                 <Row>
                     <Col lg="6" md="6" sm="12">
                         <div className="requirement">
@@ -84,7 +84,7 @@ const Home = () => {
                             <img src={require('../assets/img/idea.png').default} className="idea-image" />
                         </div>
                         <div>
-                            <ul>
+                            <ul id="down-ul">
                                 <li>
                                     -Submit your idea for consideration
                                 </li>
@@ -187,7 +187,7 @@ const Home = () => {
                                 </Link>
                                 <div className="rating-section">
                                     <Row>
-                                        <Col lg="4" md="6" sm="12" className="rating-star">
+                                        <Col lg="4" md="4" sm="4" xs="4" className="rating-star">
                                             <div className="one-col">
                                                 <p>Art</p>
                                                 <p>
@@ -200,7 +200,7 @@ const Home = () => {
                                                 </p>
                                             </div>
                                         </Col>
-                                        <Col lg="4" md="6" sm="12" className="rating-star">
+                                        <Col lg="4" md="4" sm="4" xs="4" className="rating-star">
                                             <div className="one-col">
                                                 <p>Roadmap</p>
                                                 <p>
@@ -213,7 +213,7 @@ const Home = () => {
                                                 </p>
                                             </div>
                                         </Col>
-                                        <Col lg="4" md="6" sm="12" className="rating-star">
+                                        <Col lg="4" md="4" sm="4" xs="4" className="rating-star">
                                             <div className="one-col">
                                                 <p>Utility</p>
                                                 <p>
@@ -226,7 +226,7 @@ const Home = () => {
                                                 </p>
                                             </div>
                                         </Col>
-                                        <Col lg="4" md="6" sm="12" className="rating-star">
+                                        <Col lg="4" md="4" sm="4" xs="4" className="rating-star">
                                             <div className="one-col">
                                                 <p>Community</p>
                                                 <p>
@@ -239,7 +239,7 @@ const Home = () => {
                                                 </p>
                                             </div>
                                         </Col>
-                                        <Col lg="4" md="6" sm="12" className="rating-star">
+                                        <Col lg="4" md="4" sm="4" xs="4" className="rating-star">
                                             <div className="one-col">
                                                 <p>Team</p>
                                                 <p>
@@ -252,7 +252,7 @@ const Home = () => {
                                                 </p>
                                             </div>
                                         </Col>
-                                        <Col lg="4" md="6" sm="12" className="rating-star">
+                                        <Col lg="4" md="4" sm="4" xs="4" className="rating-star">
                                             <div className="one-col">
                                                 <p>Originality</p>
                                                 <p>
