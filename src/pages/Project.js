@@ -20,7 +20,7 @@ const Project = (props) => {
     const [creator, setCreator] = useState({})
     const [teamMember, setTeamMember] = useState({})
     const [post, setPost] = useState('');
-    const [posts, setPosts] = useState({})
+    const [posts, setPosts] = useState([])
 
     useEffect( () => {
         if(init) {
@@ -87,12 +87,18 @@ const Project = (props) => {
                 }
 
                 const postData = newAry.post
-                const postAry = Object.values(postData)
-                // if(postAry && init) {
-                //     const postHtml = postAry.map( element => <Post data={element} />)
-                //     console.log(postHtml)
-                //     // setPosts(postHtml)
-                // }
+                if(postData && init) {
+                    let postHtml = []
+                    for(let i in postData) {
+                        let onePost = postData[i]
+                        onePost.postID = i
+                        onePost.id = id
+                        onePost.t = t
+                        postHtml.push(<Post data={onePost} userInfo={props.userInfo} />)
+                    }
+
+                    setPosts(postHtml)
+                }
             }
         } )
     }
@@ -367,60 +373,6 @@ const Project = (props) => {
                         <div className="project-discussion-body">
                             <Container>
                                 {posts}
-                                {/* <Row>
-                                    <Col lg="2" md="2" sm="2" xs="2" className="discussion-button">
-                                        <div className="action">
-                                            <Button variant="success">
-                                                <i className="fa fa-arrow-up"></i>
-                                            </Button>
-                                            
-                                            <Button variant="primary">
-                                                <i className="fa fa-arrow-down"></i>
-                                            </Button>
-                                        </div>
-                                        <div className="vote-count">
-                                            <Button>
-                                                1
-                                            </Button>
-                                            
-                                            <Button variant="primary">
-                                                0
-                                            </Button>
-                                        </div>
-                                    </Col>
-                                    <Col lg="10" md="10" sm="10" xs="10" className="discussion-content">
-                                        <p>
-                                            Nullam aliquam convallis orci nec fringilla. Aliquam augue turpis, laoreet at egestas pretium, rutrum at nunc.
-                                        </p>
-                                    </Col>
-                                </Row>
-                                <Row>
-                                    <Col lg="2" md="2" sm="2" xs="2" className="discussion-button">
-                                        <div className="action">
-                                            <Button variant="success">
-                                                <i className="fa fa-arrow-up"></i>
-                                            </Button>
-                                            
-                                            <Button variant="primary">
-                                                <i className="fa fa-arrow-down"></i>
-                                            </Button>
-                                        </div>
-                                        <div className="vote-count">
-                                            <Button>
-                                                1
-                                            </Button>
-                                            
-                                            <Button variant="primary">
-                                                0
-                                            </Button>
-                                        </div>
-                                    </Col>
-                                    <Col lg="10" md="10" sm="10" xs="10" className="discussion-content">
-                                        <p>
-                                            Nullam aliquam convallis orci nec fringilla. Aliquam augue turpis, laoreet at egestas pretium, rutrum at nunc.
-                                        </p>
-                                    </Col>
-                                </Row> */}
                             </Container>
                         </div>
                     </Col>
