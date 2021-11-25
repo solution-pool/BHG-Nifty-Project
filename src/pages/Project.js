@@ -185,6 +185,22 @@ const Project = (props) => {
     }
     const handleShow = () => setShow(true);
 
+    const vote = () => {
+        let tableName = (t == 1) ? 'project_proposal' : 'project_outside'
+        let voteCount
+        if(project.vote) {
+            voteCount = project.vote + 1
+        } else {
+            voteCount = 1
+        }
+        const voteRef = database.ref(tableName + '/' + id + '/')
+        voteRef.update({
+            vote : voteCount
+        })
+        
+        project.vote = voteCount
+        setProject(project)
+    }
     return (
         <div>
             <Header walletAddress={props.walletAddress} walletConnect={props.walletConnect} />
@@ -197,13 +213,13 @@ const Project = (props) => {
                             <p className="project-condition">
                                 <div className="supply">Supply: { project ? project.supply : '' }</div>
                                 <div className="price">Price: { project ? project.price : '' }</div>
-                                <div className="votes">Votes: </div>
+                                <div className="votes">Votes: {project ? project.vote : ''}</div>
                             </p>
                             <div className="project-thumbnail">
                                 <img src={(project && project.files) ? project.files[0] : require('../assets/img/idea.png').default } />
                             </div>
                             <div className="project-upvote">
-                                <Button variant={'warning'}>Upvote this project &nbsp;
+                                <Button variant={'warning'} onClick={vote}>Upvote this project &nbsp;
                                     <i className="fa fa-chevron-up"></i>
                                 </Button>
                             </div>
