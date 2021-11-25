@@ -7,7 +7,7 @@ const Panel = (props) => {
         <Col lg="4" md="6" sm="12">
             <div className="panel">
                 <div className="submit-project">
-                    <Link to="/proposal">
+                    <Link to={`/project/${props.proposal.id}/${props.proposal.t}`}>
                         <div className="background-section" 
                             style={{
                                 backgroundImage: "url(" + (props.proposal.files ? props.proposal.files[0] : '') + ")",

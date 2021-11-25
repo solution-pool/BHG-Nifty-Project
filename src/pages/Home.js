@@ -56,6 +56,7 @@ const Home = () => {
                     for(let i in newAry) {
                         let data = newAry[i]
                         data.id = i
+                        data.t = 1
             
                         proposalContainer.push(<Panel proposal={data} />)
                     }
@@ -77,6 +78,7 @@ const Home = () => {
                     for(let i in newAry) {
                         let data = newAry[i]
                         data.id = i
+                        data.t = 2
                         outsideContainer.push(<Panel proposal={data} />)
                     }
                 }

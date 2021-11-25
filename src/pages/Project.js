@@ -5,24 +5,29 @@ import { Link, useParams } from 'react-router-dom';
 import StarRatingComponent from 'react-star-rating-component';
 import { database, storage } from '../config/firebase';
 
-const Project = () => {
-
+const Project = (props) => {
     const [project, setProject] = useState(null)
-
+    const [artValue, setArtValue] = useState(0)
+    const [roadMapValue, setRoadMapValue] = useState(0)
+    const [utilityValue, setUtilityValue] = useState(0)
+    const [communityValue, setCommunityValue] = useState(0)
+    const [originalityValue, setOriginalityValue] = useState(0)
+    const [teamValue, setTeamValue] = useState(0)
+    const { id, t } = useParams()
 
     useEffect( () => {
         getProject()
     } )
     
     const getProject = async () => {
-        let index ='-MpDTy3Xg0k4wJnGT1RJ'
-        const proposalRef = database.ref('project_proposal')
+        let tableName = (t == 1) ? 'project_proposal' : 'project_outside'
+        const proposalRef = database.ref(tableName)
         await proposalRef.get().then( (snapshot) => {
             if(snapshot.exists) {
                 const newAry = snapshot.val()
                 if(newAry) {
                     for(let i in newAry) {
-                        if(i == index) {
+                        if(i == id) {
                             setProject(newAry[i])
                             break
                         }
@@ -30,6 +35,37 @@ const Project = () => {
                 }
             }
         } )
+    }
+
+    const changeRating = (nextValue, prevValue, name) => {
+        switch(name) {
+            case 'art':
+                setArtValue(nextValue)
+                break
+            case 'community':
+                setCommunityValue(nextValue)
+                break
+            case 'originality':
+                setOriginalityValue(nextValue)
+                break
+            case 'team':
+                setTeamValue(nextValue)
+                break
+            case 'roadmap':
+                setRoadMapValue(nextValue)
+                break
+            case 'utility':
+                setUtilityValue(nextValue)
+                break
+            default:
+                break
+        }
+        let userID = '1111'
+
+        let tableName = (t == 1) ? 'project_proposal' : 'project_outside'
+        const ratingRef   = database.ref(tableName + '/' + id + '/rating/' + userID + '/' + name + '/')
+        const newRatingRef    = ratingRef.push()
+        newRatingRef.set(nextValue) 
     }
     return (
         <div>
@@ -39,14 +75,14 @@ const Project = () => {
                     <Col lg={5} md={12} sm={12}>
                         <p className="panel-title">Project</p>
                         <div className="project-detail project-panel">
-                            <h1 className="project-name">{ project ? project.projectName : '' }</h1>
+                            <h1 className="project-name">{ project ? project.name : '' }</h1>
                             <p className="project-condition">
                                 <div className="supply">Supply: { project ? project.supply : '' }</div>
                                 <div className="price">Price: { project ? project.price : '' }</div>
                                 <div className="votes">Votes: </div>
                             </p>
                             <div className="project-thumbnail">
-                                <img src={require('../assets/img/idea.png').default} />
+                                <img src={(project && project.files) ? project.files[0] : require('../assets/img/idea.png').default } />
                             </div>
                             <div className="project-upvote">
                                 <Button variant={'warning'}>Upvote this project &nbsp;
@@ -86,9 +122,10 @@ const Project = () => {
                                         <p>Art</p>
                                         <div>
                                             <StarRatingComponent 
-                                                name="rate1" 
+                                                name="art" 
                                                 starCount={5}
-                                                value={0}
+                                                value={artValue}
+                                                onStarClick={changeRating}
                                                 emptyStarColor={'#e5e5e5'}
                                             />
                                         </div>
@@ -99,9 +136,10 @@ const Project = () => {
                                         <p>Roadmap</p>
                                         <div>
                                             <StarRatingComponent 
-                                                name="rate1" 
+                                                name="roadmap" 
                                                 starCount={5}
-                                                value={0}
+                                                value={roadMapValue}
+                                                onStarClick={changeRating}
                                                 emptyStarColor={'#e5e5e5'}
                                             />
                                         </div>
@@ -112,9 +150,10 @@ const Project = () => {
                                         <p>Utility</p>
                                         <div>
                                             <StarRatingComponent 
-                                                name="rate1" 
+                                                name="utility" 
                                                 starCount={5}
-                                                value={0}
+                                                value={utilityValue}
+                                                onStarClick={changeRating}
                                                 emptyStarColor={'#e5e5e5'}
                                             />
                                         </div>
@@ -125,9 +164,10 @@ const Project = () => {
                                         <p>Community</p>
                                         <div>
                                             <StarRatingComponent 
-                                                name="rate1" 
+                                                name="community" 
                                                 starCount={5}
-                                                value={0}
+                                                value={communityValue}
+                                                onStarClick={changeRating}
                                                 emptyStarColor={'#e5e5e5'}
                                             />
                                         </div>
@@ -138,9 +178,10 @@ const Project = () => {
                                         <p>Team</p>
                                         <div>
                                             <StarRatingComponent 
-                                                name="rate1" 
+                                                name="team" 
                                                 starCount={5}
-                                                value={0}
+                                                value={teamValue}
+                                                onStarClick={changeRating}
                                                 emptyStarColor={'#e5e5e5'}
                                             />
                                         </div>
@@ -151,9 +192,10 @@ const Project = () => {
                                         <p>Originality</p>
                                         <div>
                                             <StarRatingComponent 
-                                                name="rate1" 
+                                                name="originality" 
                                                 starCount={5}
-                                                value={0}
+                                                value={originalityValue}
+                                                onStarClick={changeRating}
                                                 emptyStarColor={'#e5e5e5'}
                                             />
                                         </div>
