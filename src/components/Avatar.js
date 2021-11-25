@@ -5,8 +5,6 @@ const Avatar = (props) => {
 
     const imageRef = useRef(null);
     const today = new Date()
-
-    console.log(props.userInfo)
     return (
         <Row className="avatar">
             <Col lg="5" md="8" sm="8" xs="12">

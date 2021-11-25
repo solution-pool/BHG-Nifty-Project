@@ -88,7 +88,7 @@ const Proposal = (props) => {
         let container = [];
         for(let i = 0; i < files.length; i ++ ) {
             const oneFile = files[i]
-            const element = <Col lg="4" md="4" sm="6" xs="12"> <span title={oneFile.name} onClick={deleteFile}> {oneFile.name} </span></Col> 
+            const element = <Col lg="4" md="4" sm="6" xs="12"> <Button title={oneFile.name} variant="secondary"> {oneFile.name}<div><span onClick={deleteFile} title={oneFile.name} className="close-button">&#10005;</span></div> </Button></Col> 
             container.push(element)
         }
 
@@ -100,7 +100,9 @@ const Proposal = (props) => {
     }
     
     const deleteFile = async (e) => {
-        const fileName = e.target.innerHTML
+        const fileName = e.target.title
+
+        console.log(fileName)
         let removeID = -1
         let fileContainer = []
 
@@ -251,7 +253,10 @@ const Proposal = (props) => {
                                     <Form.Label>Files<small> (please provide art examples or any relevant files)</small></Form.Label>
                                     <div className="footer-element file-panel">
                                         <input id="input-file" type="file" name="file" className="d-none" onChange={changeFile} multiple />
-                                        <Button variant="light" id="file-upload-button" onClick={setFile}>Add File</Button>
+                                        <Button variant="light" id="file-upload-button" onClick={setFile}>
+                                                <div id="plus"><span>+</span></div>    
+                                            Add File
+                                        </Button>
                                         <Row className="selected-files">
                                             {selFileContainer}
                                         </Row>
