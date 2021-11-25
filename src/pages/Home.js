@@ -6,7 +6,8 @@ import { Link } from 'react-router-dom';
 import { database, storage } from '../config/firebase';
 import Panel from '../components/Panel';
 
-const Home = () => {
+const Home = (props) => {
+    console.log(props)
     const [sort, setSort] = useState(1)
     const [projectContainer, setProposalContainer] = useState([])
 
@@ -86,7 +87,7 @@ const Home = () => {
 
     return (
         <div className="home">
-            <Header />
+            <Header walletAddress={props.walletAddress} walletConnect={props.walletConnect} />
             <Container className="page-container">
                 <Row>
                     <Col lg="6" md="6" sm="12">

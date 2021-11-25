@@ -198,7 +198,7 @@ const Proposal = () => {
 
     return (
         <div>
-            <Header />
+            <Header walletAddress={walletAddress} walletConnect={walletConnect} />
             <Container className="padding-bottom-70 proposal">
                 <NotificationContainer />
                 <Avatar title={title} content={content} />

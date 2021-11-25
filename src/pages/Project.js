@@ -77,7 +77,7 @@ const Project = (props) => {
 
     return (
         <div>
-            <Header />
+            <Header walletAddress={walletAddress} walletConnect={walletConnect} />
             <Container className="project">
                 <Row>
                     <Col lg={5} md={12} sm={12}>

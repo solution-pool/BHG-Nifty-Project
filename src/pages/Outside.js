@@ -154,7 +154,7 @@ const Outside = (props) => {
 
     return (
         <div>
-            <Header />
+            <Header walletAddress={props.walletAddress} walletConnect={props.walletConnect} />
             <Container className="padding-bottom-70">
                 <NotificationContainer />
                 <Avatar title={title} content={content} />
