@@ -291,6 +291,11 @@
             
             .submit-project {
                 .panel-title {
+                    .submit {
+                        .title-label {
+                            width: auto;
+                        }
+                    }
                 }
                 .background-section {
                     h3 {
@@ -455,9 +460,50 @@
                 padding: 4vw 4vw 2vw 4vw;
                 text-align: center;
                 .panel-title {
+                    display: flex;
+                    width: calc(100% - 2vw);
+    
                     position: absolute;
-                    font-size: 0.8vw;
-                    top: 0.8vw;
+                    font-size: 2vw;
+                    top: 0.5vw;
+                    height: 3vw;
+                    word-break: keep-all;
+                    .submit {
+                        width: 50%;
+                        display: inline-flex;
+                        text-align: left;
+                        flex: 0 0 auto;
+                        font-weight: bold;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        .title-label {
+                            width: 45%;
+                        }
+                    }
+                    .price {
+                        width: 30%;
+                        display: inline-flex;
+                        text-align: left;
+                        flex: 0 0 auto;
+                        font-weight: bold;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                    }
+                    .supply {
+                        width: 20%;
+                        display: inline-flex;
+                        text-align: left;
+                        flex: 0 0 auto;
+                        font-weight: bold;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                    }
+                    small {
+                        font-size: 1.5vw;
+                        line-height: 2.3;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                    }
                 }
                 .background-section {
                     width: 100%;
