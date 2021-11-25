@@ -132,6 +132,7 @@ const Proposal = (props) => {
             price: price,
             description: detailedProjectDescription,
             interest: JSON.stringify(interest),
+            creator: props.userInfo.username
         }
 
         for(let p in load) {
@@ -172,6 +173,21 @@ const Proposal = (props) => {
         const proposalRef   = database.ref('project_proposal')
         const newProposalRef    = proposalRef.push()
         newProposalRef.set(load) 
+
+
+        const memberRef = database.ref('member_profile/' + props.userInfo.id)
+        let prevProjectCount = props.userInfo.project
+        let projectCount
+        let updateData = {}
+
+        if(prevProjectCount == undefined) {
+            projectCount = 1
+        } else {
+            projectCount = parseInt(prevProjectCount) + 1
+        }
+        updateData['project'] = projectCount
+        memberRef.update(updateData)
+
         window.scrollTo(0, 0)
         NotificationManager.success('The project proposal was successfully submitted.', 'Success', 5000)
         setLoading(false)

@@ -49,6 +49,7 @@ function App() {
             for(let i in newAry) {
                 let data = newAry[i]
                 if(data.username == accountAddress) {
+                  data.id = i
                   setUserInfo(data)
                   break
                 }
