@@ -17,7 +17,9 @@ const Project = (props) => {
     const [show, setShow] = useState(false)
     const [init, setInit] = useState(true)
     const [creator, setCreator] = useState({})
+    const [teamMember, setTeamMember] = useState({})
 
+    console.log(props.userInfo)
     useEffect( () => {
         if(init) {
             getProject()
@@ -39,10 +41,23 @@ const Project = (props) => {
                     }
                 })
 
-                const userID = props.userInfo.username
+                const team = newAry.team
+                if(team) {
+                    for(let i in team) {
+                        let htmlContainer = document.getElementById(i)
+                        if(team[i] == 1) {
+                            htmlContainer.className = 'selected  btn btn-primary'
+                            htmlContainer.value = 1
+                        } else {
+                            htmlContainer.className = 'no-selected  btn btn-primary'
+                            htmlContainer.value = 0
+                        }
+                    }
+                }
+
                 const rating = newAry.rating
-                if(rating && rating[userID] && init) {
-                    const ratingUserData = rating[userID]
+                if(rating && rating[props.userInfo.username] && init) {
+                    const ratingUserData = rating[props.userInfo.username]
                     for(let i in ratingUserData) {
                         const ratingValue = Object.values(ratingUserData[i])[0]
                         switch (i) {
@@ -114,6 +129,25 @@ const Project = (props) => {
                 ratingRef.push().set(nextValue)
             }
         } )
+    }
+
+    const changeTeamMember = (e) => {
+        const name = e.target.name
+        const value = e.target.value
+        let team = JSON.parse(JSON.stringify(teamMember))
+        team[name] = (1 - value)
+        e.target.value = 1 - value
+        if(value == 0) {
+            e.target.className = 'selected  btn btn-primary'
+        } else {
+            e.target.className = 'no-selected  btn btn-primary'
+        }
+        let tableName = (t == 1) ? 'project_proposal' : 'project_outside'
+        const teamRef = database.ref(tableName + '/' + id + '/team/')
+
+        teamRef.update(team)
+
+        setTeamMember(team)
     }
 
     const handleClose = () => {
@@ -280,16 +314,16 @@ const Project = (props) => {
                                 </p>
                                 <Row>
                                     <Col lg="6" md="6" sm="12" className="text-center team-member-button" >
-                                        <Button variant="secondary">Marketing Manager</Button>
+                                        <Button className="no-selected" name="marketing" id="marketing" value="0" onClick={changeTeamMember}>Marketing Manager</Button>
                                     </Col>
                                     <Col lg="6" md="6" sm="12" className="text-center team-member-button">
-                                        <Button variant="secondary">Discord Moderator</Button>
+                                        <Button className="no-selected" name="discord" id="discord" value="0"  onClick={changeTeamMember}>Discord Moderator</Button>
                                     </Col>
                                     <Col lg="6" md="6" sm="12" className="text-center team-member-button">
-                                        <Button variant="secondary">Smart Contract Developer</Button>
+                                        <Button className="no-selected" name="contract" id="contract" value="0"  onClick={changeTeamMember}>Smart Contract Developer</Button>
                                     </Col>
                                     <Col lg="6" md="6" sm="12" className="text-center team-member-button">
-                                        <Button variant="secondary">Web Developer</Button>
+                                        <Button className="no-selected" name="web" id="web" value="0"  onClick={changeTeamMember}>Web Developer</Button>
                                     </Col>
                                 </Row>
                             </Container>
