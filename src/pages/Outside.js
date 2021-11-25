@@ -110,6 +110,8 @@ const Outside = (props) => {
             twitter: twitter,
             opensea: opensea,
             description: description,
+            creator: props.userInfo.username,
+            creatorPath: props.userInfo.id
         }
 
         for(let p in load) {

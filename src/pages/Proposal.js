@@ -132,7 +132,8 @@ const Proposal = (props) => {
             price: price,
             description: detailedProjectDescription,
             interest: JSON.stringify(interest),
-            creator: props.userInfo.username
+            creator: props.userInfo.username,
+            creatorPath: props.userInfo.id
         }
 
         for(let p in load) {

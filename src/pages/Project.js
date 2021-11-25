@@ -6,7 +6,7 @@ import StarRatingComponent from 'react-star-rating-component';
 import { database } from '../config/firebase';
 
 const Project = (props) => {
-    const [project, setProject] = useState(null)
+    const [project, setProject] = useState({})
     const [artValue, setArtValue] = useState(0)
     const [roadMapValue, setRoadMapValue] = useState(0)
     const [utilityValue, setUtilityValue] = useState(0)
@@ -16,55 +16,57 @@ const Project = (props) => {
     const { id, t } = useParams()
     const [show, setShow] = useState(false)
     const [init, setInit] = useState(true)
+    const [creator, setCreator] = useState({})
 
     useEffect( () => {
         if(init) {
             getProject()
         }
-    }, [artValue, roadMapValue, utilityValue, communityValue, originalityValue, teamValue, show, project ? project.name : project] )
+    }, [artValue, roadMapValue, utilityValue, communityValue, originalityValue, teamValue, show, project ? project.name : project, creator ? creator.name : creator] )
     
     const getProject = async () => {
         let tableName = (t == 1) ? 'project_proposal' : 'project_outside'
-        const proposalRef = database.ref(tableName)
+        const proposalRef = database.ref(tableName + '/' + id)
         await proposalRef.get().then( (snapshot) => {
             if(snapshot.exists) {
                 const newAry = snapshot.val()
-                if(newAry) {
-                    for(let i in newAry) {
-                        if(i == id) {
-                            setProject(newAry[i])
-                            const userID = props.userInfo.username
-                            const rating = newAry[i].rating
-                            if(rating && rating[userID] && init) {
-                                const ratingUserData = rating[userID]
-                                for(let i in ratingUserData) {
-                                    const ratingValue = Object.values(ratingUserData[i])[0]
-                                    switch (i) {
-                                        case 'art' :
-                                            setArtValue(ratingValue)
-                                            break;
-                                        case 'roadmap' :
-                                            setRoadMapValue(ratingValue)
-                                            break;
-                                        case 'utility' :
-                                            setUtilityValue(ratingValue)
-                                            break;
-                                        case 'community' :
-                                            setCommunityValue(ratingValue)
-                                            break;
-                                        case 'originality' :
-                                            setOriginalityValue(ratingValue)
-                                            break;
-                                        case 'team' :
-                                            setTeamValue(ratingValue)
-                                            break;
-                                    }
-                                }
-                                setInit(false)
-                            }
-                            break
+                setProject(newAry)
+                const creatorRef = database.ref('member_profile/' + newAry.creatorPath)
+                creatorRef.get().then((snap) => {
+                    if(snap.exists) {
+                        const creatorData = snap.val()
+                        setCreator(creatorData)
+                    }
+                })
+
+                const userID = props.userInfo.username
+                const rating = newAry.rating
+                if(rating && rating[userID] && init) {
+                    const ratingUserData = rating[userID]
+                    for(let i in ratingUserData) {
+                        const ratingValue = Object.values(ratingUserData[i])[0]
+                        switch (i) {
+                            case 'art' :
+                                setArtValue(ratingValue)
+                                break;
+                            case 'roadmap' :
+                                setRoadMapValue(ratingValue)
+                                break;
+                            case 'utility' :
+                                setUtilityValue(ratingValue)
+                                break;
+                            case 'community' :
+                                setCommunityValue(ratingValue)
+                                break;
+                            case 'originality' :
+                                setOriginalityValue(ratingValue)
+                                break;
+                            case 'team' :
+                                setTeamValue(ratingValue)
+                                break;
                         }
                     }
+                    setInit(false)
                 }
             }
         } )
@@ -148,18 +150,18 @@ const Project = (props) => {
                         <p className="panel-title">Author</p>
                         <div className="project-avatar project-panel">
                             <div className="photo">
-                                <img src={require('../assets/img/avatar.png').default} />
+                                <img src={creator.image ? creator.image : require('../assets/img/avatar.png').default} alt="Creator Avatar Image" />
                             </div>
                             <div className="detail">
                                 <Row>
-                                    <Col lg="6" md="6" sm="6" xs="6" className="photo-label">submitted by :</Col>
-                                    <Col lg="6" md="6" sm="6" xs="6"><strong>doodoobacon2</strong></Col>
-                                    <Col lg="6" md="6" sm="6" xs="6" className="photo-label">submission date :</Col>
-                                    <Col lg="6" md="6" sm="6" xs="6"><strong>12/09/2021</strong></Col>
-                                    <Col lg="6" md="6" sm="6" xs="6" className="photo-label"> total projects submitted :</Col>
-                                    <Col lg="6" md="6" sm="6" xs="6"><strong>0</strong></Col>
-                                    <Col lg="6" md="6" sm="6" xs="6" className="photo-label">nodestones held : </Col>
-                                    <Col lg="6" md="6" sm="6" xs="6"><strong>2</strong></Col>
+                                    <Col lg="6" md="6" sm="6" xs="6" className="photo-label"><p>submitted by :</p></Col>
+                                    <Col lg="6" md="6" sm="6" xs="6"><p><strong>{creator.username ? creator.username : '' }</strong></p></Col>
+                                    <Col lg="6" md="6" sm="6" xs="6" className="photo-label"><p>submission date :</p></Col>
+                                    <Col lg="6" md="6" sm="6" xs="6"><p><strong>{project.createDate ? project.createDate : '0000 / 00 / 00' }</strong></p></Col>
+                                    <Col lg="6" md="6" sm="6" xs="6" className="photo-label"><p> total projects submitted :</p></Col>
+                                    <Col lg="6" md="6" sm="6" xs="6"><p><strong>{creator.project ? creator.project : '' }</strong></p></Col>
+                                    <Col lg="6" md="6" sm="6" xs="6" className="photo-label"><p>nodestones held : </p></Col>
+                                    <Col lg="6" md="6" sm="6" xs="6"><p><strong>{creator.held ? creator.held : '' }</strong></p></Col>
                                 </Row>
                             </div>
                         </div>
