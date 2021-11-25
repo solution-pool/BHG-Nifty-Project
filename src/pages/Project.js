@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import Header from '../components/Header';
-import { Container, Row, Col, Form, Button, Spinner } from 'react-bootstrap';
+import { Container, Row, Col, Form, Button, Spinner, Modal } from 'react-bootstrap';
 import { Link, useParams } from 'react-router-dom';
 import StarRatingComponent from 'react-star-rating-component';
 import { database, storage } from '../config/firebase';
@@ -14,6 +14,7 @@ const Project = (props) => {
     const [originalityValue, setOriginalityValue] = useState(0)
     const [teamValue, setTeamValue] = useState(0)
     const { id, t } = useParams()
+    const [show, setShow] = useState(false)
 
     useEffect( () => {
         getProject()
@@ -67,6 +68,10 @@ const Project = (props) => {
         const newRatingRef    = ratingRef.push()
         newRatingRef.set(nextValue) 
     }
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+
     return (
         <div>
             <Header />
@@ -248,7 +253,7 @@ const Project = (props) => {
                             <div className="project-discussion-header row">
                                 <Col lg="9" md="9" sm="6"></Col>
                                 <Col lg="3" md="3" sm="6">
-                                    <Button variant="primary">Add new post</Button>
+                                    <Button variant="primary" onClick={handleShow}>Add new post</Button>
                                 </Col>
                             </div>
                         </div>
@@ -316,6 +321,18 @@ const Project = (props) => {
                     <Link to="/">&lt;&lt;-back to projects</Link>
                 </div>
             </Container>
+            <Modal show={show} size="lg" onHide={handleClose}>
+                <Modal.Body>
+                    <Form.Group>
+                        <Form.Control as="textarea" rows="10" placeholder="" />
+                    </Form.Group>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="primary" onClick={handleClose}>
+                        Add new post
+                    </Button>
+                </Modal.Footer>
+            </Modal>
         </div>
     );
 }
