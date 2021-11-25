@@ -1,21 +1,32 @@
 import { Row, Col, Button} from 'react-bootstrap';
 import { database } from '../config/firebase';
+import { useState, useEffect, useRef } from 'react';
 
 const Post = (props) => {
+
+    const [upCount, setUpCount] = useState(0)
+    const [downCount, setDownCount] = useState(0)
+    useEffect( () => {
+        if(props.data.vote) {
+            let votes = Object.values(props.data.vote)
+            let upValue = 0 
+            let downValue = 0
+            for(let i = 0; i < votes.length; i ++ ) {
+               if(votes[i] == 1) {
+                    upValue ++
+                } else {
+                    downValue ++
+                }
+                setUpCount(upValue)
+                setDownCount(downValue)
+            }
+        }
+    })
 
     const up = () => {
         let tableName = (props.data.t == 1) ? 'project_proposal' : 'project_outside'
         const votePostRef = database.ref(tableName + '/' + props.data.id + '/post/' + props.data.postID + '/vote/' + props.userInfo.username + '/')
         votePostRef.set(1)
-
-        // const postRef = database.ref(tableName + '/' + props.data.id + '/post/' + props.data.postID + '/' )
-        // postRef.get().then((snapshot) => {
-        //     if(snapshot.exists) {
-        //         post = snapshot.val()
-        //         postRef.get()
-        //     }
-        // })
-
     }
 
     const down = () => {
@@ -38,11 +49,11 @@ const Post = (props) => {
                 </div>
                 <div className="vote-count">
                     <Button>
-                        {props.data.up}
+                        {upCount}
                     </Button>
                     
                     <Button variant="primary">
-                        {props.data.down}
+                        {downCount}
                     </Button>
                 </div>
             </Col>
