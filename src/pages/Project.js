@@ -15,10 +15,13 @@ const Project = (props) => {
     const [teamValue, setTeamValue] = useState(0)
     const { id, t } = useParams()
     const [show, setShow] = useState(false)
+    const [init, setInit] = useState(true)
 
     useEffect( () => {
-        getProject()
-    } )
+        if(init) {
+            getProject()
+        }
+    }, [artValue, roadMapValue, utilityValue, communityValue, originalityValue, teamValue, show, project ? project.name : project] )
     
     const getProject = async () => {
         let tableName = (t == 1) ? 'project_proposal' : 'project_outside'
@@ -30,6 +33,35 @@ const Project = (props) => {
                     for(let i in newAry) {
                         if(i == id) {
                             setProject(newAry[i])
+                            const userID = '2222'
+                            const rating = newAry[i].rating
+                            if(rating && rating[userID] && init) {
+                                const ratingUserData = rating[userID]
+                                for(let i in ratingUserData) {
+                                    const ratingValue = Object.values(ratingUserData[i])[0]
+                                    switch (i) {
+                                        case 'art' :
+                                            setArtValue(ratingValue)
+                                            break;
+                                        case 'roadmap' :
+                                            setRoadMapValue(ratingValue)
+                                            break;
+                                        case 'utility' :
+                                            setUtilityValue(ratingValue)
+                                            break;
+                                        case 'community' :
+                                            setCommunityValue(ratingValue)
+                                            break;
+                                        case 'originality' :
+                                            setOriginalityValue(ratingValue)
+                                            break;
+                                        case 'team' :
+                                            setTeamValue(ratingValue)
+                                            break;
+                                    }
+                                }
+                                setInit(false)
+                            }
                             break
                         }
                     }
@@ -38,7 +70,7 @@ const Project = (props) => {
         } )
     }
 
-    const changeRating = (nextValue, prevValue, name) => {
+    const changeRating = async (nextValue, prevValue, name) => {
         switch(name) {
             case 'art':
                 setArtValue(nextValue)
@@ -61,12 +93,27 @@ const Project = (props) => {
             default:
                 break
         }
-        let userID = '1111'
+        let userID = '2222'
 
         let tableName = (t == 1) ? 'project_proposal' : 'project_outside'
         const ratingRef   = database.ref(tableName + '/' + id + '/rating/' + userID + '/' + name + '/')
-        const newRatingRef    = ratingRef.push()
-        newRatingRef.set(nextValue) 
+        await ratingRef.get().then( (snapshot) => {
+            if(snapshot.exists) {
+                let newValue = snapshot.val()
+                if(newValue) {
+                    const key = Object.keys(newValue)[0]
+                    let updateValue = {}
+                    updateValue[key] = nextValue
+                    ratingRef.update(updateValue)
+                } else {
+                    ratingRef.push().set(nextValue)
+                }
+            } else {
+                ratingRef.push().set(nextValue)
+            }
+        } )
+        // const newRatingRef    = ratingRef.push()
+        // newRatingRef.set() 
     }
 
     const handleClose = () => {
