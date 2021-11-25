@@ -127,6 +127,7 @@ const Proposal = (props) => {
     const handleSubmit = async (e) => {
         e.preventDefault()
         setLoading('border')
+        const today = new Date()
         let load = {
             name: projectName,
             supply: supply,
@@ -135,7 +136,8 @@ const Proposal = (props) => {
             description: detailedProjectDescription,
             interest: JSON.stringify(interest),
             creator: props.userInfo.username,
-            creatorPath: props.userInfo.id
+            creatorPath: props.userInfo.id,
+            createDate : today.getFullYear() + ' / ' + (today.getMonth() + 1) + ' / ' + today.getDate()
         }
 
         for(let p in load) {
