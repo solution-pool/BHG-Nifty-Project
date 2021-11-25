@@ -146,8 +146,22 @@ const Outside = (props) => {
         const outsideRef   = database.ref('project_outside')
         const newOutsideRef    = outsideRef.push()
         newOutsideRef.set(load) 
+        
+        const memberRef = database.ref('member_profile/' + props.userInfo.id)
+        let prevProjectCount = props.userInfo.project
+        let projectCount
+        let updateData = {}
+
+        if(prevProjectCount == undefined) {
+            projectCount = 1
+        } else {
+            projectCount = parseInt(prevProjectCount) + 1
+        }
+        updateData['project'] = projectCount
+        memberRef.update(updateData)
+
         window.scrollTo(0, 0)
-        NotificationManager.success('The project proposal was successfully submitted.', 'Success', 5000)
+        NotificationManager.success('The outside project was successfully submitted.', 'Success', 5000)
         setLoading(false)
         reset()
     }
