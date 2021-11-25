@@ -69,7 +69,10 @@ const Project = (props) => {
         newRatingRef.set(nextValue) 
     }
 
-    const handleClose = () => setShow(false);
+    const handleClose = () => {
+        let tableName = (t == 1) ? 'project_proposal' : 'project_outside'
+        setShow(false);
+    }
     const handleShow = () => setShow(true);
 
     return (
