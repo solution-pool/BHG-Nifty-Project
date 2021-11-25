@@ -14,16 +14,18 @@ function App() {
     
   useEffect( () => {
       walletConnect()
-  } )
+  }, [walletAddress] )
 
   const walletConnect = async () => {
       if(window.ethereum) {
           window.web3 = new Web3(window.ethereum)
           await window.ethereum.enable()
-          setAddress(await window.web3.eth.getAccounts())
+          const account = await window.web3.eth.getAccounts()
+          setAddress(account[0])
       } else if(window.web3) {
           window.web3 = new Web3(window.web3.currentProvider) 
-          setAddress(await window.web3.eth.getAccounts())
+          const account = await window.web3.eth.getAccounts()
+          setAddress(account[0])
       } else {
           window.alert('Non-Ethereum browser detected. You should consider trying MetaMask!')
       }
