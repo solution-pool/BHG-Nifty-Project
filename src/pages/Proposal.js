@@ -203,7 +203,12 @@ const Proposal = (props) => {
         setInterest({})
         setInputFile(document.getElementById('input-file'))
         setFiles([])
-        setFileContainer(null)
+        setFileContainer(null)        
+        let interests = document.getElementsByClassName('form-check-input')
+
+        for(let i = 0; i < interests.length; i ++ ) {
+            interests[i].checked = false
+        }
     }
 
     const handleClick = (e) => {
