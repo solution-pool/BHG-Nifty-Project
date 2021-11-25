@@ -1,7 +1,7 @@
 import { Row, Col } from 'react-bootstrap';
 import StarRatingComponent from 'react-star-rating-component';
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const Panel = (props) => {
     const [art, setArt] = useState(0)
@@ -12,47 +12,50 @@ const Panel = (props) => {
     const [originality, setOriginality] = useState(0)
     
     const ratingInf = props.proposal.rating
-    // if(ratingInf) {
-    //     let userCount = 0
-    //     let ratingData = {}
-    //     for(let i in ratingInf) {
-    //         let userRatingData = ratingInf[i]
-    //         for(let j in userRatingData)  {
-    //             for(let k in userRatingData[j]) {
-    //                 if(ratingData[j]) {
-    //                     ratingData[j] += parseInt(userRatingData[j][k])
-    //                 } else {
-    //                     ratingData[j] = parseInt(userRatingData[j][k])
-    //                 }
-    //             }
-             
-    //         }
-    //         userCount ++
-    //     }
 
-    //     for(let i in ratingData) {
-    //         switch(i) {
-    //             case 'art':
-    //                 setArt(ratingData / userCount)
-    //                 break;
-    //             case 'community':
-    //                 setCommunity(ratingData / userCount)
-    //                 break;
-    //             case 'originality':
-    //                 setOriginality(ratingData / userCount)
-    //                 break;
-    //             case 'roadmap':
-    //                 setRoadMap(ratingData / userCount)
-    //                 break;
-    //             case 'team':
-    //                 setTeam(ratingData / userCount)
-    //                 break;
-    //             case 'utility':
-    //                 setUtility(ratingData / userCount)
-    //                 break;
-    //         }
-    //     }
-    // }
+    useEffect( () => {
+        if(ratingInf) {
+            let userCount = 0
+            let ratingData = {}
+            for(let i in ratingInf) {
+                let userRatingData = ratingInf[i]
+                for(let j in userRatingData)  {
+                    for(let k in userRatingData[j]) {
+                        if(ratingData[j] !== undefined) {
+                            ratingData[j] += parseInt(userRatingData[j][k])
+                        } else {
+                            ratingData[j] = parseInt(userRatingData[j][k])
+                        }
+                    }
+                
+                }
+                userCount ++
+            }
+
+            for(let i in ratingData) {
+                switch(i) {
+                    case 'art':
+                        setArt(ratingData[i] / userCount)
+                        break;
+                    case 'community':
+                        setCommunity(ratingData[i] / userCount)
+                        break;
+                    case 'originality':
+                        setOriginality(ratingData[i] / userCount)
+                        break;
+                    case 'roadmap':
+                        setRoadMap(ratingData[i] / userCount)
+                        break;
+                    case 'team':
+                        setTeam(ratingData[i] / userCount)
+                        break;
+                    case 'utility':
+                        setUtility(ratingData[i] / userCount)
+                        break;
+                }
+            }
+        }
+    }, [] )
     return (
         <Col lg="4" md="6" sm="12">
             <div className="panel">
