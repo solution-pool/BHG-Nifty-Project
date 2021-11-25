@@ -1,4 +1,5 @@
 .project {
+    max-width: 80% !important;
     .panel-title {
         margin-bottom: 0px;
         margin-top: 2.5rem;
@@ -31,9 +32,10 @@
         }
         .project-thumbnail {
             text-align: center;
-            margin-bottom: 3rem;
+            margin-bottom: 2rem;
             img {
-                width: 75%;
+                height: 40vh;
+                width: 40vh;
                 box-shadow: 10px 10px 8px #888888;
             }
         }
@@ -58,9 +60,15 @@
 
     .project-avatar {
         .photo {
+            margin: 2rem;
             text-align: center;
+            img {
+                height: 30vh;
+                width: 30vh;
+            }
         }
         .detail {
+            font-size: 1.2rem;
             margin: 1rem;
             p {
                 text-align: center;

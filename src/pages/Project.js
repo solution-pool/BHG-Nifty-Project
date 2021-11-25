@@ -33,7 +33,7 @@ const Project = (props) => {
                     for(let i in newAry) {
                         if(i == id) {
                             setProject(newAry[i])
-                            const userID = '2222'
+                            const userID = props.userInfo.username
                             const rating = newAry[i].rating
                             if(rating && rating[userID] && init) {
                                 const ratingUserData = rating[userID]
@@ -93,7 +93,7 @@ const Project = (props) => {
             default:
                 break
         }
-        let userID = '2222'
+        let userID = props.userInfo.username
 
         let tableName = (t == 1) ? 'project_proposal' : 'project_outside'
         const ratingRef   = database.ref(tableName + '/' + id + '/rating/' + userID + '/' + name + '/')
@@ -112,8 +112,6 @@ const Project = (props) => {
                 ratingRef.push().set(nextValue)
             }
         } )
-        // const newRatingRef    = ratingRef.push()
-        // newRatingRef.set() 
     }
 
     const handleClose = () => {
