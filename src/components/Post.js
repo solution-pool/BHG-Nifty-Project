@@ -5,13 +5,22 @@ const Post = (props) => {
 
     const up = () => {
         let tableName = (props.data.t == 1) ? 'project_proposal' : 'project_outside'
-        const postRef = database.ref(tableName + '/' + props.data.id + '/post/' + props.data.postID + '/' + props.userInfo.username + '/')
-        postRef.set(1)
+        const votePostRef = database.ref(tableName + '/' + props.data.id + '/post/' + props.data.postID + '/vote/' + props.userInfo.username + '/')
+        votePostRef.set(1)
+
+        // const postRef = database.ref(tableName + '/' + props.data.id + '/post/' + props.data.postID + '/' )
+        // postRef.get().then((snapshot) => {
+        //     if(snapshot.exists) {
+        //         post = snapshot.val()
+        //         postRef.get()
+        //     }
+        // })
+
     }
 
     const down = () => {
         let tableName = (props.data.t == 1) ? 'project_proposal' : 'project_outside'
-        const postRef = database.ref(tableName + '/' + props.data.id + '/post/' + props.data.postID + '/' + props.userInfo.username + '/')
+        const votePostRef = database.ref(tableName + '/' + props.data.id + '/post/' + props.data.postID + '/vote/' + props.userInfo.username + '/')
         postRef.set(-1)
     }
 
