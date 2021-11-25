@@ -35,16 +35,25 @@
     .avatar-description {
         margin-top: 1rem;
         margin-bottom: 1rem;
-        p {
-            line-height: 0.8rem;
-            font-size: 0.875rem;
-            margin-bottom: 0.5rem;
-            .avatar-label {
-                text-align: right;
-            }
-            .avatar-profile {
+        .avatar-label {
+            text-align: right;
+            p {
+                line-height: 0.8rem;
                 text-overflow: ellipsis;
+                font-size: 0.875rem;
+                margin-bottom: 0.5rem;
             }
+        }
+        .avatar-profile {
+            p {
+                overflow: hidden;
+                text-overflow: ellipsis;
+                line-height: 0.8rem;
+                text-overflow: ellipsis;
+                font-size: 0.875rem;
+                margin-bottom: 0.5rem;
+            }
+            // overflow: hidden;
         }
 
     }

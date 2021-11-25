@@ -157,7 +157,7 @@ const Outside = (props) => {
             <Header walletAddress={props.walletAddress} walletConnect={props.walletConnect} />
             <Container className="padding-bottom-70">
                 <NotificationContainer />
-                <Avatar title={title} content={content} />
+                <Avatar title={title} content={content} userInfo={props.userInfo} />
                 <Row className="content">
                     <Form onSubmit={handleSubmit} encType="multipart/form-data">
                         <Row>
