@@ -1,8 +1,58 @@
 import { Row, Col } from 'react-bootstrap';
 import StarRatingComponent from 'react-star-rating-component';
 import { Link } from 'react-router-dom';
+import { useState } from 'react';
 
 const Panel = (props) => {
+    const [art, setArt] = useState(0)
+    const [roadmap, setRoadMap] = useState(0)
+    const [utility, setUtility] = useState(0)
+    const [community, setCommunity] = useState(0)
+    const [team, setTeam] = useState(0)
+    const [originality, setOriginality] = useState(0)
+    
+    const ratingInf = props.proposal.rating
+    // if(ratingInf) {
+    //     let userCount = 0
+    //     let ratingData = {}
+    //     for(let i in ratingInf) {
+    //         let userRatingData = ratingInf[i]
+    //         for(let j in userRatingData)  {
+    //             for(let k in userRatingData[j]) {
+    //                 if(ratingData[j]) {
+    //                     ratingData[j] += parseInt(userRatingData[j][k])
+    //                 } else {
+    //                     ratingData[j] = parseInt(userRatingData[j][k])
+    //                 }
+    //             }
+             
+    //         }
+    //         userCount ++
+    //     }
+
+    //     for(let i in ratingData) {
+    //         switch(i) {
+    //             case 'art':
+    //                 setArt(ratingData / userCount)
+    //                 break;
+    //             case 'community':
+    //                 setCommunity(ratingData / userCount)
+    //                 break;
+    //             case 'originality':
+    //                 setOriginality(ratingData / userCount)
+    //                 break;
+    //             case 'roadmap':
+    //                 setRoadMap(ratingData / userCount)
+    //                 break;
+    //             case 'team':
+    //                 setTeam(ratingData / userCount)
+    //                 break;
+    //             case 'utility':
+    //                 setUtility(ratingData / userCount)
+    //                 break;
+    //         }
+    //     }
+    // }
     return (
         <Col lg="4" md="6" sm="12">
             <div className="panel">
@@ -31,7 +81,7 @@ const Panel = (props) => {
                                         <StarRatingComponent 
                                             name="rate1" 
                                             starCount={5}
-                                            value={0}
+                                            value={art}
                                             emptyStarColor={'#e5e5e5'}
                                         />
                                     </p>
@@ -44,7 +94,7 @@ const Panel = (props) => {
                                         <StarRatingComponent 
                                             name="rate1" 
                                             starCount={5}
-                                            value={0}
+                                            value={roadmap}
                                             emptyStarColor={'#e5e5e5'}
                                         />
                                     </p>
@@ -57,7 +107,7 @@ const Panel = (props) => {
                                         <StarRatingComponent 
                                             name="rate1" 
                                             starCount={5}
-                                            value={0}
+                                            value={utility}
                                             emptyStarColor={'#e5e5e5'}
                                         />
                                     </p>
@@ -70,7 +120,7 @@ const Panel = (props) => {
                                         <StarRatingComponent 
                                             name="rate1" 
                                             starCount={5}
-                                            value={0}
+                                            value={community}
                                             emptyStarColor={'#e5e5e5'}
                                         />
                                     </p>
@@ -83,7 +133,7 @@ const Panel = (props) => {
                                         <StarRatingComponent 
                                             name="rate1" 
                                             starCount={5}
-                                            value={0}
+                                            value={team}
                                             emptyStarColor={'#e5e5e5'}
                                         />
                                     </p>
@@ -96,7 +146,7 @@ const Panel = (props) => {
                                         <StarRatingComponent 
                                             name="rate1" 
                                             starCount={5}
-                                            value={0}
+                                            value={originality}
                                             emptyStarColor={'#e5e5e5'}
                                         />
                                     </p>
