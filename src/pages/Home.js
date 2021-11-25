@@ -7,17 +7,16 @@ import { database, storage } from '../config/firebase';
 import Panel from '../components/Panel';
 
 const Home = (props) => {
-    console.log(props)
     const [sort, setSort] = useState(1)
     const [projectContainer, setProposalContainer] = useState([])
 
     useEffect( async () => {
-        await display(sort)
-    })
+        display(sort)
+    }, [projectContainer.length])
 
     const changeSort = async (e) => {
         setSort(e.target.value)
-        // await display(e.target.value)
+        display(e.target.value)
     }
 
     const display = async (sortValue) => {

@@ -3,7 +3,7 @@ import Header from '../components/Header';
 import { Container, Row, Col, Form, Button, Spinner, Modal } from 'react-bootstrap';
 import { Link, useParams } from 'react-router-dom';
 import StarRatingComponent from 'react-star-rating-component';
-import { database, storage } from '../config/firebase';
+import { database } from '../config/firebase';
 
 const Project = (props) => {
     const [project, setProject] = useState(null)
@@ -77,7 +77,7 @@ const Project = (props) => {
 
     return (
         <div>
-            <Header walletAddress={walletAddress} walletConnect={walletConnect} />
+            <Header walletAddress={props.walletAddress} walletConnect={props.walletConnect} />
             <Container className="project">
                 <Row>
                     <Col lg={5} md={12} sm={12}>

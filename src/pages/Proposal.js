@@ -6,9 +6,8 @@ import { Link } from 'react-router-dom';
 import { database, storage } from '../config/firebase';
 import {NotificationContainer, NotificationManager} from 'react-notifications';
 import 'react-notifications/lib/notifications.css';
-import ReactHtmlParser from 'react-html-parser'
 
-const Proposal = () => {
+const Proposal = (props) => {
     const title = "Project Proposal";
     const content = "Share alpha with the nifty fam by submitting an outside project that you think has potential!";
 
@@ -198,7 +197,7 @@ const Proposal = () => {
 
     return (
         <div>
-            <Header walletAddress={walletAddress} walletConnect={walletConnect} />
+            <Header walletAddress={props.walletAddress} walletConnect={props.walletConnect} />
             <Container className="padding-bottom-70 proposal">
                 <NotificationContainer />
                 <Avatar title={title} content={content} />
