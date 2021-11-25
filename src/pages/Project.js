@@ -4,6 +4,7 @@ import { Container, Row, Col, Form, Button, Spinner, Modal } from 'react-bootstr
 import { Link, useParams } from 'react-router-dom';
 import StarRatingComponent from 'react-star-rating-component';
 import { database } from '../config/firebase';
+import Post from '../components/Post';
 
 const Project = (props) => {
     const [project, setProject] = useState({})
@@ -18,8 +19,9 @@ const Project = (props) => {
     const [init, setInit] = useState(true)
     const [creator, setCreator] = useState({})
     const [teamMember, setTeamMember] = useState({})
+    const [post, setPost] = useState('');
+    const [posts, setPosts] = useState({})
 
-    console.log(props.userInfo)
     useEffect( () => {
         if(init) {
             getProject()
@@ -83,6 +85,14 @@ const Project = (props) => {
                     }
                     setInit(false)
                 }
+
+                const postData = newAry.post
+                const postAry = Object.values(postData)
+                // if(postAry && init) {
+                //     const postHtml = postAry.map( element => <Post data={element} />)
+                //     console.log(postHtml)
+                //     // setPosts(postHtml)
+                // }
             }
         } )
     }
@@ -150,8 +160,21 @@ const Project = (props) => {
         setTeamMember(team)
     }
 
+    const changePost = (e) => {
+        setPost(e.target.value)
+    }
+
     const handleClose = () => {
         let tableName = (t == 1) ? 'project_proposal' : 'project_outside'
+        const postRef = database.ref(tableName + '/' + id + '/post/')
+        const newPostRef = postRef.push()
+        newPostRef.set({
+            up : 0,
+            down : 0,
+            content : post,
+            poster : props.userInfo.username,
+        })
+        setPost('')
         setShow(false);
     }
     const handleShow = () => setShow(true);
@@ -343,7 +366,8 @@ const Project = (props) => {
                         </div>
                         <div className="project-discussion-body">
                             <Container>
-                                <Row>
+                                {posts}
+                                {/* <Row>
                                     <Col lg="2" md="2" sm="2" xs="2" className="discussion-button">
                                         <div className="action">
                                             <Button variant="success">
@@ -396,7 +420,7 @@ const Project = (props) => {
                                             Nullam aliquam convallis orci nec fringilla. Aliquam augue turpis, laoreet at egestas pretium, rutrum at nunc.
                                         </p>
                                     </Col>
-                                </Row>
+                                </Row> */}
                             </Container>
                         </div>
                     </Col>
@@ -408,7 +432,7 @@ const Project = (props) => {
             <Modal show={show} size="lg" onHide={handleClose}>
                 <Modal.Body>
                     <Form.Group>
-                        <Form.Control as="textarea" rows="10" placeholder="" />
+                        <Form.Control as="textarea" rows="10" placeholder="" value={post} onChange={changePost} />
                     </Form.Group>
                 </Modal.Body>
                 <Modal.Footer>
