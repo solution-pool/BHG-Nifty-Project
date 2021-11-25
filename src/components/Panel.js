@@ -60,6 +60,20 @@ const Panel = (props) => {
         <Col lg="4" md="6" sm="12">
             <div className="panel">
                 <div className="submit-project">
+                    <div className="panel-title">
+                        <span className="submit">
+                            <span className="title-label">Submitted by :</span> 
+                            <small>{props.proposal.creator}</small>
+                        </span>
+                        <span className="price">
+                            <span className="title-label">Price :</span>
+                            <small>{props.proposal.price}</small>
+                        </span>
+                        <span className="supply">
+                            <span className="title-label">Supply :</span>
+                            <small>{props.proposal.supply}</small>
+                        </span>
+                    </div>
                     <Link to={`/project/${props.proposal.id}/${props.proposal.t}`}>
                         <div className="background-section" 
                             style={{

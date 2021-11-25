@@ -127,12 +127,54 @@
         }
 
         .submit-project {
+            position: relative;
             padding: 2vw 2vw 1vw 2vw;
             text-align: center;
             .panel-title {
+                display: flex;
+                width: calc(100% - 2vw);
+
                 position: absolute;
                 font-size: 0.8vw;
-                top: 0.8vw;
+                top: 0.5vw;
+                height: 1vw;
+                word-break: keep-all;
+                .submit {
+                    width: 50%;
+                    display: inline-flex;
+                    text-align: left;
+                    flex: 0 0 auto;
+                    font-weight: bold;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    .title-label {
+                        width: 75%;
+                    }
+                }
+                .price {
+                    width: 30%;
+                    display: inline-flex;
+                    text-align: left;
+                    flex: 0 0 auto;
+                    font-weight: bold;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+                .supply {
+                    width: 20%;
+                    display: inline-flex;
+                    text-align: left;
+                    flex: 0 0 auto;
+                    font-weight: bold;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+                small {
+                    font-size: 0.6vw;
+                    line-height: 2.2;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
             }
             .background-section {
                 width: 100%;

@@ -26,7 +26,8 @@ const Project = (props) => {
         if(init) {
             getProject()
         }
-    }, [artValue, roadMapValue, utilityValue, communityValue, originalityValue, teamValue, show, project ? project.name : project, creator ? creator.name : creator] )
+    }, [artValue, roadMapValue, utilityValue, communityValue, originalityValue, teamValue, 
+        show, project ? project.name : project, creator ? creator.name : creator, post, posts.length] )
     
     const getProject = async () => {
         let tableName = (t == 1) ? 'project_proposal' : 'project_outside'
@@ -170,7 +171,8 @@ const Project = (props) => {
         setPost(e.target.value)
     }
 
-    const handleClose = () => {
+    const handleSave = () => {
+        const username = props.userInfo.username
         let tableName = (t == 1) ? 'project_proposal' : 'project_outside'
         const postRef = database.ref(tableName + '/' + id + '/post/')
         const newPostRef = postRef.push()
@@ -178,11 +180,13 @@ const Project = (props) => {
             up : 0,
             down : 0,
             content : post,
-            poster : props.userInfo.username,
+            poster : username,
         })
         setPost('')
         setShow(false);
     }
+
+    const handleClose = () => setShow(false)
     const handleShow = () => setShow(true);
 
     const vote = () => {
@@ -404,7 +408,7 @@ const Project = (props) => {
                     </Form.Group>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="primary" onClick={handleClose}>
+                    <Button variant="primary" onClick={handleSave}>
                         Add new post
                     </Button>
                 </Modal.Footer>
