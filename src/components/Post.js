@@ -21,7 +21,7 @@ const Post = (props) => {
     const down = () => {
         let tableName = (props.data.t == 1) ? 'project_proposal' : 'project_outside'
         const votePostRef = database.ref(tableName + '/' + props.data.id + '/post/' + props.data.postID + '/vote/' + props.userInfo.username + '/')
-        postRef.set(-1)
+        votePostRef.set(-1)
     }
 
     return (

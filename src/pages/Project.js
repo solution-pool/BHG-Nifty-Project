@@ -393,7 +393,7 @@ const Project = (props) => {
                         </div>
                     </Col>
                 </Row>
-                <div className="text-center">
+                <div className="text-center back">
                     <Link to="/">&lt;&lt;-back to projects</Link>
                 </div>
             </Container>
