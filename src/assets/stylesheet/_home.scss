@@ -137,7 +137,7 @@
                 position: absolute;
                 font-size: 0.8vw;
                 top: 0.5vw;
-                height: 1vw;
+                height: 1.2vw;
                 word-break: keep-all;
                 .submit {
                     width: 50%;
@@ -223,7 +223,7 @@
                         .dv-star-rating {
                             .dv-star-rating-star {
                                 i {
-                                    font-size: 0.9rem;
+                                    font-size: 0.8rem;
                                     padding: .03vw;
                                 }
                             }
@@ -323,6 +323,9 @@
                             .dv-star-rating {
                                 .dv-star-rating-star {
                                     i {
+                                        font-size: 0.9rem;
+                                        padding-left: .2vw;
+                                        padding-right: .2vw;
                                     }
                                 }
                             }
@@ -556,8 +559,8 @@
                             .dv-star-rating {
                                 .dv-star-rating-star {
                                     i {
-                                        font-size: 2vw;
-                                        padding: .03vw;
+                                        font-size: 2.5vw;
+                                        padding: 0.75vw;
                                     }
                                 }
                             }
