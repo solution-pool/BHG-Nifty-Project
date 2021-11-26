@@ -25,6 +25,7 @@ const Project = (props) => {
     const [post, setPost] = useState('');
     const [posts, setPosts] = useState([])
     const [voteState, setVoteState] = useState(false)
+    const [voteCount, setVoteCount] = useState(0)
     const [blocking, setBlock] = useState(false)
     const [message, setMessage] = useState('Checking connnection...')
 
@@ -63,10 +64,11 @@ const Project = (props) => {
                     }
                 })
                 const team = newAry.team
-                if(team) {
-                    for(let i in team) {
+                if(team && team[props.userInfo.username]) {
+                    const teamData = team[props.userInfo.username]
+                    for(let i in teamData) {
                         let htmlContainer = document.getElementById(i)
-                        if(team[i] == 1) {
+                        if(teamData[i] == 1) {
                             htmlContainer.className = 'selected  btn btn-primary'
                             htmlContainer.value = 1
                         } else {
@@ -126,6 +128,7 @@ const Project = (props) => {
                             break
                         }
                     }
+                    setVoteCount(Object.values(voteData).length)
                 }
                 
                 // setInit(true)
@@ -189,7 +192,7 @@ const Project = (props) => {
             e.target.className = 'no-selected  btn btn-primary'
         }
         let tableName = (t == 1) ? 'project_proposal' : 'project_outside'
-        const teamRef = database.ref(tableName + '/' + id + '/team/')
+        const teamRef = database.ref(tableName + '/' + id + '/team/' + props.userInfo.username + '/')
 
         teamRef.update(team)
 
@@ -223,19 +226,12 @@ const Project = (props) => {
         const voteRef = database.ref(tableName + '/' + id + '/vote/')
         voteRef.push().set(props.userInfo.username)
         setVoteState(true)
-        // let voteCount
-        // if(project.vote) {
-        //     voteCount = project.vote + 1
-        // } else {
-        //     voteCount = 1
-        // }
-        // const voteRef = database.ref(tableName + '/' + id + '/')
-        // voteRef.update({
-        //     vote : voteCount
-        // })
-        
-        // project.vote = voteCount
-        // setProject(project)
+        voteRef.get().then( (snapshot) => {
+            if(snapshot.exists) {
+                const voteValues = snapshot.val()
+                setVoteCount(Object.values(voteValues).length)
+            }
+        } )
     }
     return (
         <div>
@@ -250,7 +246,7 @@ const Project = (props) => {
                                 <p className="project-condition">
                                     <div className="supply">Supply: { project ? project.supply : '' }</div>
                                     <div className="price">Price: { project ? project.price : '' }</div>
-                                    <div className="votes">Votes: {project.vote ? Object.values(project.vote).length : ''}</div>
+                                    <div className="votes">Votes: {voteCount}</div>
                                 </p>
                                 <div className="project-thumbnail">
                                     <img src={(project && project.files) ? project.files[0] : require('../assets/img/idea.png').default } />
