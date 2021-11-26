@@ -249,7 +249,11 @@ const Project = (props) => {
                                     <div className="votes">Votes: {voteCount}</div>
                                 </p>
                                 <div className="project-thumbnail">
-                                    <img src={(project && project.files) ? project.files[0] : require('../assets/img/idea.png').default } />
+                                    {
+                                        (project && project.files) ? 
+                                        (<img src={project.files[0]} />) :
+                                        (<div style={{height:"40vh", width:"40vh", backgroundColor:"black",margin:"auto"}}></div>)
+                                    }
                                 </div>
                                 <div className="project-upvote">
                                     <Button variant={'warning'} disabled={voteState} onClick={vote}>Upvote this project &nbsp;
