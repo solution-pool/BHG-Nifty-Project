@@ -6,13 +6,19 @@ const Post = (props) => {
 
     const [upCount, setUpCount] = useState(0)
     const [downCount, setDownCount] = useState(0)
+    const [votes, setVotes] = useState([]) 
     useEffect( () => {
-        if(props.data.vote) {
-            let votes = Object.values(props.data.vote)
+        if(props.data.vote || votes.length) {
+            let voteValues
+            if(votes.length) {
+                voteValues = votes
+            } else {
+                voteValues = Object.values(props.data.vote)
+            }
             let upValue = 0 
             let downValue = 0
-            for(let i = 0; i < votes.length; i ++ ) {
-               if(votes[i] == 1) {
+            for(let i = 0; i < voteValues.length; i ++ ) {
+               if(voteValues[i] == 1) {
                     upValue ++
                 } else {
                     downValue ++
@@ -21,18 +27,31 @@ const Post = (props) => {
                 setDownCount(downValue)
             }
         }
-    })
+    }, [votes])
 
-    const up = () => {
+    const up = async () => {
         let tableName = (props.data.t == 1) ? 'project_proposal' : 'project_outside'
         const votePostRef = database.ref(tableName + '/' + props.data.id + '/post/' + props.data.postID + '/vote/' + props.userInfo.username + '/')
         votePostRef.set(1)
+        await resetPostData()
     }
 
-    const down = () => {
+    const down = async () => {
         let tableName = (props.data.t == 1) ? 'project_proposal' : 'project_outside'
         const votePostRef = database.ref(tableName + '/' + props.data.id + '/post/' + props.data.postID + '/vote/' + props.userInfo.username + '/')
         votePostRef.set(-1)
+        await resetPostData()
+    }
+
+    const resetPostData = () => {
+        let tableName = (props.data.t == 1) ? 'project_proposal' : 'project_outside'
+        const votePostRef = database.ref(tableName + '/' + props.data.id + '/post/' + props.data.postID + '/vote')
+        votePostRef.get().then( (snapshot) => {
+            if(snapshot.exists) {
+                const voteValues = snapshot.val()
+                setVotes(Object.values(voteValues))
+            }
+        } )
     }
 
     return (
