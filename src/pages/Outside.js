@@ -24,8 +24,9 @@ const Outside = (props) => {
     const [twitter, setTwitter] = useState('');
     const [opensea, setOpensea] = useState('');
     const [description, setDescription] = useState('');
-    const [file, setFile] = useState(null);
     const [inputFile, setInputFile] = useState({});
+    const [files, setFiles] = useState([])
+    const [selFileContainer, setFileContainer] = useState(null)
     const [isLoading, setLoading] = useState(false);
     const [btnTitle, setBtnTitle] = useState('Choose File');
     const [blocking, setBlock] = useState(false)
@@ -42,7 +43,9 @@ const Outside = (props) => {
         setTwitter('')
         setOpensea('')
         setDescription('')
-        setFile(null)
+        setInputFile(document.getElementById('input-file'))
+        setFiles([])
+        setFileContainer(null)        
         setLoading(false)
         setBtnTitle('Choose File')
     }
@@ -62,7 +65,8 @@ const Outside = (props) => {
             setMessage('Checking connnection...')
         }
         setInputFile(document.getElementById('input-file'))
-    }, [props.userLoad] )
+        fillFileContainer()
+    }, [props.userLoad, files] )
 
     const changeProjectName = (e) => {
         setProjectName(e.target.value)
@@ -105,12 +109,54 @@ const Outside = (props) => {
     }
 
     const changeFile = (e) => {
-        setBtnTitle(e.target.files[0].name)
-        setFile(e.target.files[0])
+        const newFile = e.target.files[0]
+        let fileContainer = []
+        for(let i = 0 ; i < files.length; i ++ ) {
+            fileContainer.push(new File([files[i]], files[i].name))
+        }
+        const selectedFile = new File([newFile], newFile.name)
+        fileContainer.push(selectedFile)
+        setFiles(fileContainer)
     }
 
-    const openFile = () => {
-        inputFile?.click()
+    const fillFileContainer = () => {
+        let container = [];
+        for(let i = 0; i < files.length; i ++ ) {
+            const oneFile = files[i]
+            const element = <Col lg="4" md="4" sm="6" xs="12"> <Button title={oneFile.name} variant="secondary"><div className="cross-content"> {oneFile.name}</div><div className="cross"><span onClick={deleteFile} title={oneFile.name} className="close-button">&#10005;</span></div> </Button></Col> 
+            container.push(element)
+        }
+
+        setFileContainer(container)
+    }
+
+    const setFile = () => {
+        inputFile?.click();
+    }
+    
+    const deleteFile = async (e) => {
+        const fileName = e.target.title
+
+        console.log(fileName)
+        let removeID = -1
+        let fileContainer = []
+
+        for(let i = 0 ; i < files.length; i ++ ) {
+            const oneFile = files[i]
+            if(fileName.trim() == oneFile.name.trim()) {
+                removeID = i
+                break;
+            }
+        }
+        
+        for(let i = 0; i < files.length; i ++ ) {
+            if(i == removeID) {
+                continue;
+            }
+            fileContainer.push(new File([files[i]], files[i].name))
+        }
+        setFiles(fileContainer)
+        document.getElementById('input-file').files =  null
     }
 
     const handleSubmit = async (e) => {
@@ -143,27 +189,32 @@ const Outside = (props) => {
             }
         }
 
-        let fileUrl = [];
-        if(file){
-            let fileLink = await new Promise((resolve, reject) => {
-                const url = "/project_outside/file/" + file.name;
-                storage.ref(url).put(file).then(function(snapshot) {
-                    storage.ref(url).getDownloadURL().then((link) => {
-                        console.log("resolve.......")
+        let fileUrl = []
+        if(files){
+            for(let i = 0; i < files.length; i ++ ) {
+                let file = files[i]
+                let fileLink = await new Promise((resolve, reject) => {
+                    const url = "/project_outside/file/" + file.name;
+                    storage.ref(url).put(file).then(function(snapshot) {
+                        storage.ref(url).getDownloadURL().then((link) => {
+                            console.log("resolve.......")
                         resolve(link)
+                        }).catch((error) => {
+                            console.log("reject.......")
+                        reject('')
+                        })
                     }).catch((error) => {
-                        console.log("reject.......")
-                    reject('')
+                        console.log("catch.......")
+                        reject('')
                     })
-                }).catch((error) => {
-                    console.log("catch.......")
-                    reject('')
                 })
-            })
-            fileUrl.push(fileLink)
+
+                fileUrl.push(fileLink)
+            }   
         }
 
         load.files = fileUrl
+        
         
         const outsideRef   = database.ref('project_outside')
         const newOutsideRef    = outsideRef.push()
@@ -262,8 +313,14 @@ const Outside = (props) => {
                                     <Form.Group className="mb-4">
                                         <Form.Label>Art Upload</Form.Label>
                                         <div className="footer-element file-panel">
-                                            <input id="input-file" type="file" name="file" className="d-none" onChange={changeFile} />
-                                            <Button variant="light" id="file-upload-button" onClick={openFile}>{btnTitle}</Button>
+                                            <input id="input-file" type="file" name="file" className="d-none" onChange={changeFile} multiple />
+                                            <Button variant="light" id="file-upload-button" onClick={setFile}>
+                                                    <div id="plus"><span>+</span></div>    
+                                                Add File
+                                            </Button>
+                                            <Row className="selected-files">
+                                                {selFileContainer}
+                                            </Row>
                                         </div>
                                     </Form.Group>
                                 </Col>
