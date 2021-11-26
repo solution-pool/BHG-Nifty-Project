@@ -26,21 +26,32 @@ const Project = (props) => {
     const [posts, setPosts] = useState([])
     const [voteState, setVoteState] = useState(false)
     const [blocking, setBlock] = useState(false)
+    const [message, setMessage] = useState('Checking connnection...')
 
     useEffect( async () => {
-        if(props.userInfo.username) {
-            await getProject()
+        
+        if(props.userLoad) {
+            if(props.userInfo.username) {
+                setBlock(true)
+                setMessage('Loading...')
+                await getProject()
+            } else {
+                setMessage(ReactHtmlParser("You are not registered as a Nifty member. Please sign up first. <a href='/'> Back </a>"))
+                setBlock(true)
+            }
         } else {
             setBlock(true)
+            setMessage('Checking connnection...')
         }
     }, [artValue, roadMapValue, utilityValue, communityValue, originalityValue, teamValue, 
         show, project ? project.name : project, creator ? creator.name : creator, post, posts.length,
-    props.userInfo.username] )
+    props.userInfo.username, props.userLoad] )
     
     const getProject = async () => {
         let tableName = (t == 1) ? 'project_proposal' : 'project_outside'
         const proposalRef = database.ref(tableName + '/' + id)
         await proposalRef.get().then( (snapshot) => {
+            setBlock(false)
             if(snapshot.exists) {
                 const newAry = snapshot.val()
                 setProject(newAry)
@@ -229,7 +240,7 @@ const Project = (props) => {
     return (
         <div>
             <Header walletAddress={props.walletAddress} walletConnect={props.walletConnect} />
-            <BlockUi tag="div" blocking={blocking} message={ReactHtmlParser("You are not registered as a Nifty member. Please sign up first. <a href='/'> Back </a>")} keepInView>
+            <BlockUi tag="div" blocking={blocking} message={message} keepInView>
                 <Container className="project">
                     <Row>
                         <Col lg={5} md={12} sm={12}>
