@@ -13,11 +13,11 @@ const Panel = (props) => {
     const [team, setTeam] = useState(0)
     const [originality, setOriginality] = useState(0)
     const [blocking, setBlock] = useState(false)
+    const [resetFlag, setReset] = useState(false)
     
     const ratingInf = props.proposal.rating
 
     useEffect( () => {
-        
         if(props.userLoad) {
             if(props.userInfo.username) {
                 setBlock(false)
@@ -27,48 +27,61 @@ const Panel = (props) => {
         } else {
             setBlock(true)
         }
-        if(ratingInf) {
-            let userCount = 0
-            let ratingData = {}
-            for(let i in ratingInf) {
-                let userRatingData = ratingInf[i]
-                for(let j in userRatingData)  {
-                    for(let k in userRatingData[j]) {
-                        if(ratingData[j] !== undefined) {
-                            ratingData[j] += parseInt(userRatingData[j][k])
-                        } else {
-                            ratingData[j] = parseInt(userRatingData[j][k])
+        changeReset()
+        if(resetFlag == true) {
+            if(ratingInf) {
+                let userCount = 0
+                let ratingData = {}
+                for(let i in ratingInf) {
+                    let userRatingData = ratingInf[i]
+                    for(let j in userRatingData)  {
+                        for(let k in userRatingData[j]) {
+                            if(ratingData[j] !== undefined) {
+                                ratingData[j] += parseInt(userRatingData[j][k])
+                            } else {
+                                ratingData[j] = parseInt(userRatingData[j][k])
+                            }
                         }
+                    
                     }
-                
+                    userCount ++
                 }
-                userCount ++
-            }
 
-            for(let i in ratingData) {
-                switch(i) {
-                    case 'art':
-                        setArt(ratingData[i] / userCount)
-                        break;
-                    case 'community':
-                        setCommunity(ratingData[i] / userCount)
-                        break;
-                    case 'originality':
-                        setOriginality(ratingData[i] / userCount)
-                        break;
-                    case 'roadmap':
-                        setRoadMap(ratingData[i] / userCount)
-                        break;
-                    case 'team':
-                        setTeam(ratingData[i] / userCount)
-                        break;
-                    case 'utility':
-                        setUtility(ratingData[i] / userCount)
-                        break;
+                for(let i in ratingData) {
+                    switch(i) {
+                        case 'art':
+                            setArt(ratingData[i] / userCount)
+                            break;
+                        case 'community':
+                            setCommunity(ratingData[i] / userCount)
+                            break;
+                        case 'originality':
+                            setOriginality(ratingData[i] / userCount)
+                            break;
+                        case 'roadmap':
+                            setRoadMap(ratingData[i] / userCount)
+                            break;
+                        case 'team':
+                            setTeam(ratingData[i] / userCount)
+                            break;
+                        case 'utility':
+                            setUtility(ratingData[i] / userCount)
+                            break;
+                    }
                 }
             }
-        }
-    }, [ props.userInfo.username, props.userLoad] )
+        }   
+    }, [props.proposal, props.userInfo.username, props.userLoad, resetFlag] )
+
+    const changeReset = () => {
+        setArt(0)
+        setRoadMap(0)
+        setUtility(0)
+        setCommunity(0)
+        setTeam(0)
+        setOriginality(0)
+        setReset(true)
+    }
     return (
         <Col lg="4" md="6" sm="12">
             <BlockUi tag="div" blocking={blocking} message="">
