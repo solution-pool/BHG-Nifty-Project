@@ -5,6 +5,9 @@ import { Link, useParams } from 'react-router-dom';
 import StarRatingComponent from 'react-star-rating-component';
 import { database } from '../config/firebase';
 import Post from '../components/Post';
+import BlockUi from 'react-block-ui';
+import 'react-block-ui/style.css';
+import ReactHtmlParser from 'react-html-parser'
 
 const Project = (props) => {
     const [project, setProject] = useState({})
@@ -22,10 +25,13 @@ const Project = (props) => {
     const [post, setPost] = useState('');
     const [posts, setPosts] = useState([])
     const [voteState, setVoteState] = useState(false)
+    const [blocking, setBlock] = useState(false)
 
     useEffect( async () => {
         if(props.userInfo.username) {
             await getProject()
+        } else {
+            setBlock(true)
         }
     }, [artValue, roadMapValue, utilityValue, communityValue, originalityValue, teamValue, 
         show, project ? project.name : project, creator ? creator.name : creator, post, posts.length,
@@ -223,199 +229,201 @@ const Project = (props) => {
     return (
         <div>
             <Header walletAddress={props.walletAddress} walletConnect={props.walletConnect} />
-            <Container className="project">
-                <Row>
-                    <Col lg={5} md={12} sm={12}>
-                        <p className="panel-title">Project</p>
-                        <div className="project-detail project-panel">
-                            <h1 className="project-name">{ project ? project.name : '' }</h1>
-                            <p className="project-condition">
-                                <div className="supply">Supply: { project ? project.supply : '' }</div>
-                                <div className="price">Price: { project ? project.price : '' }</div>
-                                <div className="votes">Votes: {project.vote ? Object.values(project.vote).length : ''}</div>
-                            </p>
-                            <div className="project-thumbnail">
-                                <img src={(project && project.files) ? project.files[0] : require('../assets/img/idea.png').default } />
-                            </div>
-                            <div className="project-upvote">
-                                <Button variant={'warning'} disabled={voteState} onClick={vote}>Upvote this project &nbsp;
-                                    <i className="fa fa-chevron-up"></i>
-                                </Button>
-                            </div>
-                        </div>
-                    </Col>
-                    <Col lg={7} md={12} sm={12}>
-                        <p className="panel-title">Author</p>
-                        <div className="project-avatar project-panel">
-                            <div className="photo">
-                                <img src={creator.image ? creator.image : require('../assets/img/avatar.png').default} alt="Creator Avatar Image" />
-                            </div>
-                            <div className="detail">
-                                <Row>
-                                    <Col lg="6" md="6" sm="6" xs="6" className="photo-label"><p>submitted by :</p></Col>
-                                    <Col lg="6" md="6" sm="6" xs="6"><p><strong>{creator.username ? creator.username : '' }</strong></p></Col>
-                                    <Col lg="6" md="6" sm="6" xs="6" className="photo-label"><p>submission date :</p></Col>
-                                    <Col lg="6" md="6" sm="6" xs="6"><p><strong>{project.createDate ? project.createDate : '0000 / 00 / 00' }</strong></p></Col>
-                                    <Col lg="6" md="6" sm="6" xs="6" className="photo-label"><p> total projects submitted :</p></Col>
-                                    <Col lg="6" md="6" sm="6" xs="6"><p><strong>{creator.project ? creator.project : '' }</strong></p></Col>
-                                    <Col lg="6" md="6" sm="6" xs="6" className="photo-label"><p>nodestones held : </p></Col>
-                                    <Col lg="6" md="6" sm="6" xs="6"><p><strong>{creator.held ? creator.held : '' }</strong></p></Col>
-                                </Row>
-                            </div>
-                        </div>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col lg="12" md="12" sm="12">
-                        <p className="panel-title">Rate this project!</p>
-                        <div className="project-panel project-rate">
-                            <Row>
-                                <Col lg={2} md={4} sm={6}>
-                                    <div className="one-col">
-                                        <p>Art</p>
-                                        <div>
-                                            <StarRatingComponent 
-                                                name="art" 
-                                                starCount={5}
-                                                value={artValue}
-                                                onStarClick={changeRating}
-                                                emptyStarColor={'#e5e5e5'}
-                                            />
-                                        </div>
-                                    </div>
-                                </Col>
-                                <Col lg={2} md={4} sm={6}>
-                                    <div className="one-col">
-                                        <p>Roadmap</p>
-                                        <div>
-                                            <StarRatingComponent 
-                                                name="roadmap" 
-                                                starCount={5}
-                                                value={roadMapValue}
-                                                onStarClick={changeRating}
-                                                emptyStarColor={'#e5e5e5'}
-                                            />
-                                        </div>
-                                    </div>
-                                </Col>
-                                <Col lg={2} md={4} sm={6}>
-                                    <div className="one-col">
-                                        <p>Utility</p>
-                                        <div>
-                                            <StarRatingComponent 
-                                                name="utility" 
-                                                starCount={5}
-                                                value={utilityValue}
-                                                onStarClick={changeRating}
-                                                emptyStarColor={'#e5e5e5'}
-                                            />
-                                        </div>
-                                    </div>
-                                </Col>
-                                <Col lg={2} md={4} sm={6}>
-                                    <div className="one-col">
-                                        <p>Community</p>
-                                        <div>
-                                            <StarRatingComponent 
-                                                name="community" 
-                                                starCount={5}
-                                                value={communityValue}
-                                                onStarClick={changeRating}
-                                                emptyStarColor={'#e5e5e5'}
-                                            />
-                                        </div>
-                                    </div>
-                                </Col>
-                                <Col lg={2} md={4} sm={6}>
-                                    <div className="one-col">
-                                        <p>Team</p>
-                                        <div>
-                                            <StarRatingComponent 
-                                                name="team" 
-                                                starCount={5}
-                                                value={teamValue}
-                                                onStarClick={changeRating}
-                                                emptyStarColor={'#e5e5e5'}
-                                            />
-                                        </div>
-                                    </div>
-                                </Col>
-                                <Col lg={2} md={4} sm={6}>
-                                    <div className="one-col">
-                                        <p>Originality</p>
-                                        <div>
-                                            <StarRatingComponent 
-                                                name="originality" 
-                                                starCount={5}
-                                                value={originalityValue}
-                                                onStarClick={changeRating}
-                                                emptyStarColor={'#e5e5e5'}
-                                            />
-                                        </div>
-                                    </div>
-                                </Col>
-                            </Row>
-                        </div>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col lg="12" md="12" sm="12">
-                        <p className="panel-title">Description</p>
-                        <div className="project-panel"> 
-                            <p>
-                            { project ? project.description : '' }
-                            </p>
-                        </div>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col lg="12" md="12" sm="12">
-                        <p className="panel-title">Team Members Needed</p>
-                        <div className="project-panel project-team"> 
-                            <Container>
-                                <p>
-                                    The following team members are needed for this project. Select a role if you would like to be considered.
+            <BlockUi tag="div" blocking={blocking} message={ReactHtmlParser("You are not registered as a Nifty member. Please sign up first. <a href='/'> Back </a>")} keepInView>
+                <Container className="project">
+                    <Row>
+                        <Col lg={5} md={12} sm={12}>
+                            <p className="panel-title">Project</p>
+                            <div className="project-detail project-panel">
+                                <h1 className="project-name">{ project ? project.name : '' }</h1>
+                                <p className="project-condition">
+                                    <div className="supply">Supply: { project ? project.supply : '' }</div>
+                                    <div className="price">Price: { project ? project.price : '' }</div>
+                                    <div className="votes">Votes: {project.vote ? Object.values(project.vote).length : ''}</div>
                                 </p>
+                                <div className="project-thumbnail">
+                                    <img src={(project && project.files) ? project.files[0] : require('../assets/img/idea.png').default } />
+                                </div>
+                                <div className="project-upvote">
+                                    <Button variant={'warning'} disabled={voteState} onClick={vote}>Upvote this project &nbsp;
+                                        <i className="fa fa-chevron-up"></i>
+                                    </Button>
+                                </div>
+                            </div>
+                        </Col>
+                        <Col lg={7} md={12} sm={12}>
+                            <p className="panel-title">Author</p>
+                            <div className="project-avatar project-panel">
+                                <div className="photo">
+                                    <img src={creator.image ? creator.image : require('../assets/img/avatar.png').default} alt="Creator Avatar Image" />
+                                </div>
+                                <div className="detail">
+                                    <Row>
+                                        <Col lg="6" md="6" sm="6" xs="6" className="photo-label"><p>submitted by :</p></Col>
+                                        <Col lg="6" md="6" sm="6" xs="6"><p><strong>{creator.username ? creator.username : '' }</strong></p></Col>
+                                        <Col lg="6" md="6" sm="6" xs="6" className="photo-label"><p>submission date :</p></Col>
+                                        <Col lg="6" md="6" sm="6" xs="6"><p><strong>{project.createDate ? project.createDate : '0000 / 00 / 00' }</strong></p></Col>
+                                        <Col lg="6" md="6" sm="6" xs="6" className="photo-label"><p> total projects submitted :</p></Col>
+                                        <Col lg="6" md="6" sm="6" xs="6"><p><strong>{creator.project ? creator.project : '' }</strong></p></Col>
+                                        <Col lg="6" md="6" sm="6" xs="6" className="photo-label"><p>nodestones held : </p></Col>
+                                        <Col lg="6" md="6" sm="6" xs="6"><p><strong>{creator.held ? creator.held : '' }</strong></p></Col>
+                                    </Row>
+                                </div>
+                            </div>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col lg="12" md="12" sm="12">
+                            <p className="panel-title">Rate this project!</p>
+                            <div className="project-panel project-rate">
                                 <Row>
-                                    <Col lg="6" md="6" sm="12" className="text-center team-member-button" >
-                                        <Button className="no-selected" name="marketing" id="marketing" value="0" onClick={changeTeamMember}>Marketing Manager</Button>
+                                    <Col lg={2} md={4} sm={6}>
+                                        <div className="one-col">
+                                            <p>Art</p>
+                                            <div>
+                                                <StarRatingComponent 
+                                                    name="art" 
+                                                    starCount={5}
+                                                    value={artValue}
+                                                    onStarClick={changeRating}
+                                                    emptyStarColor={'#e5e5e5'}
+                                                />
+                                            </div>
+                                        </div>
                                     </Col>
-                                    <Col lg="6" md="6" sm="12" className="text-center team-member-button">
-                                        <Button className="no-selected" name="discord" id="discord" value="0"  onClick={changeTeamMember}>Discord Moderator</Button>
+                                    <Col lg={2} md={4} sm={6}>
+                                        <div className="one-col">
+                                            <p>Roadmap</p>
+                                            <div>
+                                                <StarRatingComponent 
+                                                    name="roadmap" 
+                                                    starCount={5}
+                                                    value={roadMapValue}
+                                                    onStarClick={changeRating}
+                                                    emptyStarColor={'#e5e5e5'}
+                                                />
+                                            </div>
+                                        </div>
                                     </Col>
-                                    <Col lg="6" md="6" sm="12" className="text-center team-member-button">
-                                        <Button className="no-selected" name="contract" id="contract" value="0"  onClick={changeTeamMember}>Smart Contract Developer</Button>
+                                    <Col lg={2} md={4} sm={6}>
+                                        <div className="one-col">
+                                            <p>Utility</p>
+                                            <div>
+                                                <StarRatingComponent 
+                                                    name="utility" 
+                                                    starCount={5}
+                                                    value={utilityValue}
+                                                    onStarClick={changeRating}
+                                                    emptyStarColor={'#e5e5e5'}
+                                                />
+                                            </div>
+                                        </div>
                                     </Col>
-                                    <Col lg="6" md="6" sm="12" className="text-center team-member-button">
-                                        <Button className="no-selected" name="web" id="web" value="0"  onClick={changeTeamMember}>Web Developer</Button>
+                                    <Col lg={2} md={4} sm={6}>
+                                        <div className="one-col">
+                                            <p>Community</p>
+                                            <div>
+                                                <StarRatingComponent 
+                                                    name="community" 
+                                                    starCount={5}
+                                                    value={communityValue}
+                                                    onStarClick={changeRating}
+                                                    emptyStarColor={'#e5e5e5'}
+                                                />
+                                            </div>
+                                        </div>
+                                    </Col>
+                                    <Col lg={2} md={4} sm={6}>
+                                        <div className="one-col">
+                                            <p>Team</p>
+                                            <div>
+                                                <StarRatingComponent 
+                                                    name="team" 
+                                                    starCount={5}
+                                                    value={teamValue}
+                                                    onStarClick={changeRating}
+                                                    emptyStarColor={'#e5e5e5'}
+                                                />
+                                            </div>
+                                        </div>
+                                    </Col>
+                                    <Col lg={2} md={4} sm={6}>
+                                        <div className="one-col">
+                                            <p>Originality</p>
+                                            <div>
+                                                <StarRatingComponent 
+                                                    name="originality" 
+                                                    starCount={5}
+                                                    value={originalityValue}
+                                                    onStarClick={changeRating}
+                                                    emptyStarColor={'#e5e5e5'}
+                                                />
+                                            </div>
+                                        </div>
                                     </Col>
                                 </Row>
-                            </Container>
-                        </div>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col lg="12" md="12" sm="12">
-                        <p className="panel-title">Discussion</p>
-                        <div className="project-discussion">
-                            <div className="project-discussion-header row">
-                                <Col lg="9" md="9" sm="6"></Col>
-                                <Col lg="3" md="3" sm="6">
-                                    <Button variant="primary" onClick={handleShow}>Add new post</Button>
-                                </Col>
                             </div>
-                        </div>
-                        <div className="project-discussion-body">
-                            <Container>
-                                {posts}
-                            </Container>
-                        </div>
-                    </Col>
-                </Row>
-                <div className="text-center back">
-                    <Link to="/">&lt;&lt;-back to projects</Link>
-                </div>
-            </Container>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col lg="12" md="12" sm="12">
+                            <p className="panel-title">Description</p>
+                            <div className="project-panel"> 
+                                <p>
+                                { project ? project.description : '' }
+                                </p>
+                            </div>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col lg="12" md="12" sm="12">
+                            <p className="panel-title">Team Members Needed</p>
+                            <div className="project-panel project-team"> 
+                                <Container>
+                                    <p>
+                                        The following team members are needed for this project. Select a role if you would like to be considered.
+                                    </p>
+                                    <Row>
+                                        <Col lg="6" md="6" sm="12" className="text-center team-member-button" >
+                                            <Button className="no-selected" name="marketing" id="marketing" value="0" onClick={changeTeamMember}>Marketing Manager</Button>
+                                        </Col>
+                                        <Col lg="6" md="6" sm="12" className="text-center team-member-button">
+                                            <Button className="no-selected" name="discord" id="discord" value="0"  onClick={changeTeamMember}>Discord Moderator</Button>
+                                        </Col>
+                                        <Col lg="6" md="6" sm="12" className="text-center team-member-button">
+                                            <Button className="no-selected" name="contract" id="contract" value="0"  onClick={changeTeamMember}>Smart Contract Developer</Button>
+                                        </Col>
+                                        <Col lg="6" md="6" sm="12" className="text-center team-member-button">
+                                            <Button className="no-selected" name="web" id="web" value="0"  onClick={changeTeamMember}>Web Developer</Button>
+                                        </Col>
+                                    </Row>
+                                </Container>
+                            </div>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col lg="12" md="12" sm="12">
+                            <p className="panel-title">Discussion</p>
+                            <div className="project-discussion">
+                                <div className="project-discussion-header row">
+                                    <Col lg="9" md="9" sm="6"></Col>
+                                    <Col lg="3" md="3" sm="6">
+                                        <Button variant="primary" onClick={handleShow}>Add new post</Button>
+                                    </Col>
+                                </div>
+                            </div>
+                            <div className="project-discussion-body">
+                                <Container>
+                                    {posts}
+                                </Container>
+                            </div>
+                        </Col>
+                    </Row>
+                    <div className="text-center back">
+                        <Link to="/">&lt;&lt;-back to projects</Link>
+                    </div>
+                </Container>
+            </BlockUi>
             <Modal show={show} size="lg" onHide={handleClose}>
                 <Modal.Body>
                     <Form.Group>
