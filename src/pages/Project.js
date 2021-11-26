@@ -23,12 +23,13 @@ const Project = (props) => {
     const [posts, setPosts] = useState([])
     const [voteState, setVoteState] = useState(false)
 
-    useEffect( () => {
-        if(init) {
-            getProject()
+    useEffect( async () => {
+        if(props.userInfo.username) {
+            await getProject()
         }
     }, [artValue, roadMapValue, utilityValue, communityValue, originalityValue, teamValue, 
-        show, project ? project.name : project, creator ? creator.name : creator, post, posts.length] )
+        show, project ? project.name : project, creator ? creator.name : creator, post, posts.length,
+    props.userInfo.username] )
     
     const getProject = async () => {
         let tableName = (t == 1) ? 'project_proposal' : 'project_outside'
@@ -44,7 +45,6 @@ const Project = (props) => {
                         setCreator(creatorData)
                     }
                 })
-
                 const team = newAry.team
                 if(team) {
                     for(let i in team) {
@@ -60,7 +60,7 @@ const Project = (props) => {
                 }
 
                 const rating = newAry.rating
-                if(rating && rating[props.userInfo.username] && init) {
+                if(rating && rating[props.userInfo.username]) {
                     const ratingUserData = rating[props.userInfo.username]
                     for(let i in ratingUserData) {
                         const ratingValue = Object.values(ratingUserData[i])[0]
@@ -88,7 +88,7 @@ const Project = (props) => {
                 }
 
                 const postData = newAry.post
-                if(postData && init) {
+                if(postData) {
                     let postHtml = []
                     for(let i in postData) {
                         let onePost = postData[i]
@@ -102,7 +102,6 @@ const Project = (props) => {
                 }
 
                 const voteData = newAry.vote
-                console.log(voteData)
                 if(voteData && init) {
                     for(let i in voteData) {
                         if(voteData[i] == props.userInfo.username) {
@@ -112,7 +111,7 @@ const Project = (props) => {
                     }
                 }
                 
-                setInit(false)
+                // setInit(true)
             }
         } )
     }
