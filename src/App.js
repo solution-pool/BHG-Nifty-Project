@@ -13,6 +13,7 @@ function App() {
   
   const [walletAddress, setAddress] = useState('');
   const [userInfo, setUserInfo] = useState({})
+  const [userLoad, setUserLoad] = useState(false) 
     
   useEffect( () => {
       walletConnect()
@@ -45,7 +46,6 @@ function App() {
       if(snapshot.exists) {
         const newAry = snapshot.val()
         if(newAry) {
-
             for(let i in newAry) {
                 let data = newAry[i]
                 if(data.username == accountAddress) {
@@ -54,6 +54,7 @@ function App() {
                   break
                 }
             }
+            setUserLoad(true)
         }
     }
     })
@@ -61,10 +62,10 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Home walletConnect={walletConnect} walletAddress={walletAddress} userInfo={userInfo} />} />
-        <Route path="project/:id/:t" element={<Project walletConnect={walletConnect} walletAddress={walletAddress} userInfo={userInfo} />} />
-        <Route path="proposal" element={<Proposal walletConnect={walletConnect} walletAddress={walletAddress} userInfo={userInfo} />} />
-        <Route path="outside" element={<Outside walletConnect={walletConnect} walletAddress={walletAddress} userInfo={userInfo} />} />      
+        <Route path="/" element={<Home walletConnect={walletConnect} walletAddress={walletAddress} userInfo={userInfo} userLoad={userLoad} />} />
+        <Route path="project/:id/:t" element={<Project walletConnect={walletConnect} walletAddress={walletAddress} userInfo={userInfo} userLoad={userLoad} />} />
+        <Route path="proposal" element={<Proposal walletConnect={walletConnect} walletAddress={walletAddress} userInfo={userInfo} userLoad={userLoad} />} />
+        <Route path="outside" element={<Outside walletConnect={walletConnect} walletAddress={walletAddress} userInfo={userInfo} userLoad={userLoad} />} />      
       </Routes>
     </BrowserRouter>
   );
