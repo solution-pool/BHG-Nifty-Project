@@ -3,57 +3,66 @@
     font-family: "Songwriter Draft";
     max-width: 80% !important;
     .panel-title {
-        margin-bottom: 0px;
-        margin-top: 2.5rem;
+        margin-bottom: 0.5vw;
+        margin-top: 3vw;
         font: {
-            size: 1.2rem;
+            size: 1.5vw;
             weight: 700;
         }
     }
     .project-panel {
         border: 1px solid gray;
-        border-radius: 0.5rem;
-        padding: 1rem 2rem 1rem 2rem;
+        border-radius: 1vw;
+        padding: 1vw 2vw 1vw 2vw;
         box-shadow: 2px 2px 2px 0px rgba(#000000,0.5);
     }
     .project-detail {
+        position: relative;
+        height: 32vw;
         .project-name {
             text-align: center;
+            font-size: 2.5vw;
             font-weight: 700;
         }
         .project-condition {
-            margin-bottom: 2.5rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            margin-top: 1vw;
             div {
                 width: 33.33%;
                 text-align: center;
-                float:left;
-                font-size: 1.2rem;
+                float: left;
+                font-size: 1.4vw;
                 opacity: 0.7;
-                line-height: 1rem;
+                line-height: 1.5;
             }
         }
         .project-thumbnail {
-            text-align: center;
-            margin-bottom: 2rem;
+            position: absolute;
+            height: 20vw;
+            width: 20vw;
+            top: 8vw;
+            left : 6vw;
             img {
-                height: 40vh;
-                width: 40vh;
+                width: 100%;
+                height: 100%;
                 box-shadow: 10px 10px 8px #888888;
             }
         }
         .project-upvote {
-            // text-align: center;
-            position: relative;
             button {
-                border-radius: 1rem;
-                color : $white;
+                border-radius: 1vw;
+                color: #FFFFFF;
                 margin: auto;
                 position: absolute;
-                top: 0;
-                left: calc(50% - 5.5rem);
+                bottom: -1.5vw;
+                width: 20vw;
+                font-size: 1.2vw;
+                left: calc(50% - 9.5vw);
                 font-weight: 500;
                 i {
-                    font-size: 1.2rem;
+                    font-size: 1.2vw;
                     font-weight: 900;
                 }
             }
@@ -61,22 +70,25 @@
     }
 
     .project-avatar {
+        position: relative;
+        height: 32vw;
         .photo {
-            margin: 2rem;
+            margin: 2vw;
             text-align: center;
             img {
-                height: 30vh;
-                width: 30vh;
+                height: 15vw;
+                width: 15vw;
             }
         }
         .detail {
-            font-size: 1.2rem;
-            margin: 1rem;
+            font-size: 1.3vw;
+            margin: 1vw;
             p {
                 margin-bottom: 0px;
                 overflow: hidden;
                 text-overflow: ellipsis;
-                line-height: 1.4;
+                white-space: nowrap;
+                line-height: 1.8;
             }
 
             .photo-label{
@@ -87,31 +99,40 @@
 
 
     .project-rate {
+        padding-bottom: 0 !important;
         p {
-            margin-bottom: 0px;
+            margin-top: 0.3vw;
+            margin-bottom: 0.3vw;
             text-align: center;
-            font-size: 0.75rem;
+            font-size: 1vw;
             font-weight: 800;
-            line-height: 0.8rem;
+            line-height: 1.2vw;
         }
         .one-col {
+            margin-bottom: 1vw;
             background-color: #f6f6f6;
             border: 1px solid gray;
-            border-radius: 0.5rem;
+            border-radius: 0.5vw;
             padding: 0rem;
-            line-height: 1rem;
+            line-height: 1.3vw;
             text-align: center;
-            margin: 0.25rem;
             .dv-star-rating {
                 .dv-star-rating-star {
                     i {
-                        font-size: 1.1rem;
-                        padding: .05rem;
+                        font-size: 1.9vw;
+                        padding: .2vw;
                     }
                 }
             }
         }
     }
+
+    .project-description {
+        p {
+            font-size: 1.2vw;
+        }
+    }
+
     .project-team {
         p {
             margin-bottom: 0px;
@@ -119,7 +140,10 @@
             font-size: 1.2vw;
         }
         .team-member-button {
-            margin-top: 0.5rem;
+            margin-top: 1vw;
+            button {
+                font-size: 1.2vw;
+            }
             .selected {
                 background-color: #0d6efd;
                 border: #0d6efd;
@@ -136,15 +160,21 @@
     }
     .project-discussion {
         border: 1px solid gray;
-        border-radius: 0.5rem 0.5rem 0  0  ;
-        padding: 1rem 1.5rem 1rem 1.5rem;
+        border-radius: 1vw 1vw 0  0  ;
+        padding: 1vw 1.5vw 1vw 1.5vw;
         box-shadow: 2px 0px 0px 0px rgba(#000000, 0.5);
-            background-color: #e8e8e8;
+        background-color: #e8e8e8; 
+        .project-discussion-header {
+            text-align: right;
+            button {
+                font-size: 1.2vw;
+            }
+        }
     }
 
     .project-discussion-body {
-        padding-top: 2rem;
-        border-radius: 0 0 0.5rem 0.5rem;
+        padding-top: 2vw;
+        border-radius: 0 0 1vw 1vw;
         box-shadow: 2px 0px 0px 0px rgba(#000000, 0.5);
         border: 1px solid gray;
         background-color: white;
@@ -157,16 +187,28 @@
                 .discussion-button {
                     .action {
                         button {
+                            padding: 0;
+                            padding-top: .5vw;
+                            padding-bottom: .5vw;
+                            width: 3vw;
                             margin-left: 0.2rem;
+                            margin-bottom: 1vw;
+                            i {
+                                text-align: center;
+                            }
                         }
                     }
                     .vote-count {
                         margin-top: 0.5rem;
                         button {
+                            margin-bottom: 1vw;
+                            padding: 0;
+                            padding-top: .5vw;
+                            padding-bottom: .5vw;
+                            width: 3vw;
                             background-color: #faf4ec;
                             color: black;
                             margin-left: 0.2rem;
-                            padding : 0.5rem 0.9rem 0.5rem 0.9rem;
                             border-radius: 0px;
                             border-color: #faf4ec;
                             font-weight: 400;
@@ -176,21 +218,344 @@
                 }
 
                 .discussion-content {
-                    padding: 1rem;
-                    background-color: #f2f2f2;
+                    div {
+                        padding: 1vw;
+                        font-size: 1.2vw;
+                        background-color: #f2f2f2;
+                    }
                 }
             }
         }
     }
 
     .back {
-        margin-top: 1rem;
-        margin-bottom: 2rem;
+        font-size: 1.2vw;
+        margin-top: 1vw;
+        margin-bottom: 2vw;
         a {
             color: black;
         }
     }
 }
+
+@media only screen and (max-width: 991px) and (min-width: 768px) {
+    .project {
+        .panel-title {
+            margin-bottom: 1vw;
+            margin-top: 6vw;
+            font: {
+                size: 3vw;
+                weight: 700;
+            }
+        }
+        .project-panel {
+            border-radius: 2vw;
+            padding: 2vw 4vw 2vw 4vw;
+        }
+        .project-detail {
+            height: 64vw;
+            .project-name {
+                font-size: 5vw;
+            }
+            .project-condition {
+                
+                margin-top: 2vw;
+                div {
+                    font-size: 2.8vw;
+                }
+            }
+            .project-thumbnail {
+                height: 40vw;
+                width: 40vw;
+                top: 16vw;
+                left : 19vw;
+            }
+            .project-upvote {
+                button {
+                    border-radius: 2vw;
+                    bottom: -3vw;
+                    width: 40vw;
+                    font-size: 2.4vw;
+                    left: calc(50% - 19vw);
+                    i {
+                        font-size: 2.4vw;
+                    }
+                }
+            }
+        }
+    
+        .project-avatar {
+            height: 64vw;
+            .photo {
+                margin: 4vw;
+                img {
+                    height: 30vw;
+                    width: 30vw;
+                }
+            }
+            .detail {
+                font-size: 2.6vw;
+                margin: 2vw;
+            }
+        }
+    
+    
+        .project-rate {
+            p {
+                margin-top: 0.6vw;
+                margin-bottom: 0.6vw;
+                font-size: 2vw;
+                line-height: 2.4vw;
+            }
+            .one-col {
+                margin-bottom: 2vw;
+                border-radius: 1vw;
+                line-height: 2.6vw;
+                .dv-star-rating {
+                    .dv-star-rating-star {
+                        i {
+                            font-size: 3.4vw;
+                            padding: .4vw;
+                        }
+                    }
+                }
+            }
+        }
+    
+        .project-description {
+            p {
+                font-size: 2.4vw;
+            }
+        }
+    
+        .project-team {
+            p {
+                font-size: 2.4vw;
+            }
+            .team-member-button {
+                margin-top: 2vw;
+                button {
+                    font-size: 2.4vw;
+                }
+            }
+        }
+        .project-discussion {
+            border-radius: 2vw 2vw 0  0  ;
+            padding: 2vw 3vw 2vw 3vw;
+            .project-discussion-header {
+                button {
+                    font-size: 2.4vw;
+                }
+            }
+        }
+    
+        .project-discussion-body {
+            padding-top: 4vw;
+            border-radius: 0 0 2vw 2vw;
+            .container {
+                padding-left: 10vw;
+                padding-right: 10vw;
+                padding-bottom: 6vw;
+                .row {
+                    margin-top: 3vw;
+                    .discussion-button {
+                        .action {
+                            button {
+                                padding-top: 1vw;
+                                padding-bottom: 1vw;
+                                width: 6vw;
+                                margin-left: 0.4vw;
+                            }
+                        }
+                        .vote-count {
+                            margin-top: 1vw;
+                            button {
+                                padding-top: 1vw;
+                                padding-bottom: 1vw;
+                                width: 6vw;
+                                margin-left: 0.4vw;
+                                font-size: 2vw;
+                            }
+                        }
+                    }
+    
+                    .discussion-content {
+                        div {
+                            padding: 2vw;
+                            font-size: 2.4vw;
+                        }
+                    }
+                }
+            }
+        }
+    
+        .back {
+            font-size: 2.4vw;
+            margin-top: 2vw;
+            margin-bottom: 4vw;
+        }
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    .project {
+        .panel-title {
+            margin-bottom: 1vw;
+            margin-top: 6vw;
+            font: {
+                size: 3vw;
+                weight: 700;
+            }
+        }
+        .project-panel {
+            border-radius: 2vw;
+            padding: 2vw 4vw 2vw 4vw;
+        }
+        .project-detail {
+            height: 64vw;
+            .project-name {
+                font-size: 5vw;
+            }
+            .project-condition {
+                
+                margin-top: 2vw;
+                div {
+                    font-size: 2.8vw;
+                }
+            }
+            .project-thumbnail {
+                height: 40vw;
+                width: 40vw;
+                top: 16vw;
+                left : 19vw;
+            }
+            .project-upvote {
+                button {
+                    border-radius: 2vw;
+                    bottom: -3vw;
+                    width: 40vw;
+                    font-size: 2.4vw;
+                    left: calc(50% - 19vw);
+                    i {
+                        font-size: 2.4vw;
+                    }
+                }
+            }
+        }
+    
+        .project-avatar {
+            height: 64vw;
+            .photo {
+                margin: 4vw;
+                img {
+                    height: 30vw;
+                    width: 30vw;
+                }
+            }
+            .detail {
+                font-size: 2.6vw;
+                margin: 2vw;
+            }
+        }
+    
+    
+        .project-rate {
+            p {
+                margin-top: 0.6vw;
+                margin-bottom: 0.6vw;
+                font-size: 2.5vw;
+                line-height: 2.4vw;
+            }
+            .one-col {
+                margin-bottom: 2vw;
+                border-radius: 1vw;
+                line-height: 2.6vw;
+                .dv-star-rating {
+                    .dv-star-rating-star {
+                        i {
+                            font-size: 5.1vw;
+                            padding: 1vw;
+                        }
+                    }
+                }
+            }
+        }
+    
+        .project-description {
+            p {
+                font-size: 2.4vw;
+            }
+        }
+    
+        .project-team {
+            p {
+                font-size: 2.4vw;
+            }
+            .team-member-button {
+                margin-top: 2vw;
+                button {
+                    font-size: 2.4vw;
+                }
+            }
+        }
+        .project-discussion {
+            border-radius: 2vw 2vw 0  0  ;
+            padding: 2vw 3vw 2vw 3vw;
+            .project-discussion-header {
+                button {
+                    font-size: 2.4vw;
+                }
+            }
+        }
+    
+        .project-discussion-body {
+            padding-top: 4vw;
+            border-radius: 0 0 2vw 2vw;
+            .container {
+                padding-left: 10vw;
+                padding-right: 10vw;
+                padding-bottom: 6vw;
+                .row {
+                    margin-top: 3vw;
+                    .discussion-button {
+                        .action {
+                            button {
+                                padding-top: 1vw;
+                                padding-bottom: 1vw;
+                                width: 6vw;
+                                margin-left: 0.4vw;
+                            }
+                        }
+                        .vote-count {
+                            margin-top: 1vw;
+                            button {
+                                padding-top: 1vw;
+                                padding-bottom: 1vw;
+                                width: 6vw;
+                                margin-left: 0.4vw;
+                                font-size: 2vw;
+                            }
+                        }
+                    }
+    
+                    .discussion-content {
+                        div {
+                            padding: 2vw;
+                            font-size: 2.4vw;
+                        }
+                    }
+                }
+            }
+        }
+    
+        .back {
+            font-size: 2.4vw;
+            margin-top: 2vw;
+            margin-bottom: 4vw;
+        }
+    }
+}
+
 .modal-footer {
     border-top: 0px !important;
 }

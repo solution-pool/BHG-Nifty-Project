@@ -77,9 +77,11 @@ const Post = (props) => {
                 </div>
             </Col>
             <Col lg="10" md="10" sm="10" xs="10" className="discussion-content">
-                <p>
-                    {props.data.content}
-                </p>
+                <div>
+                    <p>
+                        {props.data.content}
+                    </p>
+                </div>
             </Col>
         </Row>
     );

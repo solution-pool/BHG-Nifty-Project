@@ -251,7 +251,7 @@ const Project = (props) => {
                                     {
                                         (project && project.files) ? 
                                         (<img src={project.files[0]} />) :
-                                        (<div style={{height:"40vh", width:"40vh", backgroundColor:"black",margin:"auto"}}></div>)
+                                        (<div className="default-image"></div>)
                                     }
                                 </div>
                                 <div className="project-upvote">
@@ -378,7 +378,7 @@ const Project = (props) => {
                     <Row>
                         <Col lg="12" md="12" sm="12">
                             <p className="panel-title">Description</p>
-                            <div className="project-panel"> 
+                            <div className="project-panel project-description"> 
                                 <p>
                                 { project ? project.description : '' }
                                 </p>
@@ -416,8 +416,8 @@ const Project = (props) => {
                             <p className="panel-title">Discussion</p>
                             <div className="project-discussion">
                                 <div className="project-discussion-header row">
-                                    <Col lg="9" md="9" sm="6"></Col>
-                                    <Col lg="3" md="3" sm="6">
+                                    <Col lg="9" md="8" sm="6"></Col>
+                                    <Col lg="3" md="4" sm="6">
                                         <Button variant="primary" onClick={handleShow}>Add new post</Button>
                                     </Col>
                                 </div>
