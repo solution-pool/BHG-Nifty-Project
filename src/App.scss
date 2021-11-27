@@ -15,6 +15,11 @@ a {
     text-decoration: none !important;
 }
 
+@font-face {
+    font-family: "Songwriter Draft";
+    src: local("Songwriter Draft"), url('./assets/fonts/SongwriterDraft-Regular.6bd4a9c8.otf');
+}
+
 @import "./assets/stylesheet/header.scss";
 @import "./assets/stylesheet/avatar.scss";
 @import "./assets/stylesheet/content.scss";
