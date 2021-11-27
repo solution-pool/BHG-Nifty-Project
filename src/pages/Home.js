@@ -18,7 +18,7 @@ const Home = (props) => {
     useEffect( async () => {
         
         if(props.userLoad) {
-            if(props.userInfo.username) {
+            if(props.userInfo.wallet) {
                 setBlock(false)
             } else {
                 setBlock(true)
@@ -28,7 +28,7 @@ const Home = (props) => {
             setBlock(true)
         }
         display(sort)
-    }, [projectContainer.length, props.userInfo.username, props.userLoad])
+    }, [projectContainer.length, props.userInfo.wallet, props.userLoad])
 
     const changeSort = async (e) => {
         setSort(e.target.value)

@@ -19,7 +19,7 @@ const Panel = (props) => {
 
     useEffect( () => {
         if(props.userLoad) {
-            if(props.userInfo.username) {
+            if(props.userInfo.wallet) {
                 setBlock(false)
             } else {
                 setBlock(true)
@@ -71,7 +71,7 @@ const Panel = (props) => {
                 }
             }
         }   
-    }, [props.proposal, props.userInfo.username, props.userLoad, resetFlag] )
+    }, [props.proposal, props.userInfo.wallet, props.userLoad, resetFlag] )
 
     const changeReset = () => {
         setArt(0)

@@ -17,7 +17,7 @@ const Avatar = (props) => {
             <Col lg="5" md="12" sm="12" xs="12">
                 <Row className="avatar-description">
                     <Col lg="6" md="6" sm="6" xs="6" className="avatar-label"><p>submitted by:</p></Col>
-                    <Col lg="5" md="5" sm="5" xs="5" className="avatar-profile"><p>{props.userInfo.username}</p></Col>
+                    <Col lg="5" md="5" sm="5" xs="5" className="avatar-profile"><p>{props.userInfo.wallet}</p></Col>
                     <Col lg="6" md="6" sm="6" xs="6" className="avatar-label"><p>submission date:</p></Col>
                     <Col lg="5" md="5" sm="5" xs="5" className="avatar-profile"><p>
                         { today.getFullYear() + ' / ' + (today.getMonth() + 1) + ' / ' + today.getDate() }</p>

@@ -31,7 +31,7 @@ const Project = (props) => {
     useEffect( async () => {
         
         if(props.userLoad) {
-            if(props.userInfo.username) {
+            if(props.userInfo.wallet) {
                 setBlock(true)
                 setMessage('')
                 await getProject()
@@ -45,7 +45,7 @@ const Project = (props) => {
         }
     }, [artValue, roadMapValue, utilityValue, communityValue, originalityValue, teamValue, 
         show, project ? project.name : project, creator ? creator.name : creator, post, posts.length,
-    props.userInfo.username, props.userLoad] )
+    props.userInfo.wallet, props.userLoad] )
     
     const getProject = async () => {
         let tableName = (t == 1) ? 'project_proposal' : 'project_outside'
@@ -63,8 +63,8 @@ const Project = (props) => {
                     }
                 })
                 const team = newAry.team
-                if(team && team[props.userInfo.username]) {
-                    const teamData = team[props.userInfo.username]
+                if(team && team[props.userInfo.wallet]) {
+                    const teamData = team[props.userInfo.wallet]
                     for(let i in teamData) {
                         let htmlContainer = document.getElementById(i)
                         if(teamData[i] == 1) {
@@ -78,8 +78,8 @@ const Project = (props) => {
                 }
 
                 const rating = newAry.rating
-                if(rating && rating[props.userInfo.username]) {
-                    const ratingUserData = rating[props.userInfo.username]
+                if(rating && rating[props.userInfo.wallet]) {
+                    const ratingUserData = rating[props.userInfo.wallet]
                     for(let i in ratingUserData) {
                         const ratingValue = Object.values(ratingUserData[i])[0]
                         switch (i) {
@@ -122,7 +122,7 @@ const Project = (props) => {
                 const voteData = newAry.vote
                 if(voteData && init) {
                     for(let i in voteData) {
-                        if(voteData[i] == props.userInfo.username) {
+                        if(voteData[i] == props.userInfo.wallet) {
                             setVoteState(true)
                             break
                         }
@@ -158,7 +158,7 @@ const Project = (props) => {
             default:
                 break
         }
-        let userID = props.userInfo.username
+        let userID = props.userInfo.wallet
 
         let tableName = (t == 1) ? 'project_proposal' : 'project_outside'
         const ratingRef   = database.ref(tableName + '/' + id + '/rating/' + userID + '/' + name + '/')
@@ -191,7 +191,7 @@ const Project = (props) => {
             e.target.className = 'no-selected  btn btn-primary'
         }
         let tableName = (t == 1) ? 'project_proposal' : 'project_outside'
-        const teamRef = database.ref(tableName + '/' + id + '/team/' + props.userInfo.username + '/')
+        const teamRef = database.ref(tableName + '/' + id + '/team/' + props.userInfo.wallet + '/')
 
         teamRef.update(team)
 
@@ -203,7 +203,7 @@ const Project = (props) => {
     }
 
     const handleSave = () => {
-        const username = props.userInfo.username
+        const wallet = props.userInfo.wallet
         let tableName = (t == 1) ? 'project_proposal' : 'project_outside'
         const postRef = database.ref(tableName + '/' + id + '/post/')
         const newPostRef = postRef.push()
@@ -211,7 +211,7 @@ const Project = (props) => {
             up : 0,
             down : 0,
             content : post,
-            poster : username,
+            poster : wallet,
         })
         setPost('')
         setShow(false);
@@ -223,7 +223,7 @@ const Project = (props) => {
     const vote = () => {
         let tableName = (t == 1) ? 'project_proposal' : 'project_outside'
         const voteRef = database.ref(tableName + '/' + id + '/vote/')
-        voteRef.push().set(props.userInfo.username)
+        voteRef.push().set(props.userInfo.wallet)
         setVoteState(true)
         voteRef.get().then( (snapshot) => {
             if(snapshot.exists) {

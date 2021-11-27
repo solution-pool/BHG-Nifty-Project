@@ -34,7 +34,7 @@ const Proposal = (props) => {
     useEffect( async () => {
         
         if(props.userLoad) {
-            if(props.userInfo.username) {
+            if(props.userInfo.wallet) {
                 setBlock(false)
                 setMessage('Loading...')
             } else {
@@ -153,7 +153,7 @@ const Proposal = (props) => {
             price: price,
             description: detailedProjectDescription,
             interest: JSON.stringify(interest),
-            creator: props.userInfo.username,
+            creator: props.userInfo.wallet,
             creatorPath: props.userInfo.id,
             createDate : today.getFullYear() + ' / ' + (today.getMonth() + 1) + ' / ' + today.getDate()
         }

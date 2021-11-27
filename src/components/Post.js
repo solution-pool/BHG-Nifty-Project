@@ -31,14 +31,14 @@ const Post = (props) => {
 
     const up = async () => {
         let tableName = (props.data.t == 1) ? 'project_proposal' : 'project_outside'
-        const votePostRef = database.ref(tableName + '/' + props.data.id + '/post/' + props.data.postID + '/vote/' + props.userInfo.username + '/')
+        const votePostRef = database.ref(tableName + '/' + props.data.id + '/post/' + props.data.postID + '/vote/' + props.userInfo.wallet + '/')
         votePostRef.set(1)
         await resetPostData()
     }
 
     const down = async () => {
         let tableName = (props.data.t == 1) ? 'project_proposal' : 'project_outside'
-        const votePostRef = database.ref(tableName + '/' + props.data.id + '/post/' + props.data.postID + '/vote/' + props.userInfo.username + '/')
+        const votePostRef = database.ref(tableName + '/' + props.data.id + '/post/' + props.data.postID + '/vote/' + props.userInfo.wallet + '/')
         votePostRef.set(-1)
         await resetPostData()
     }

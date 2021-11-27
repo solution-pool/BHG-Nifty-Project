@@ -53,7 +53,7 @@ const Outside = (props) => {
     useEffect( () => {
 
         if(props.userLoad) {
-            if(props.userInfo.username) {
+            if(props.userInfo.wallet) {
                 setBlock(false)
                 setMessage('Loading...')
             } else {
@@ -175,7 +175,7 @@ const Outside = (props) => {
             twitter: twitter,
             opensea: opensea,
             description: description,
-            creator: props.userInfo.username,
+            creator: props.userInfo.wallet,
             creatorPath: props.userInfo.id,
             createDate: today.getFullYear() + ' / ' +  (today.getMonth() + 1) + ' / ' + today.getDate()
         }
