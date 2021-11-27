@@ -22,7 +22,7 @@ const Home = (props) => {
                 setBlock(false)
             } else {
                 setBlock(true)
-                NotificationManager.error('You are not registered as a Nifty member. Please sign up first.', 'Erro', 5000)
+                NotificationManager.error('You are not registered as a Nifty member. Please sign up first.', 'Error', 5000)
             }
         } else {
             setBlock(true)
