@@ -12,15 +12,15 @@ const Header = (props) => {
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="me-auto">
                         <Nav.Link href="https://twitter.com/nifty_io">
-                            {/* <span>Twitter</span> */}
+                            <span>Twitter</span>
                             <img src={require('../assets/img/twitter.svg').default} alt="Twitter icon" />
                         </Nav.Link>
                         <Nav.Link href="https://discord.com/invite/nifty">
-                            {/* <span>Discord</span> */}
+                            <span>Discord</span>
                             <img src={require('../assets/img/discord.svg').default} alt="Discord icon" />
                         </Nav.Link>
                         <Nav.Link href="https://opensea.io/collection/nodestones">
-                            {/* <span>Opensea</span> */}
+                            <span>Opensea</span>
                             <img src={require('../assets/img/opensea.svg').default} alt="Opensea icon" />
                         </Nav.Link>
                     </Nav>

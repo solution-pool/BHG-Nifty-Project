@@ -29,4 +29,72 @@
         }
     }
 }
+
+@media only screen and (min-width: 992px) {
+    .navbar {
+        .container {
+            .navbar-collapse {
+                .me-auto {
+                    .nav-link {
+                        span {
+                            display: none !important;
+                        }
+
+                        img {
+                            display: block !important;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+}
+
+@media only screen and (max-width: 991px) {
+    .navbar {
+        .container {
+            display: block !important;
+            .navbar-collapse {
+                top: 4.3rem;
+                position: absolute !important;
+                max-width: 200vw;
+                height: auto!important;
+                left: 24vw;
+                margin: 0.7rem;
+                margin-right: 0.4rem;
+                background-color: black;
+                border-radius: 0.2857rem;
+                z-index: 101;
+                .navbar-nav {
+                    display: none;
+                }
+                .me-auto {
+                    display: block;
+                    .nav-link {
+                        color : white !important;
+                        font-size: 4vw;
+                        color: #fff;
+                        padding: 1.5vw 4vw !important;
+                        text-decoration: none;
+                        span {
+                            display: block !important;
+                        }
+
+                        img {
+                            display: none !important;
+                        }
+                    }
+                    .nav-link:hover {
+                        background-color: #fff;
+                        color: #000;
+                    }
+                }
+            }
+            .navbar-toggler {
+                position: relative;
+            }
+        }
+    }
+}
             
