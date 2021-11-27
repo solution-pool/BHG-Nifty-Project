@@ -26,14 +26,14 @@ const Project = (props) => {
     const [voteState, setVoteState] = useState(false)
     const [voteCount, setVoteCount] = useState(0)
     const [blocking, setBlock] = useState(false)
-    const [message, setMessage] = useState('Checking connnection...')
+    const [message, setMessage] = useState('')
 
     useEffect( async () => {
         
         if(props.userLoad) {
             if(props.userInfo.username) {
                 setBlock(true)
-                setMessage('Loading...')
+                setMessage('')
                 await getProject()
             } else {
                 setMessage(ReactHtmlParser("You are not registered as a Nifty member. Please sign up first. <a href='/'> Back </a>"))
@@ -41,7 +41,7 @@ const Project = (props) => {
             }
         } else {
             setBlock(true)
-            setMessage('Checking connnection...')
+            setMessage('')
         }
     }, [artValue, roadMapValue, utilityValue, communityValue, originalityValue, teamValue, 
         show, project ? project.name : project, creator ? creator.name : creator, post, posts.length,
