@@ -89,15 +89,15 @@ const Panel = (props) => {
                     <div className="submit-project">
                         <div className="panel-title">
                             <span className="submit">
-                                <span className="title-label">Submitted by :</span> 
+                                <span className="title-label">Submitted by:&nbsp;</span> 
                                 <small>{props.proposal.creator}</small>
                             </span>
                             <span className="price">
-                                <span className="title-label">Price :</span>
+                                <span className="title-label">Price:&nbsp;</span>
                                 <small>{props.proposal.price}</small>
                             </span>
                             <span className="supply">
-                                <span className="title-label">Supply :</span>
+                                <span className="title-label">Supply:&nbsp;</span>
                                 <small>{props.proposal.supply}</small>
                             </span>
                         </div>
