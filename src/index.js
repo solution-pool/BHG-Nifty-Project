@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import './assets/fonts/SongwriterDraft-Regular.6bd4a9c8.otf';
 
 const rootElement = document.getElementById('root')
 ReactDOM.render(

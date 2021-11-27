@@ -7,8 +7,7 @@ import { database } from '../config/firebase';
 import Post from '../components/Post';
 import BlockUi from 'react-block-ui';
 import 'react-block-ui/style.css';
-import ReactHtmlParser from 'react-html-parser'
-
+import ReactHtmlParser from 'react-html-parser';
 const Project = (props) => {
     const [project, setProject] = useState({})
     const [artValue, setArtValue] = useState(0)
