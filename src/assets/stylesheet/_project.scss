@@ -142,8 +142,26 @@
         }
         .team-member-button {
             margin-top: 1vw;
-            button {
-                font-size: 1.2vw;
+            background-color: white;
+            .team-member {
+                font-size: 1.8vw;
+                background-color: #f4f4f4;
+                .applicants {
+                    background-color: white;
+                    border: #888888 1px solid;
+                    padding: 0.1vw;
+                    float: right;
+                    .applicants-count {
+                        color: #888888;
+                        font-size: 1.5vw;
+                        line-height: 1.5vw;
+                    }
+                    .applicants-applicants {
+                        color: #888888;
+                        line-height: 0.8vw;
+                        font-size: 0.8vw;
+                    }
+                }
             }
             .selected {
                 background-color: #0d6efd;
@@ -334,9 +352,39 @@
                 font-size: 2.4vw;
             }
             .team-member-button {
-                margin-top: 2vw;
-                button {
-                    font-size: 2.4vw;
+                margin-top: 1vw;
+                background-color: white;
+                .team-member {
+                    font-size: 3.6vw;
+                    background-color: #f4f4f4;
+                    .applicants {
+                        background-color: white;
+                        border: #888888 1px solid;
+                        padding: 0.2vw;
+                        float: right;
+                        .applicants-count {
+                            color: #888888;
+                            font-size: 3vw;
+                            line-height: 3vw;
+                        }
+                        .applicants-applicants {
+                            color: #888888;
+                            line-height: 1.6vw;
+                            font-size: 1.6vw;
+                        }
+                    }
+                }
+                .selected {
+                    background-color: #0d6efd;
+                    border: #0d6efd;
+                    color: white;
+                    width: 80%;
+                }
+                .no-selected {
+                    background-color: #f4f4f4;
+                    border: #f4f4f4;
+                    color: black;
+                    width: 80%;
                 }
             }
         }
@@ -492,10 +540,41 @@
             p {
                 font-size: 2.4vw;
             }
+
             .team-member-button {
                 margin-top: 2vw;
-                button {
-                    font-size: 2.4vw;
+                background-color: white;
+                .team-member {
+                    font-size: 3.6vw;
+                    background-color: #f4f4f4;
+                    .applicants {
+                        background-color: white;
+                        border: #888888 1px solid;
+                        padding: 0.2vw;
+                        float: right;
+                        .applicants-count {
+                            color: #888888;
+                            font-size: 3vw;
+                            line-height: 3vw;
+                        }
+                        .applicants-applicants {
+                            color: #888888;
+                            line-height: 1.6vw;
+                            font-size: 1.6vw;
+                        }
+                    }
+                }
+                .selected {
+                    background-color: #0d6efd;
+                    border: #0d6efd;
+                    color: white;
+                    width: 80%;
+                }
+                .no-selected {
+                    background-color: #f4f4f4;
+                    border: #f4f4f4;
+                    color: black;
+                    width: 80%;
                 }
             }
         }

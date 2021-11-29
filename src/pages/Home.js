@@ -29,7 +29,6 @@ const Home = (props) => {
             setBlock(true)
         }
         display()
-        console.log('Herer')
     }, [projectContainer.length, props.userInfo.wallet, props.userLoad, sort, type])
 
     const changeSort = (e) => {

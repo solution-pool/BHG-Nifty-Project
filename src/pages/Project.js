@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import Header from '../components/Header';
-import { Container, Row, Col, Form, Button, Spinner, Modal } from 'react-bootstrap';
+import { Container, Row, Col, Form, Button, Spinner, Modal, Overlay, Popover } from 'react-bootstrap';
 import { Link, useParams } from 'react-router-dom';
 import StarRatingComponent from 'react-star-rating-component';
 import { database } from '../config/firebase';
@@ -8,6 +8,8 @@ import Post from '../components/Post';
 import BlockUi from 'react-block-ui';
 import 'react-block-ui/style.css';
 import ReactHtmlParser from 'react-html-parser';
+import { PROPOSAL_INTEREST } from '../config/constants';
+
 const Project = (props) => {
     const [project, setProject] = useState({})
     const [artValue, setArtValue] = useState(0)
@@ -21,12 +23,16 @@ const Project = (props) => {
     const [init, setInit] = useState(true)
     const [creator, setCreator] = useState({})
     const [teamMember, setTeamMember] = useState({})
+    const [teamContainer, setTeamContainer] = useState([])
     const [post, setPost] = useState('');
     const [posts, setPosts] = useState([])
     const [voteState, setVoteState] = useState(false)
     const [voteCount, setVoteCount] = useState(0)
     const [blocking, setBlock] = useState(false)
     const [message, setMessage] = useState('')
+    const [overlayShow, setOverlayShow] = useState(false)
+    const [target, setTarget] = useState(null)
+    const [applicants, setApplicants] = useState('')
 
     useEffect( async () => {
         
@@ -43,9 +49,22 @@ const Project = (props) => {
             setBlock(true)
             setMessage('')
         }
-    }, [artValue, roadMapValue, utilityValue, communityValue, originalityValue, teamValue, 
-        show, project ? project.name : project, creator ? creator.name : creator, posts.length,
-    props.userInfo.wallet, props.userLoad] )
+    }, [
+        artValue, 
+        roadMapValue, 
+        utilityValue, 
+        communityValue, 
+        originalityValue, 
+        teamValue, 
+        teamMember,
+        show, 
+        overlayShow,
+        project ? project.name : project, 
+        creator ? creator.name : creator, 
+        posts.length,
+        props.userInfo.wallet, 
+        props.userLoad
+    ] )
     
     const getProject = async () => {
         let tableName = (t == 1) ? 'project_proposal' : 'project_outside'
@@ -62,19 +81,46 @@ const Project = (props) => {
                         setCreator(creatorData)
                     }
                 })
+
+                const interest = JSON.parse(newAry.interest)
                 const team = newAry.team
-                if(team && team[props.userInfo.wallet]) {
-                    const teamData = team[props.userInfo.wallet]
-                    for(let i in teamData) {
-                        let htmlContainer = document.getElementById(i)
-                        if(teamData[i] == 1) {
-                            htmlContainer.className = 'selected  btn btn-primary'
-                            htmlContainer.value = 1
-                        } else {
-                            htmlContainer.className = 'no-selected  btn btn-primary'
-                            htmlContainer.value = 0
+                if(interest) {
+                    let container = []
+                    for(let oneInterest in interest) {
+                        let className = 'no-selected team-member btn btn-primary';
+                        let value = 0
+                        if(team && team[props.userInfo.wallet]) {
+                            const teamData = team[props.userInfo.wallet]
+                            if(teamData[oneInterest]) {
+                                className = 'selected team-member'
+                                value = 1
+                            } else {
+                                className = 'no-selected team-member'
+                                value = 0
+                            }
                         }
+                        let applicantCount = 0
+                        let applicantMember = ''
+                        for(let j in team) {
+                            const oneApplyData = team[j]
+                            if(oneApplyData[oneInterest] == 1) {
+                                applicantCount ++
+                                applicantMember += (j + '<br />')
+                            }
+                        }
+                        let one_container = <Col lg="6" md="12" sm="12" className="text-center team-member-button" >
+                                                <Button className={className} name={oneInterest} id={oneInterest} value={value} onClick={changeTeamMember}>
+                                                    {PROPOSAL_INTEREST[oneInterest]}
+                                                    <Button className="applicants" name={applicantMember} onClick={showApplicants}>
+                                                        <div className="applicants-count" name={applicantMember}>{applicantCount}</div>
+                                                        <div className="applicants-applicants" name={applicantMember}>applicants</div>
+                                                    </Button>
+                                                </Button>
+                                            </Col>
+                        container.push(one_container)
                     }
+
+                    setTeamContainer(container)
                 }
 
                 const rating = newAry.rating
@@ -188,16 +234,30 @@ const Project = (props) => {
         } )
     }
 
+    const showApplicants = (e) => {
+        console.log(e.target)
+        let content = ''
+        setOverlayShow(!overlayShow)
+        setTarget(e.target)
+        let value = e.target.name
+        console.log(e.target)
+        // setApplicants('Hello')
+
+        e.stopPropagation()
+    }
+
     const changeTeamMember = (e) => {
         const name = e.target.name
         const value = e.target.value
         let team = JSON.parse(JSON.stringify(teamMember))
+
+        console.log(e.target)
         team[name] = (1 - value)
         e.target.value = 1 - value
         if(value == 0) {
-            e.target.className = 'selected  btn btn-primary'
+            e.target.className = 'selected team-member btn btn-primary'
         } else {
-            e.target.className = 'no-selected  btn btn-primary'
+            e.target.className = 'no-selected team-member  btn btn-primary'
         }
         let tableName = (t == 1) ? 'project_proposal' : 'project_outside'
         const teamRef = database.ref(tableName + '/' + id + '/team/' + props.userInfo.wallet + '/')
@@ -403,18 +463,25 @@ const Project = (props) => {
                                         The following team members are needed for this project. Select a role if you would like to be considered.
                                     </p>
                                     <Row>
-                                        <Col lg="6" md="6" sm="12" className="text-center team-member-button" >
-                                            <Button className="no-selected" name="marketing" id="marketing" value="0" onClick={changeTeamMember}>Marketing Manager</Button>
+                                        {teamContainer}
+                                        {/* <Col lg="6" md="12" sm="12" className="text-center team-member-button" >
+                                            <Button className="no-selected team-member" name="marketing" id="marketing" value="0" onClick={changeTeamMember}>
+                                                <span>Marketing Manager</span>
+                                                <Button className="applicants">
+                                                    <div className="applicants-count">0</div>
+                                                    <div className="applicants-applicants">applicants</div>
+                                                </Button>
+                                            </Button>
                                         </Col>
-                                        <Col lg="6" md="6" sm="12" className="text-center team-member-button">
+                                        <Col lg="6" md="12" sm="12" className="text-center team-member-button">
                                             <Button className="no-selected" name="discord" id="discord" value="0"  onClick={changeTeamMember}>Discord Moderator</Button>
                                         </Col>
-                                        <Col lg="6" md="6" sm="12" className="text-center team-member-button">
+                                        <Col lg="6" md="12" sm="12" className="text-center team-member-button">
                                             <Button className="no-selected" name="contract" id="contract" value="0"  onClick={changeTeamMember}>Smart Contract Developer</Button>
                                         </Col>
-                                        <Col lg="6" md="6" sm="12" className="text-center team-member-button">
+                                        <Col lg="6" md="12" sm="12" className="text-center team-member-button">
                                             <Button className="no-selected" name="web" id="web" value="0"  onClick={changeTeamMember}>Web Developer</Button>
-                                        </Col>
+                                        </Col> */}
                                     </Row>
                                 </Container>
                             </div>
@@ -455,6 +522,20 @@ const Project = (props) => {
                     </Button>
                 </Modal.Footer>
             </Modal>
+            
+            <Overlay
+                show={overlayShow}
+                target={target}
+                placement="top"
+                // container={ref}
+                containerPadding={20}
+            >
+                <Popover id="popover-contained">
+                <Popover.Body>
+                    {applicants}
+                </Popover.Body>
+                </Popover>
+            </Overlay>
         </div>
     );
 }
