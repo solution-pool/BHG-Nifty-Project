@@ -303,7 +303,7 @@ const Project = (props) => {
     }
     return (
         <div>
-            <Header walletAddress={props.walletAddress} walletConnect={props.walletConnect} />
+            <Header walletAddress={props.walletAddress} walletConnect={props.walletConnect} userInfo={props.userInfo} />
             <BlockUi tag="div" blocking={blocking} message={message} keepInView>
                 <Container className="project">
                     <Row>

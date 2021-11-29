@@ -16,7 +16,7 @@
                     text-overflow: ellipsis;
                     white-space: break-spaces;
                     overflow: hidden;
-                    max-width: 10em;
+                    max-width: 8em;
                     color: #000;
                     background-color: #fff;
                     padding: 10px 30px;
@@ -32,6 +32,20 @@
         margin: auto;
         color: black;
         padding-left: 2vw;
+    }
+    
+    #avatar-image-collapse {
+        width: 4rem;
+        height: 4rem;
+        margin-right: 1rem;
+        border-radius: 50%;
+    }
+
+    #avatar-image-expand {
+        width: 4rem;
+        height: 4rem;
+        margin-right: 1rem;
+        border-radius: 50%;
     }
 }
 
@@ -62,6 +76,15 @@
         } 
         #expand-back {
             display: block;
+        }
+        
+        #avatar-image-collapse {
+            display: none;
+            float: right;
+        }
+
+        #avatar-image-expand {
+            display: inline;
         }
     }
     
@@ -120,11 +143,31 @@
             display: inline;
             float: right;
             margin-top: 1.8rem;
-            display: inline;
         } 
         #expand-back {
             display: none;
         }
+
+        #avatar-image-collapse {
+            display: inline;
+            float: right;
+            margin-top: 0.5rem;
+        }
+
+        #avatar-image-expand {
+            display: none;
+        }
+    }
+}
+
+@media only screen and (max-width: 444px) {
+    #avatar-image-collapse {
+        // float: right !important;
+        align-items: center;
+        margin-top: 0;
+    }
+    #collapse-back {
+        display: none !important;
     }
 }
 

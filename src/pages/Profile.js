@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { Container, Row, Col, Button, Spinner, Overlay, Popover } from 'react-bootstrap';
 import Form from 'react-bootstrap/Form';
+import { Link } from 'react-router-dom'; 
 import {NotificationContainer, NotificationManager} from 'react-notifications';
 import 'react-notifications/lib/notifications.css';
 import Header from '../components/Header';
@@ -81,6 +82,7 @@ const Profile = (props) => {
       fillPrevFileContainer()
       fillFileContainer()
       let wallet = walletRef.current.value
+          console.log(wallet)
       if(wallet) {
             let niftyRef = database.ref('member_profile')
             niftyRef.get().then( (snapshot) => {
@@ -137,7 +139,7 @@ const Profile = (props) => {
                 }
             } )
       }
-    }, [props.address, files.length, prevFiles.length]);
+    }, [props.walletAddress, files.length, prevFiles.length]);
   
     const fillFileContainer = () => {
         let container = [];
@@ -388,7 +390,7 @@ const Profile = (props) => {
     }
     return(
         <div>
-            <Header walletAddress={props.walletAddress} walletConnect={props.walletConnect} />
+            <Header walletAddress={props.walletAddress} walletConnect={props.walletConnect} userInfo={props.userInfo} />
             <Container className="profile">
                 <NotificationContainer />
                 <Row className="avatar-profile">
@@ -564,6 +566,7 @@ const Profile = (props) => {
                                 <Form.Group className="mb-4">
                                     <Form.Label style={{visibility:'hidden'}}>Bio</Form.Label>
                                     <div className="footer-element">
+                                        <Link to="/" className="back">&lt;&lt;-back to projects</Link>
                                         <Button variant="secondary" type="submit"  disabled={!decliamer}>
                                             <Spinner
                                             as="span"

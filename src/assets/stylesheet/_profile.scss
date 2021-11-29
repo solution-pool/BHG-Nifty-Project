@@ -1,4 +1,28 @@
-.profile {
+    .App-logo {
+        height: 40vmin;
+        pointer-events: none;
+    }
+    
+    @media (prefers-reduced-motion: no-preference) {
+        .App-logo {
+        animation: App-logo-spin infinite 20s linear;
+        }
+    }
+    
+    .App-header {
+        background-color: #282c34;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        font-size: calc(10px + 2vmin);
+        color: white;
+    }
+    
+    .App-link {
+        color: #61dafb;
+    }
     
     .row {
         --bs-gutter-x: 0 !important;
@@ -266,4 +290,121 @@
     #file-upload-button:hover {
         border: 1px solid #8b8b8b;
     }
+    
+    .back {
+        float: left;
+    }
+@media only screen and (max-width: 991px) {
+    .content .submit-panel {
+        height: 0 !important;
+    }
+
+    .navbar-collapse .me-auto .nav-link span {
+        display: block !important;
+    }
+    .navbar-collapse .me-auto .nav-link i, .navbar-collapse .me-auto .nav-link img {
+        display: none !important;
+    }
+
+    .navbar .container {
+        display: block !important;
+    }
+
+    .navbar .container .navbar-toggler{
+        position: relative;
+    }
+
+    .navbar-collapse {
+        top: 4.3rem;
+        position: absolute !important;
+        max-width: 200vw;
+        height: auto!important;
+        left: 24vw;
+        margin: 0.7rem;
+        margin-right: 0.4rem;
+        background-color: black;
+        border-radius: 0.2857rem;
+        z-index: 101;
+    }
+
+    .navbar-collapse .navbar-nav {
+        display: none;
+    }
+
+    .navbar-collapse .me-auto {
+        display: block;
+    }
+
+    .me-auto .nav-link {
+        color : white !important;
+        font-size: 20px;
+        color: #fff;
+        padding: 10px 20px !important;
+        text-decoration: none;
+    }
+
+    .me-auto .nav-link:hover {
+        background-color: #fff;
+        color: #000;
+    }
+}
+    
+@media only screen and (min-width: 992px) {
+    .navbar-collapse .me-auto .nav-link span {
+        display: none !important;
+    }
+    .navbar-collapse .me-auto .nav-link i, .navbar-collapse .me-auto .nav-link img {
+        display: block !important;
+    }
+    .submit-button-panel {
+        margin-left: 0;
+        margin-right: 0;
+    }
+}
+
+@media only screen and (max-width: 991px) and (min-width: 768px) {
+    
+
+    #up-decliamer {
+        display: none;
+    }
+    #down-decliamer {
+        display: inline;
+        display: inline-flex;
+    }
+
+}
+    
+@media only screen and (max-width: 767px) {
+    .avatar-profile img {
+        left : 18rem;
+    }
+
+    #up-decliamer {
+        display: none;
+    }
+    #down-decliamer {
+        display: inline;
+        display: inline-flex;
+    }
+
+    .navbar-collapse { 
+    /* left: 15rem; */
+    }
+}
+
+@media only screen and (max-width: 406px) {
+    .avatar-profile span {
+        display: block; 
+    }
+
+    .avatar-profile img {
+        /* margin-top: ; */
+        position: relative;
+        display: block;
+        left: calc(50% - 3rem);
+    }
+}
+#popover-contained {
+    max-width: 50vw !important;
 }

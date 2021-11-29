@@ -12,6 +12,9 @@ const Header = (props) => {
                 {(props.noHeaderBack !== true) ? 
                 (<Link to="/" className="back" id="collapse-back">&lt;&lt;-back to projects</Link>)
                 : ''}
+                <Link to="/profile">
+                    <img id="avatar-image-collapse" src={props.userInfo.image ? props.userInfo.image : require('../assets/img/avatar.png').default} alt="User avatar" />
+                </Link>
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="me-auto">
                         <Nav.Link href="https://twitter.com/nifty_io">
@@ -35,6 +38,9 @@ const Header = (props) => {
                     </Nav>
                     <Nav>
                         <Nav.Link>
+                            <Link to="/profile">
+                                <img id="avatar-image-expand" src={props.userInfo.image ? props.userInfo.image : require('../assets/img/avatar.png').default} alt="User avatar" />
+                            </Link>
                             <Button variant="light" id="connect-wallet" onClick={props.walletConnect}>{props.walletAddress ? props.walletAddress : 'Connect Wallet'}</Button>
                         </Nav.Link>
                     </Nav>
