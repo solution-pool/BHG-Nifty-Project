@@ -2,7 +2,7 @@ import Header from '../components/Header';
 import Avatar from '../components/Avatar';
 import { Container, Row, Col, Form, Button, Spinner, Overlay, Popover } from 'react-bootstrap';
 import { useState, useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { database, storage } from '../config/firebase';
 import {NotificationContainer, NotificationManager} from 'react-notifications';
 import 'react-notifications/lib/notifications.css';
@@ -29,6 +29,7 @@ const Proposal = (props) => {
     const [decliamer, setDecliamer] = useState(false)
     const [blocking, setBlock] = useState(false)
     const [message, setMessage] = useState('Checking connnection...')
+    const navigate = useNavigate();
     
 
     useEffect( async () => {
@@ -201,10 +202,9 @@ const Proposal = (props) => {
         updateData['project'] = projectCount
         memberRef.update(updateData)
 
-        window.scrollTo(0, 0)
-        NotificationManager.success('The project proposal was successfully submitted.', 'Success', 5000)
         setLoading(false)
-        reset()
+        // reset()
+        navigate('/1', {replace: true})
     }
 
     const reset = () => {

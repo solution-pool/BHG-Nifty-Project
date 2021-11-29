@@ -2,7 +2,7 @@ import Header from '../components/Header';
 import Avatar from '../components/Avatar';
 import { Container, Row, Col, Form, Button, Spinner } from 'react-bootstrap';
 import { useState, useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { database, storage } from '../config/firebase';
 import {NotificationContainer, NotificationManager} from 'react-notifications';
 import 'react-notifications/lib/notifications.css';
@@ -31,6 +31,7 @@ const Outside = (props) => {
     const [btnTitle, setBtnTitle] = useState('Choose File');
     const [blocking, setBlock] = useState(false)
     const [message, setMessage] = useState('Checking connnection...')
+    const navigate = useNavigate()
 
     const reset = () => {
         setProjectName('')
@@ -233,10 +234,9 @@ const Outside = (props) => {
         updateData['project'] = projectCount
         memberRef.update(updateData)
 
-        window.scrollTo(0, 0)
-        NotificationManager.success('The outside project was successfully submitted.', 'Success', 5000)
         setLoading(false)
-        reset()
+        navigate('/2', {replace:true})
+        // reset()
     }
 
     return (

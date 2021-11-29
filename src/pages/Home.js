@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { Col, Container, Form, Row } from 'react-bootstrap';
 import Header from '../components/Header';
 import StarRatingComponent from 'react-star-rating-component';
-import { Link } from 'react-router-dom';
+import { Link, useParams, useNavigate } from 'react-router-dom';
 import { database, storage } from '../config/firebase';
 import Panel from '../components/Panel';
 import BlockUi from 'react-block-ui';
@@ -15,9 +15,12 @@ const Home = (props) => {
     const [type, setType] = useState(1)
     const [projectContainer, setProposalContainer] = useState([])
     const [blocking, setBlock] = useState(false)
+    const [init, setInit] = useState(true)
+    const { t } = useParams()
+    const navigate = useNavigate()
 
     useEffect( async () => {
-        
+        setInit(false)
         if(props.userLoad) {
             if(props.userInfo.wallet) {
                 setBlock(false)
@@ -28,8 +31,20 @@ const Home = (props) => {
         } else {
             setBlock(true)
         }
+
+        if(t && init) {
+            if(t == 1) {
+                window.scrollTo(0, 0)
+                NotificationManager.success('The project proposal was successfully submitted.', 'Success', 1000)
+            } else if(t == 2)  {
+                window.scrollTo(0, 0)
+                NotificationManager.success('The outside project was successfully submitted.', 'Success', 1000)
+            }
+            setInit(false)
+            navigate('/')
+        }
         display()
-    }, [projectContainer.length, props.userInfo.wallet, props.userLoad, sort, type])
+    }, [projectContainer.length, props.userInfo.wallet, props.userLoad, sort, type, init])
 
     const changeSort = (e) => {
         setSort(e.target.value)
