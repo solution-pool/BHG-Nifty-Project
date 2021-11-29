@@ -227,6 +227,7 @@ const Proposal = (props) => {
         setInputFile(document.getElementById('input-file'))
         setFiles([])
         setFileContainer(null)        
+        setDecliamer(false)
         let interests = document.getElementsByClassName('form-check-input')
 
         for(let i = 0; i < interests.length; i ++ ) {
