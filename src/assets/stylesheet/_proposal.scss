@@ -6,6 +6,10 @@
             background-color: $white;
             padding: 2vw 4vw 2vw 4vw;
             --bs-gutter-x : 0;
+            .mb-3 {
+                margin-top: 0.5rem;
+                margin-bottom: 0.4rem !important;
+            }
         }
         .interest {
             display: inline-block !important;
@@ -13,23 +17,12 @@
         }
         .form-check {
             margin-left: 3rem !important;
-            .form-check-input {
-                padding-left: 1rem !important;
-            }
         }
         .form-label {
             small {
                 font-weight: 400 !important;
             }
         }
-    }
-
-    #second-label {
-        display: block;
-    }
-
-    #third-label {
-        display: block;
     }
 
     #link {
@@ -54,7 +47,19 @@
     }
 }
 
-@media only screen and (max-width : 768px) and (min-width: 991px) {
+@media only screen and (min-width: 992px) {
+    .proposal {
+        #second-label {
+            display: block;
+        }
+
+        #third-label {
+            display: block;
+        }
+    }
+}
+
+@media only screen and (max-width : 991px) and (min-width: 768px) {
     .proposal {
         #second-label {
             display: block;
