@@ -12,6 +12,7 @@ import 'react-notifications/lib/notifications.css';
 
 const Home = (props) => {
     const [sort, setSort] = useState(1)
+    const [type, setType] = useState(1)
     const [projectContainer, setProposalContainer] = useState([])
     const [blocking, setBlock] = useState(false)
 
@@ -27,34 +28,81 @@ const Home = (props) => {
         } else {
             setBlock(true)
         }
-        display(sort)
-    }, [projectContainer.length, props.userInfo.wallet, props.userLoad])
+        display()
+        console.log('Herer')
+    }, [projectContainer.length, props.userInfo.wallet, props.userLoad, sort, type])
 
-    const changeSort = async (e) => {
+    const changeSort = (e) => {
         setSort(e.target.value)
-        display(e.target.value)
     }
 
-    const display = async (sortValue) => {
+    const changeType = (e) => {
+        setType(e.target.value)
+    } 
+
+    const display = async () => {
         let container = []
-        if(sortValue == 3) {
+        if(type == 3) {
             await loadProposals().then( async proposals => {
                 container.push(...proposals)
                 await loadOutsides().then( outsides => {
                     container.push(...outsides)
-                    setProposalContainer(container)
+                    showPanel(container)
                 } )
             })
-        } else if(sortValue == 1) {
+        } else if(type == 1) {
             await loadProposals().then( res => {
-                setProposalContainer(res)
+                showPanel(res)
             })
         } else {
             await loadOutsides().then( res => {
-                setProposalContainer(res)
+                showPanel(res)                
             })
         }
+    }
 
+    const showPanel = (container) => {
+        if(sort == 1) {
+            container.sort( (a, b) => {
+                if(b.createDate > a.createDate) {
+                    return 1
+                } else if(a.createDate > b.createDate) {
+                    return -1
+                } else {
+                    let aVote = !a.vote ? 0 : Object.values(a.vote).length;
+                    let bVote = !b.vote ? 0 : Object.values(b.vote).length;
+
+                    if(bVote > aVote) {
+                        return 1
+                    } else if(aVote > bVote) {
+                        return -1 
+                    } else {
+                        return 0
+                    }
+                }
+            })
+        } else {
+            container.sort( (a, b) => {
+                let aVote = !a.vote ? 0 : Object.values(a.vote).length;
+                let bVote = !b.vote ? 0 : Object.values(b.vote).length;
+
+                if(bVote > aVote) {
+                    return 1
+                }  else if(aVote > bVote) {
+                    return -1
+                } else {
+                    if(b.createDate > a.createDate) {
+                        return 1
+                    } else if(a.createDate > b.createDate) {
+                        return -1
+                    } else {
+                        return 0
+                    }
+                }
+            } )
+        }
+        const panels = container.map( (element) => <Panel proposal={element} userInfo={props.userInfo} userLoad={props.userLoad} />)
+        setProposalContainer(panels)
     }
 
     const loadProposals = async () => {
@@ -71,7 +119,8 @@ const Home = (props) => {
                         data.id = i
                         data.t = 1
             
-                        proposalContainer.push(<Panel proposal={data} userInfo={props.userInfo} userLoad={props.userLoad}/>)
+                        proposalContainer.push(data)
+                        // proposalContainer.push(<Panel proposal={data} userInfo={props.userInfo} userLoad={props.userLoad}/>)
                     }
                 }
             }
@@ -92,7 +141,9 @@ const Home = (props) => {
                         let data = newAry[i]
                         data.id = i
                         data.t = 2
-                        outsideContainer.push(<Panel proposal={data} userInfo={props.userInfo} userLoad={props.userLoad} />)
+
+                        outsideContainer.push(data)
+                        // outsideContainer.push(<Panel proposal={data} userInfo={props.userInfo} userLoad={props.userLoad} />)
                     }
                 }
             }
@@ -169,8 +220,8 @@ const Home = (props) => {
                                                 label="All"
                                                 name="project"
                                                 value="3"
-                                                checked={sort == 3 ? true : false}
-                                                onChange={changeSort}
+                                                checked={type == 3 ? true : false}
+                                                onChange={changeType}
                                             />
                                         </Form.Group>
                                     </li>
@@ -182,8 +233,8 @@ const Home = (props) => {
                                                 label="Nifty Projects"
                                                 name="project"
                                                 value="1"
-                                                checked={sort == 1 ? true : false}
-                                                onChange={changeSort}
+                                                checked={type == 1 ? true : false}
+                                                onChange={changeType}
                                             />
                                         </Form.Group>
                                     </li>
@@ -195,8 +246,8 @@ const Home = (props) => {
                                             label="Outside Projects"
                                             name="project"
                                             value="2"
-                                            checked={sort == 2 ? true : false}
-                                            onChange={changeSort}
+                                            checked={type == 2 ? true : false}
+                                            onChange={changeType}
                                         />
                                     </Form.Group>
                                     </li>
@@ -205,9 +256,9 @@ const Home = (props) => {
                             <Col lg="4" md="12" sm="12">
                                 <Form.Group className="sort">
                                     <Form.Label>Sort by :&nbsp; </Form.Label>
-                                    <Form.Select>
-                                        <option>Newest</option>
-                                        <option>Most Upvotes</option>
+                                    <Form.Select onChange={changeSort}>
+                                        <option value="1" selected={sort == 1 ? 'selected' : ''}>Newest</option>
+                                        <option value="2" selected={sort == 2 ? 'selected' : ''}>Most Upvotes</option>
                                     </Form.Select>
                                 </Form.Group>
                             </Col>
