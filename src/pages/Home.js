@@ -207,6 +207,7 @@ const Home = (props) => {
                                     <Form.Label>Sort by :&nbsp; </Form.Label>
                                     <Form.Select>
                                         <option>Newest</option>
+                                        <option>Most Upvotes</option>
                                     </Form.Select>
                                 </Form.Group>
                             </Col>

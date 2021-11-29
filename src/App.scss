@@ -15,10 +15,12 @@ a {
     text-decoration: none !important;
 }
 
-@font-face {
-    font-family: "Songwriter Draft";
-    src: local("Songwriter Draft"), url('./assets/fonts/SongwriterDraft-Regular.6bd4a9c8.otf');
-}
+// @font-face {
+//     font-family: "Songwriter Draft";
+//     src: local("Songwriter Draft"), url('./assets/fonts/SongwriterDraft-Regular.6bd4a9c8.otf');
+// }
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 
 @import "./assets/stylesheet/header.scss";
 @import "./assets/stylesheet/avatar.scss";
