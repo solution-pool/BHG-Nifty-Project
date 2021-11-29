@@ -296,102 +296,102 @@ const Proposal = (props) => {
                                         <Form.Label>Expertise / Interest<small> (check all that apply)</small></Form.Label>
                                         <Row className="interest-body">
                                             <Col lg={4} md={6} sm={12}>
-                                                have / read
+                                                have / need
                                             </Col>
                                             <Col lg={4} md={6} id="second-label">
-                                                have / read
+                                                have / need
                                             </Col>
                                             <Col lg={4} id="third-label">
-                                                have / read
+                                                have / need
                                             </Col>
                                             <Col lg={4} md={6} sm={12}>
                                                 <Form.Group className="mb-3" controlId="formInterestDataA">
-                                                    <Form.Check type="checkbox" label="" className="interest" id="checkbox_interest_A_A" value="A_A" onChange={changeInterest} />
-                                                    <Form.Check type="checkbox" label="Artist" className="interest" id="checkbox_interest_A_B" value="A_B" onChange={changeInterest} />
+                                                    <Form.Check type="checkbox" type="radio" label="" className="interest" id="checkbox_interest_A_A" value="A_A" onChange={changeInterest} />
+                                                    <Form.Check type="checkbox" type="radio" label="Artist" className="interest" id="checkbox_interest_A_B" value="A_B" onChange={changeInterest} />
                                                 </Form.Group>
                                             </Col>
                                             <Col lg={4} md={6} sm={12}>
                                                 <Form.Group className="mb-3" controlId="formInterestDataB">
-                                                    <Form.Check type="checkbox" label="" className="interest" id="checkbox_interest_B_A" value="B_A" onChange={changeInterest} />
-                                                    <Form.Check type="checkbox" label="Game Developer" className="interest" id="checkbox_interest_B_B" value="B_B" onChange={changeInterest} />
+                                                    <Form.Check type="checkbox" type="radio" label="" className="interest" id="checkbox_interest_B_A" value="B_A" onChange={changeInterest} />
+                                                    <Form.Check type="checkbox" type="radio" label="Game Developer" className="interest" id="checkbox_interest_B_B" value="B_B" onChange={changeInterest} />
                                                 </Form.Group>
                                             </Col>
                                             <Col lg={4} md={6} sm={12}>
                                                 <Form.Group className="mb-3" controlId="formInterestDataC">
-                                                    <Form.Check type="checkbox" label="" className="interest" id="checkbox_interest_C_A" value="C_A" onChange={changeInterest} />
-                                                    <Form.Check type="checkbox" label="Community Manager" className="interest" id="checkbox_interest_C_B" value="C_B" onChange={changeInterest} />
+                                                    <Form.Check type="checkbox" type="radio" label="" className="interest" id="checkbox_interest_C_A" value="C_A" onChange={changeInterest} />
+                                                    <Form.Check type="checkbox" type="radio" label="Community Manager" className="interest" id="checkbox_interest_C_B" value="C_B" onChange={changeInterest} />
                                                 </Form.Group>
                                             </Col>
                                             <Col lg={4} md={6} sm={12}>
                                                 <Form.Group className="mb-3" controlId="formInterestDataD">
-                                                    <Form.Check type="checkbox" label="" className="interest" id="checkbox_interest_D_A" value="D_A" onChange={changeInterest} />
-                                                    <Form.Check type="checkbox" label="Project Manager" className="interest" id="checkbox_interest_D_B" value="D_B" onChange={changeInterest} />
+                                                    <Form.Check type="checkbox" type="radio" label="" className="interest" id="checkbox_interest_D_A" value="D_A" onChange={changeInterest} />
+                                                    <Form.Check type="checkbox" type="radio" label="Project Manager" className="interest" id="checkbox_interest_D_B" value="D_B" onChange={changeInterest} />
                                                 </Form.Group>
                                             </Col>
                                             <Col lg={4} md={6} sm={12}>
                                                 <Form.Group className="mb-3" controlId="formInterestDataE">
-                                                    <Form.Check type="checkbox" label="" className="interest" id="checkbox_interest_E_A" value="E_A" onChange={changeInterest} />
-                                                    <Form.Check type="checkbox" label="Musician" className="interest" id="checkbox_interest_E_B" value="E_B" onChange={changeInterest} />
+                                                    <Form.Check type="checkbox" type="radio" label="" className="interest" id="checkbox_interest_E_A" value="E_A" onChange={changeInterest} />
+                                                    <Form.Check type="checkbox" type="radio" label="Musician" className="interest" id="checkbox_interest_E_B" value="E_B" onChange={changeInterest} />
                                                 </Form.Group>
                                             </Col>
                                             <Col lg={4} md={6} sm={12}>
                                                 <Form.Group className="mb-3" controlId="formInterestDataF">
-                                                    <Form.Check type="checkbox" label="" className="interest" id="checkbox_interest_F_A" value="F_A" onChange={changeInterest} />
-                                                    <Form.Check type="checkbox" label="Photographer" className="interest" id="checkbox_interest_F_B" value="F_B" onChange={changeInterest} />
+                                                    <Form.Check type="checkbox" type="radio" label="" className="interest" id="checkbox_interest_F_A" value="F_A" onChange={changeInterest} />
+                                                    <Form.Check type="checkbox" type="radio" label="Photographer" className="interest" id="checkbox_interest_F_B" value="F_B" onChange={changeInterest} />
                                                 </Form.Group>
                                             </Col>
                                             <Col lg={4} md={6} sm={12}>
                                                 <Form.Group className="mb-3" controlId="formInterestDataG">
-                                                    <Form.Check type="checkbox" label="" className="interest" id="checkbox_interest_G_A" value="G_A" onChange={changeInterest} />
-                                                    <Form.Check type="checkbox" label="Marketing Plan/ Manager" className="interest" id="checkbox_interest_G_B" value="G_B" onChange={changeInterest} />
+                                                    <Form.Check type="checkbox" type="radio" label="" className="interest" id="checkbox_interest_G_A" value="G_A" onChange={changeInterest} />
+                                                    <Form.Check type="checkbox" type="radio" label="Marketing Plan/ Manager" className="interest" id="checkbox_interest_G_B" value="G_B" onChange={changeInterest} />
                                                 </Form.Group>
                                             </Col>
                                             <Col lg={4} md={6} sm={12}>
                                                 <Form.Group className="mb-3" controlId="formInterestDataH">
-                                                    <Form.Check type="checkbox" label="" className="interest" id="checkbox_interest_H_A" value="H_A" onChange={changeInterest} />
-                                                    <Form.Check type="checkbox" label="Business Developer" className="interest" id="checkbox_interest_H_B" value="H_B" onChange={changeInterest} />
+                                                    <Form.Check type="checkbox" type="radio" label="" className="interest" id="checkbox_interest_H_A" value="H_A" onChange={changeInterest} />
+                                                    <Form.Check type="checkbox" type="radio" label="Business Developer" className="interest" id="checkbox_interest_H_B" value="H_B" onChange={changeInterest} />
                                                 </Form.Group>
                                             </Col>
                                             <Col lg={4} md={6} sm={12}>
                                                 <Form.Group className="mb-3" controlId="formInterestDataI">
-                                                    <Form.Check type="checkbox" label="" className="interest" id="checkbox_interest_I_A" value="I_A" onChange={changeInterest} />
-                                                    <Form.Check type="checkbox" label="Social Media Manager" className="interest" id="checkbox_interest_I_B" value="I_B" onChange={changeInterest} />
+                                                    <Form.Check type="checkbox" type="radio" label="" className="interest" id="checkbox_interest_I_A" value="I_A" onChange={changeInterest} />
+                                                    <Form.Check type="checkbox" type="radio" label="Social Media Manager" className="interest" id="checkbox_interest_I_B" value="I_B" onChange={changeInterest} />
                                                 </Form.Group>
                                             </Col>
                                             <Col lg={4} md={6} sm={12}>
                                                 <Form.Group className="mb-3" controlId="formInterestDataJ">
-                                                    <Form.Check type="checkbox" label="" className="interest" id="checkbox_interest_J_A" value="J_A" onChange={changeInterest} />
-                                                    <Form.Check type="checkbox" label="Smart Contract Developer" className="interest" id="checkbox_interest_J_B" value="J_B" onChange={changeInterest} />
+                                                    <Form.Check type="checkbox" type="radio" label="" className="interest" id="checkbox_interest_J_A" value="J_A" onChange={changeInterest} />
+                                                    <Form.Check type="checkbox" type="radio" label="Smart Contract Developer" className="interest" id="checkbox_interest_J_B" value="J_B" onChange={changeInterest} />
                                                 </Form.Group>
                                             </Col>
                                             <Col lg={4} md={6} sm={12}>
                                                 <Form.Group className="mb-3" controlId="formInterestDataK">
-                                                    <Form.Check type="checkbox" label="" className="interest" id="checkbox_interest_K_A" value="K_A" onChange={changeInterest} />
-                                                    <Form.Check type="checkbox" label="Data Analyst" className="interest" id="checkbox_interest_K_B" value="K_B" onChange={changeInterest} />
+                                                    <Form.Check type="checkbox" type="radio" label="" className="interest" id="checkbox_interest_K_A" value="K_A" onChange={changeInterest} />
+                                                    <Form.Check type="checkbox" type="radio" label="Data Analyst" className="interest" id="checkbox_interest_K_B" value="K_B" onChange={changeInterest} />
                                                 </Form.Group>
                                             </Col>
                                             <Col lg={4} md={6} sm={12}>
                                                 <Form.Group className="mb-3" controlId="formInterestDataL">
-                                                    <Form.Check type="checkbox" label="" className="interest" id="checkbox_interest_L_A" value="L_A" onChange={changeInterest} />
-                                                    <Form.Check type="checkbox" label="Discord Moderator" className="interest" id="checkbox_interest_L_B" value="L_B" onChange={changeInterest} />
+                                                    <Form.Check type="checkbox" type="radio" label="" className="interest" id="checkbox_interest_L_A" value="L_A" onChange={changeInterest} />
+                                                    <Form.Check type="checkbox" type="radio" label="Discord Moderator" className="interest" id="checkbox_interest_L_B" value="L_B" onChange={changeInterest} />
                                                 </Form.Group>
                                             </Col>
                                             <Col lg={4} md={6} sm={12}>
                                                 <Form.Group className="mb-3" controlId="formInterestDataM">
-                                                    <Form.Check type="checkbox" label="" className="interest" id="checkbox_interest_M_A" value="M_A" onChange={changeInterest} />
-                                                    <Form.Check type="checkbox" label="Web Developer" className="interest" id="checkbox_interest_M_B" value="M_B" onChange={changeInterest} />
+                                                    <Form.Check type="checkbox" type="radio" label="" className="interest" id="checkbox_interest_M_A" value="M_A" onChange={changeInterest} />
+                                                    <Form.Check type="checkbox" type="radio" label="Web Developer" className="interest" id="checkbox_interest_M_B" value="M_B" onChange={changeInterest} />
                                                 </Form.Group>
                                             </Col>
                                             <Col lg={4} md={6} sm={12}>
                                                 <Form.Group className="mb-3" controlId="formInterestDataN">
-                                                    <Form.Check type="checkbox" label="" className="interest" id="checkbox_interest_N_A" value="N_A" onChange={changeInterest} />
-                                                    <Form.Check type="checkbox" label="AI Developer" className="interest" id="checkbox_interest_N_B" value="N_B" onChange={changeInterest} />
+                                                    <Form.Check type="checkbox" type="radio" label="" className="interest" id="checkbox_interest_N_A" value="N_A" onChange={changeInterest} />
+                                                    <Form.Check type="checkbox" type="radio" label="AI Developer" className="interest" id="checkbox_interest_N_B" value="N_B" onChange={changeInterest} />
                                                 </Form.Group>
                                             </Col>
                                             <Col lg={4} md={6} sm={12}>
                                                 <Form.Group className="mb-3" controlId="formInterestDataO">
-                                                    <Form.Check type="checkbox" label="" className="interest" id="checkbox_interest_O_A" value="O_A" onChange={changeInterest} />
-                                                    <Form.Check type="checkbox" label="Other" className="interest" id="checkbox_interest_O_B" value="O_B" onChange={changeInterest} />
+                                                    <Form.Check type="checkbox" type="radio" label="" className="interest" id="checkbox_interest_O_A" value="O_A" onChange={changeInterest} />
+                                                    <Form.Check type="checkbox" type="radio" label="Other" className="interest" id="checkbox_interest_O_B" value="O_B" onChange={changeInterest} />
                                                 </Form.Group>
                                             </Col>
                                         </Row>
