@@ -9,6 +9,9 @@ const Header = (props) => {
                     <img src={require('../assets/img/nifty.svg').default} />
                 </Link>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+                {(props.noHeaderBack !== true) ? 
+                (<Link to="/" className="back" id="collapse-back">&lt;&lt;-back to projects</Link>)
+                : ''}
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="me-auto">
                         <Nav.Link href="https://twitter.com/nifty_io">
@@ -23,6 +26,12 @@ const Header = (props) => {
                             <span>Opensea</span>
                             <img src={require('../assets/img/opensea.svg').default} alt="Opensea icon" />
                         </Nav.Link>
+                        {(props.noHeaderBack !== true) ? 
+                        (<Link to="/" className="back" id="expand-back">&lt;&lt;-back to projects</Link>)
+                        : ''}
+                        {/* <Nav.Link href="/">
+                            &lt;&lt;-back to projects
+                        </Nav.Link> */}
                     </Nav>
                     <Nav>
                         <Nav.Link>

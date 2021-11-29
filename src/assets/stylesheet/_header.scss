@@ -28,6 +28,11 @@
             }
         }
     }
+    .back {
+        margin: auto;
+        color: black;
+        padding-left: 2vw;
+    }
 }
 
 @media only screen and (min-width: 992px) {
@@ -46,6 +51,17 @@
                     }
                 }
             }
+        }
+        .back {
+            margin: auto;
+            color: black;
+            padding-left: 2vw;
+        }
+        #collapse-back {
+            display: none;
+        } 
+        #expand-back {
+            display: block;
         }
     }
     
@@ -95,6 +111,28 @@
                 position: relative;
             }
         }
+        .back {
+            margin: auto;
+            color: black;
+            padding-left: 2vw;
+        }
+        #collapse-back {
+            display: inline;
+            float: right;
+            margin-top: 1.8rem;
+            display: inline;
+        } 
+        #expand-back {
+            display: none;
+        }
     }
+}
+
+@media only screen and (max-width:363px) {
+    #collapse-back {
+        float:left !important;
+        margin-top: 0 !important;
+    }
+    
 }
             

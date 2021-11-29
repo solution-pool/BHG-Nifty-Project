@@ -152,7 +152,7 @@ const Home = (props) => {
 
     return (
         <div className="home">
-            <Header walletAddress={props.walletAddress} walletConnect={props.walletConnect} />
+            <Header walletAddress={props.walletAddress} walletConnect={props.walletConnect} noHeaderBack={true} />
             <Container className="page-container">
                 <NotificationContainer />
                 <Row>
