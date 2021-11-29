@@ -31,6 +31,7 @@ const Outside = (props) => {
     const [btnTitle, setBtnTitle] = useState('Choose File');
     const [blocking, setBlock] = useState(false)
     const [message, setMessage] = useState('Checking connnection...')
+    const [blockchain, setBlockchain] = useState(1)
     const navigate = useNavigate()
 
     const reset = () => {
@@ -87,6 +88,10 @@ const Outside = (props) => {
 
     const changePrice = (e) => {
         setPrice(e.target.value)
+    }
+
+    const changeBlockchain = (e) => {
+        setBlockchain(e.target.value)
     }
 
     const changeDropDate = (e) => {
@@ -171,6 +176,7 @@ const Outside = (props) => {
             website: website,
             highlight: highlight,
             price: price,
+            blockchain: blockchain,
             dropDate: dropDate,
             discord: discord,
             twitter: twitter,
@@ -273,10 +279,24 @@ const Outside = (props) => {
                                         <Form.Control type="text" placeholder="Why do you like this project?" value={highlight} onChange={changeHighlight} required />
                                     </Form.Group>
                                 </Col>
-                                <Col lg="4" md="6" sm="12" className="main-col">
+                                <Col lg="2" md="3" sm="6" className="main-col price">
                                     <Form.Group controlId="formPrice">
-                                        <Form.Label>Price</Form.Label>
-                                        <Form.Control type="text" placeholder="How much?" value={price} onChange={changePrice} required />
+                                        <Form.Label>Price/ Floor</Form.Label>
+                                        <Form.Control type="number" placeholder="How much?" value={price} onChange={changePrice} required />
+                                    </Form.Group>
+                                </Col>
+                                <Col lg="2" md="3" sm="6" className="main-col blockchain">
+                                    <Form.Group controlId="formBlockchain">
+                                        <Form.Label>Blockchain</Form.Label>
+                                        <Form.Select value={blockchain} onChange={changeBlockchain}>
+                                            <option value="1">Ethereum</option>
+                                            <option value="2">Cardano</option>
+                                            <option value="3">Binance</option>
+                                            <option value="4">Polygon</option>
+                                            <option value="5">Solana</option>
+                                            <option value="6">Immutable X</option>
+                                            <option value="7">Other</option>
+                                        </Form.Select>
                                     </Form.Group>
                                 </Col>
                                 <Col lg="4" md="6" sm="12" className="main-col">

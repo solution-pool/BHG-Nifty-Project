@@ -3,6 +3,15 @@
     .main-col {
         padding: 2.5rem 2.5rem 0 2.5rem;
     }
+
+    .price {
+        padding-right: 1.25rem !important;
+    }
+    
+    .blockchain {
+        padding-left: 1.25rem !important;
+    }
+
     .checkbox-panel {
         padding: 2rem;
         background-color: $white;
@@ -122,7 +131,7 @@
         float: right;
     }
     .padding-bottom-20 {
-        padding-bottom: 20px;
+        padding-bottom: 20px !important;
     }
     .back {
         color: $black;
@@ -130,6 +139,17 @@
     }
     .back:hover {
         font-weight: 600;
+    }
+}
+
+@media only screen and (max-width: 575px) {
+    .content {
+        .price {
+            padding-right: 2.5rem !important;
+        }
+        .blockchain {
+            padding-left: 2.5rem !important;
+        }
     }
 }
 
