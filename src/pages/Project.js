@@ -454,6 +454,7 @@ const Project = (props) => {
                             </div>
                         </Col>
                     </Row>
+                    {(t == 1) ? (
                     <Row>
                         <Col lg="12" md="12" sm="12">
                             <p className="panel-title">Team Members Needed</p>
@@ -464,29 +465,11 @@ const Project = (props) => {
                                     </p>
                                     <Row>
                                         {teamContainer}
-                                        {/* <Col lg="6" md="12" sm="12" className="text-center team-member-button" >
-                                            <Button className="no-selected team-member" name="marketing" id="marketing" value="0" onClick={changeTeamMember}>
-                                                <span>Marketing Manager</span>
-                                                <Button className="applicants">
-                                                    <div className="applicants-count">0</div>
-                                                    <div className="applicants-applicants">applicants</div>
-                                                </Button>
-                                            </Button>
-                                        </Col>
-                                        <Col lg="6" md="12" sm="12" className="text-center team-member-button">
-                                            <Button className="no-selected" name="discord" id="discord" value="0"  onClick={changeTeamMember}>Discord Moderator</Button>
-                                        </Col>
-                                        <Col lg="6" md="12" sm="12" className="text-center team-member-button">
-                                            <Button className="no-selected" name="contract" id="contract" value="0"  onClick={changeTeamMember}>Smart Contract Developer</Button>
-                                        </Col>
-                                        <Col lg="6" md="12" sm="12" className="text-center team-member-button">
-                                            <Button className="no-selected" name="web" id="web" value="0"  onClick={changeTeamMember}>Web Developer</Button>
-                                        </Col> */}
                                     </Row>
                                 </Container>
                             </div>
                         </Col>
-                    </Row>
+                    </Row>) : ''}
                     <Row>
                         <Col lg="12" md="12" sm="12">
                             <p className="panel-title">Discussion</p>
