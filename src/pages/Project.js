@@ -44,7 +44,7 @@ const Project = (props) => {
             setMessage('')
         }
     }, [artValue, roadMapValue, utilityValue, communityValue, originalityValue, teamValue, 
-        show, project ? project.name : project, creator ? creator.name : creator, post, posts.length,
+        show, project ? project.name : project, creator ? creator.name : creator, posts.length,
     props.userInfo.wallet, props.userLoad] )
     
     const getProject = async () => {
@@ -108,14 +108,23 @@ const Project = (props) => {
                 const postData = newAry.post
                 if(postData) {
                     let postHtml = []
+                    let postAry = []
                     for(let i in postData) {
                         let onePost = postData[i]
                         onePost.postID = i
                         onePost.id = id
                         onePost.t = t
-                        postHtml.push(<Post data={onePost} userInfo={props.userInfo} />)
+                        postAry.push(onePost)
                     }
 
+                    postAry.sort( (a, b) => {
+                        let aVote = !a.vote ? 0 : Object.values(a.vote).length;
+                        let bVote = !b.vote ? 0 : Object.values(b.vote).length;
+
+                        return bVote - aVote;
+                    } )
+
+                    postHtml = postAry.map( element => <Post data={element} userInfo={props.userInfo} />)
                     setPosts(postHtml)
                 }
 
