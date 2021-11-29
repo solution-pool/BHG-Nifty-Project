@@ -5,6 +5,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Project from './pages/Project';
 import Proposal from './pages/Proposal';
 import Outside from './pages/Outside';
+import Profile from './pages/Profile';
 import Web3 from 'web3';
 import { database } from './config/firebase';
 import { useState, useEffect } from 'react';
@@ -67,6 +68,7 @@ function App() {
         <Route path="project/:id/:t" element={<Project walletConnect={walletConnect} walletAddress={walletAddress} userInfo={userInfo} userLoad={userLoad} />} />
         <Route path="proposal" element={<Proposal walletConnect={walletConnect} walletAddress={walletAddress} userInfo={userInfo} userLoad={userLoad} />} />
         <Route path="outside" element={<Outside walletConnect={walletConnect} walletAddress={walletAddress} userInfo={userInfo} userLoad={userLoad} />} />      
+        <Route path="profile" element={<Profile walletConnect={walletConnect} walletAddress={walletAddress} userInfo={userInfo} userLoad={userLoad} />} />
       </Routes>
     </BrowserRouter>
   );
