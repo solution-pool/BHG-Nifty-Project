@@ -67,6 +67,7 @@ function App() {
         <Route path="/:t" element={<Home walletConnect={walletConnect} walletAddress={walletAddress} userInfo={userInfo} userLoad={userLoad} />} />
         <Route path="project/:id/:t" element={<Project walletConnect={walletConnect} walletAddress={walletAddress} userInfo={userInfo} userLoad={userLoad} />} />
         <Route path="proposal" element={<Proposal walletConnect={walletConnect} walletAddress={walletAddress} userInfo={userInfo} userLoad={userLoad} />} />
+        <Route path="proposal/:id" element={<Proposal walletConnect={walletConnect} walletAddress={walletAddress} userInfo={userInfo} userLoad={userLoad} />} />
         <Route path="outside" element={<Outside walletConnect={walletConnect} walletAddress={walletAddress} userInfo={userInfo} userLoad={userLoad} />} />      
         <Route path="profile" element={<Profile walletConnect={walletConnect} walletAddress={walletAddress} userInfo={userInfo} userLoad={userLoad} />} />
       </Routes>

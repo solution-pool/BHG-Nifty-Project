@@ -1,8 +1,8 @@
 import Header from '../components/Header';
 import Avatar from '../components/Avatar';
 import { Container, Row, Col, Form, Button, Spinner, Overlay, Popover } from 'react-bootstrap';
-import { useState, useEffect, useRef } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { database, storage } from '../config/firebase';
 import {NotificationContainer, NotificationManager} from 'react-notifications';
 import 'react-notifications/lib/notifications.css';
@@ -22,6 +22,8 @@ const Proposal = (props) => {
     const [interest, setInterest] = useState({});
     const [inputFile, setInputFile] = useState({});
     const [files, setFiles] = useState([])
+    const [prevFiles, setPrevFiles] = useState([])
+    const [prevFileContainer, setPrevFileContainer] = useState([])
     const [selFileContainer, setFileContainer] = useState(null)
     const [isLoading, setLoading] = useState(false)
     const [show, setShow] = useState(false)
@@ -29,6 +31,8 @@ const Proposal = (props) => {
     const [decliamer, setDecliamer] = useState(false)
     const [blocking, setBlock] = useState(false)
     const [message, setMessage] = useState('Checking connnection...')
+    const { id } = useParams()
+    const [init, setInit] = useState(true)
     const navigate = useNavigate();
     
 
@@ -46,9 +50,55 @@ const Proposal = (props) => {
             setBlock(true)
             setMessage('Checking connnection...')
         }
+
+        if(id && init) {
+            const proposalRef = database.ref('project_proposal/' + id)
+            proposalRef.get().then( (snapshot) => {
+                if(snapshot.exists) {
+                    const proposal = snapshot.val()
+                    setProjectName(proposal.name)
+                    setBriefProjectSummary(proposal.brief)
+                    setSupply(proposal.supply)
+                    setPrice(proposal.price)
+                    setDetailedProjectDiscription(proposal.description)
+                    
+                    if(proposal.files) {
+                        let container = [];
+                        let prevFile = []
+                        for(let i in proposal.fileNames) {
+                            const oneFileName = proposal.fileNames[i]
+                            const element = 
+                                    <Col lg="4" md="4" sm="6" xs="12" className="one-file"> 
+                                        <Button title={oneFileName} variant="secondary">
+                                            <div className="cross-content"> {oneFileName}</div>
+                                            <div className="cross">
+                                                <span onClick={deletePrevFile} title={oneFileName} className="close-button">
+                                                    &#10005;
+                                                </span>
+                                            </div> 
+                                        </Button>
+                                    </Col> 
+                            container.push(element)
+                            prevFile[i] = {name : oneFileName}
+                        }
+                        setPrevFileContainer(container)
+                        setPrevFiles(prevFile)
+                    }
+
+                    let interests = JSON.parse(proposal.interest)
+                    setInterest(interests)
+                    for(let oneCheck in interests) {
+                        let checkbox = document.getElementById("checkbox_interest_" + oneCheck + '_' + interests[oneCheck])
+                        checkbox.checked = true
+                    }
+                    setInit(false)
+                }
+            } )
+        }
         setInputFile(document.getElementById('input-file'))
         fillFileContainer()
-    }, [files, props.userLoad] )
+        fillPrevFileContainer()
+    }, [files, props.userLoad, prevFiles] )
     const changeProjectName = (e) => {
         setProjectName(e.target.value);
     }
@@ -81,6 +131,56 @@ const Proposal = (props) => {
     const changeDetailedProjectDescription = (e) => {
         setDetailedProjectDiscription(e.target.value)
     }
+      
+    const fillPrevFileContainer = () => {
+        let container = [];
+        for(let i in prevFiles) {
+            const oneFile = prevFiles[i]
+            const element = <Col lg="4" md="4" sm="6" xs="12" className="one-file"> 
+                                <Button title={oneFile.name} variant="secondary"> 
+                                    <div className="cross-content">{oneFile.name}</div>
+                                    <div className="cross">
+                                        <span onClick={deletePrevFile} title={oneFile.name} className="close-button">&#10005;</span>
+                                    </div> 
+                                </Button>
+                            </Col> 
+            container.push(element)
+        }
+
+        setPrevFileContainer(container)
+    }
+    
+    const deletePrevFile = async (e) => {
+        const fileName = e.target.title
+
+        let removeID = -1
+        let fileContainer = []
+
+        for(let i in prevFiles) {
+            const oneFile = prevFiles[i]
+            if(fileName.trim() == oneFile.name.trim()) {
+                removeID = i
+                break;
+            }
+        }
+
+        if(removeID > -1) {
+            const fileNameRef = database.ref('project_proposal/' + id + '/fileNames/' + removeID)
+            fileNameRef.remove()
+            const filesRef = database.ref('project_proposal/' + id + '/files/' + removeID)
+            filesRef.remove()
+            storage.ref('project_proposal/file/' + fileName).delete()
+        }
+        
+        
+        for(let i in prevFiles) {
+            if(i == removeID) {
+                continue;
+            }
+            fileContainer[i] = prevFiles[i]
+        }
+        setPrevFiles(fileContainer)
+    } 
 
     const changeFile = async (e) => {
         const newFile = e.target.files[0]
@@ -97,7 +197,7 @@ const Proposal = (props) => {
         let container = [];
         for(let i = 0; i < files.length; i ++ ) {
             const oneFile = files[i]
-            const element = <Col lg="4" md="4" sm="6" xs="12"> <Button title={oneFile.name} variant="secondary"> {oneFile.name}<div><span onClick={deleteFile} title={oneFile.name} className="close-button">&#10005;</span></div> </Button></Col> 
+            const element = <Col lg="4" md="4" sm="6" xs="12" className="one-file"> <Button title={oneFile.name} variant="secondary"><div className="cross-content"> {oneFile.name}</div><div className="cross"><span onClick={deleteFile} title={oneFile.name} className="close-button">&#10005;</span></div> </Button></Col> 
             container.push(element)
         }
 
@@ -111,7 +211,6 @@ const Proposal = (props) => {
     const deleteFile = async (e) => {
         const fileName = e.target.title
 
-        console.log(fileName)
         let removeID = -1
         let fileContainer = []
 
@@ -159,6 +258,7 @@ const Proposal = (props) => {
         }
         
         let fileUrl = []
+        let fileNames = []
         if(files){
             for(let i = 0; i < files.length; i ++ ) {
                 let file = files[i]
@@ -179,50 +279,50 @@ const Proposal = (props) => {
                 })
 
                 fileUrl.push(fileLink)
+                fileNames.push(file.name)
             }   
         }
 
         load.files = fileUrl
+        load.fileNames = fileNames
         
-        const proposalRef   = database.ref('project_proposal')
-        const newProposalRef    = proposalRef.push()
-        newProposalRef.set(load) 
 
-
-        const memberRef = database.ref('member_profile/' + props.userInfo.id)
-        let prevProjectCount = props.userInfo.project
-        let projectCount
-        let updateData = {}
-
-        if(prevProjectCount == undefined) {
-            projectCount = 1
-        } else {
-            projectCount = parseInt(prevProjectCount) + 1
+        if(id && !init) {
+            const proposalRef = database.ref('project_proposal/' + id + '/')
+            proposalRef.get().then( (snapshot) => {
+                if(snapshot.exists) {
+                    const prevProposal = snapshot.val()
+                    if(prevProposal.files) {
+                        prevProposal.files.push(...load.files)
+                        prevProposal.fileNames.push(...load.fileNames)
+                        load.files = prevProposal.files
+                        load.fileNames = prevProposal.fileNames
+                    }
+                    proposalRef.update(load) 
+                }
+            } )
         }
-        updateData['project'] = projectCount
-        memberRef.update(updateData)
+        else {
+            const proposalRef   = database.ref('project_proposal')
+            const newProposalRef    = proposalRef.push()
+            newProposalRef.set(load) 
 
+
+            const memberRef = database.ref('member_profile/' + props.userInfo.id)
+            let prevProjectCount = props.userInfo.project
+            let projectCount
+            let updateData = {}
+
+            if(prevProjectCount == undefined) {
+                projectCount = 1
+            } else {
+                projectCount = parseInt(prevProjectCount) + 1
+            }
+            updateData['project'] = projectCount
+            memberRef.update(updateData)
+        }
         setLoading(false)
-        // reset()
         navigate('/1', {replace: true})
-    }
-
-    const reset = () => {
-        setProjectName('');
-        setSupply('');
-        setPrice('');
-        setBriefProjectSummary('');
-        setDetailedProjectDiscription('');
-        setInterest({})
-        setInputFile(document.getElementById('input-file'))
-        setFiles([])
-        setFileContainer(null)        
-        setDecliamer(false)
-        let interests = document.getElementsByClassName('form-check-input')
-
-        for(let i = 0; i < interests.length; i ++ ) {
-            interests[i].checked = false
-        }
     }
 
     const handleClick = (e) => {
@@ -270,6 +370,7 @@ const Proposal = (props) => {
                                                 Add File
                                             </Button>
                                             <Row className="selected-files">
+                                                {prevFileContainer}
                                                 {selFileContainer}
                                             </Row>
                                         </div>
