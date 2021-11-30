@@ -107,13 +107,14 @@ const Panel = (props) => {
                                     backgroundImage: "url(" + (props.proposal.files ? props.proposal.files[0] : '') + ")",
                                     backgroundSize: "100%",
                                     backgroundRepeat: "no-repeat",
-                                    backgroundColor: "black",
                                 }}
                             >
-                                <h3>{props.proposal.name}</h3>
-                                <p className="question">
-                                    {props.proposal.brief}
-                                </p>
+                                <div className="gradient">
+                                    <h3>{props.proposal.name}</h3>
+                                    <p className="question">
+                                        {props.proposal.brief}
+                                    </p>
+                                </div>
                             </div>
                         </Link>
                         <div className="rating-section">

@@ -180,31 +180,53 @@
                 }
             }
             .background-section {
-                width: 24vw;
-                height: 24vw;
-                padding: 1vw;
-                background-color: #adadad;
                 border-radius: 1vw;
                 position: relative;
-                h3 {
-                    color: $white;
-                    font-size: 2vw;
-                }
-                .icon-section {
-                    position: absolute;
-                    top: calc(50% - 3vw);
-                    left: calc(50% - 2vw);
-                    i {
+                .new-gradient {
+                    padding: 1vw;
+                    width: 100%;
+                    height: 24vw;
+                    border-radius: 1vw;
+                    background-color: #adadad;
+                    h3 {
                         color: $white;
-                        font-size: 6vw;
+                        font-size: 2vw;
+                    }
+                    .icon-section {
+                        position: absolute;
+                        top: calc(50% - 3vw);
+                        left: calc(50% - 2vw);
+                        i {
+                            color: $white;
+                            font-size: 6vw;
+                        }
+                    }
+                    .question {
+                        position: absolute;
+                        bottom: 0px;
+                        font-size: 1.5vw;
+                        font-weight: 300;
+                        color: $white;
                     }
                 }
-                .question {
-                    position: absolute;
-                    bottom: 0px;
-                    font-size: 1.5vw;
-                    font-weight: 300;
-                    color: $white;
+                .gradient {
+                    background-image: linear-gradient(rgba(0,0,0,1), rgba(0,0,0,0),rgba(0,0,0,0), rgba(0,0,0,1));
+                    
+                    padding: 1vw;
+                    width: 100%;
+                    height: 24vw;
+                    border-radius: 1vw;
+                    h3 {
+                        color: $white;
+                        font-size: 2vw;
+                    }
+                    .question {
+                        position: absolute;
+                        bottom: 0px;
+                        font-size: 1.5vw;
+                        font-weight: 300;
+                        color: $white;
+                    }
                 }
             }
             .rating-section {
@@ -301,21 +323,42 @@
                     }
                 }
                 .background-section {
-                    width: 39vw;
-                    height: 39vw;
-                    h3 {
-                        font-size: 1.6rem;
-                    }
-                    .icon-section {
-                        position: absolute;
-                        top: calc(50% - 3rem);
-                        left: calc(50% - 2rem);
-                        i {
-                            font-size: 6rem;
+                    .new-gradient {
+                        width: 100%;
+                        height: 39vw;
+                        h3 {
+                            font-size: 1.6rem;
                         }
+                        .icon-section {
+                            position: absolute;
+                            top: calc(50% - 3rem);
+                            left: calc(50% - 2rem);
+                            i {
+                                font-size: 6rem;
+                            }
+                        }
+                        .question {
+                            font-size: 1.2rem;
+                        }
+
                     }
-                    .question {
-                        font-size: 1.2rem;
+                    .gradient {
+                        width: 100%;
+                        height: 39vw;
+                        h3 {
+                            font-size: 1.6rem;
+                        }
+                        .icon-section {
+                            position: absolute;
+                            top: calc(50% - 3rem);
+                            left: calc(50% - 2rem);
+                            i {
+                                font-size: 6rem;
+                            }
+                        }
+                        .question {
+                            font-size: 1.2rem;
+                        }
                     }
                 }
                 .rating-section {
@@ -511,31 +554,59 @@
                     }
                 }
                 .background-section {
-                    width: 81vw;
-                    height: 81vw;
-                    padding: 2vw;
-                    background-color: #adadad;
-                    border-radius: 1vw;
-                    position: relative;
-                    h3 {
-                        color: $white;
-                        font-size: 5vw;
-                    }
-                    .icon-section {
-                        position: absolute;
-                        top: calc(50% - 6vw);
-                        left: calc(50% - 4vw);
-                        i {
+                    .new-gradient {
+                        width: 81vw;
+                        height: 81vw;
+                        padding: 2vw;
+                        border-radius: 1vw;
+                        position: relative;
+                        h3 {
                             color: $white;
-                            font-size: 12vw;
+                            font-size: 5vw;
+                        }
+                        .icon-section {
+                            position: absolute;
+                            top: calc(50% - 6vw);
+                            left: calc(50% - 4vw);
+                            i {
+                                color: $white;
+                                font-size: 12vw;
+                            }
+                        }
+                        .question {
+                            position: absolute;
+                            bottom: 0px;
+                            font-size: 3vw;
+                            font-weight: 300;
+                            color: $white;
                         }
                     }
-                    .question {
-                        position: absolute;
-                        bottom: 0px;
-                        font-size: 3vw;
-                        font-weight: 300;
-                        color: $white;
+                    .gradient {
+                        width: 81vw;
+                        height: 81vw;
+                        padding: 2vw;
+                        border-radius: 1vw;
+                        position: relative;
+                        h3 {
+                            color: $white;
+                            font-size: 5vw;
+                        }
+                        .icon-section {
+                            position: absolute;
+                            top: calc(50% - 6vw);
+                            left: calc(50% - 4vw);
+                            i {
+                                color: $white;
+                                font-size: 12vw;
+                            }
+                        }
+                        .question {
+                            position: absolute;
+                            bottom: 0px;
+                            font-size: 3vw;
+                            font-weight: 300;
+                            color: $white;
+                        }
                     }
                 }
                 .rating-section {

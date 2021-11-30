@@ -120,7 +120,6 @@ const Home = (props) => {
             } )
         } else {
             const sortByString = ratingString[sort]
-            console.log(sortByString)
             container.sort( (a, b) => {
                 let aSort, bSort;
                 if(!a.rating) {
@@ -362,13 +361,15 @@ const Home = (props) => {
                                 <div className="submit-project">
                                     <Link to="/proposal">
                                         <div className="background-section">
-                                            <h3>Submit Project Proposal</h3>
-                                            <p className="icon-section">
-                                                <i className="fa fa-plus"></i>
-                                            </p>
-                                            <p className="question">
-                                                Have a great idea? Get funded, developed, and launched right here!
-                                            </p>
+                                            <div className="new-gradient">
+                                                <h3>Submit Project Proposal</h3>
+                                                <p className="icon-section">
+                                                    <i className="fa fa-plus"></i>
+                                                </p>
+                                                <p className="question">
+                                                    Have a great idea? Get funded, developed, and launched right here!
+                                                </p>
+                                            </div>
                                         </div>
                                     </Link>
                                     <div className="rating-section">
