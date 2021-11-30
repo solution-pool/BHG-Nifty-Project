@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import Header from '../components/Header';
 import { Container, Row, Col, Form, Button, Spinner, Modal, Overlay, Popover } from 'react-bootstrap';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams, useNavigate } from 'react-router-dom';
 import StarRatingComponent from 'react-star-rating-component';
 import { database } from '../config/firebase';
 import Post from '../components/Post';
@@ -33,6 +33,7 @@ const Project = (props) => {
     const [overlayShow, setOverlayShow] = useState(false)
     const [target, setTarget] = useState(null)
     const [applicants, setApplicants] = useState('')
+    const navigate = useNavigate()
 
     useEffect( async () => {
         
@@ -320,7 +321,11 @@ const Project = (props) => {
                 <Container className="project">
                     <Row>
                         <Col lg={5} md={12} sm={12}>
-                            <p className="panel-title">Project</p>
+                            <p className="panel-title">Project
+                            { (t == 1 && creator && props.userInfo && creator.wallet == props.userInfo.wallet) ? 
+                                <Link to={"/proposal/" + id} className="btn btn-secondary btn-sm edit-proposal">Edit your proposal</Link>
+                             : '' }
+                            </p>
                             <div className="project-detail project-panel">
                                 <h1 className="project-name" title={project ? project.name : ''}>{ project ? project.name : '' }</h1>
                                 <p className="project-condition">
