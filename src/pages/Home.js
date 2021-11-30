@@ -11,13 +11,17 @@ import {NotificationContainer, NotificationManager} from 'react-notifications';
 import 'react-notifications/lib/notifications.css';
 
 const Home = (props) => {
-    const [sort, setSort] = useState(1)
+    const [sort, setSort] = useState(6)
     const [type, setType] = useState(1)
     const [projectContainer, setProposalContainer] = useState([])
     const [blocking, setBlock] = useState(false)
     const [init, setInit] = useState(true)
     const { t } = useParams()
     const navigate = useNavigate()
+
+    const ratingString = [
+        'Art', 'Roadmap', 'Utility', 'Community', 'Team', 'Originality'
+    ]
 
     useEffect( async () => {
         setInit(false)
@@ -76,7 +80,7 @@ const Home = (props) => {
     }
 
     const showPanel = (container) => {
-        if(sort == 1) {
+        if(sort == 6) {
             container.sort( (a, b) => {
                 if(b.createDate > a.createDate) {
                     return 1
@@ -95,7 +99,7 @@ const Home = (props) => {
                     }
                 }
             })
-        } else {
+        } else if(sort == 7) {
             container.sort( (a, b) => {
                 let aVote = !a.vote ? 0 : Object.values(a.vote).length;
                 let bVote = !b.vote ? 0 : Object.values(b.vote).length;
@@ -112,6 +116,53 @@ const Home = (props) => {
                     } else {
                         return 0
                     }
+                }
+            } )
+        } else {
+            const sortByString = ratingString[sort]
+            console.log(sortByString)
+            container.sort( (a, b) => {
+                let aSort, bSort;
+                if(!a.rating) {
+                    aSort = 0
+                } else {
+                    const ratingAry = Object.values(a.rating)
+                    let userCount = 0
+                    let ratingSum = 0
+                    for(let oneUserRating of ratingAry) {
+                        if(oneUserRating[sortByString.toLowerCase()]) {
+                            for(let i in oneUserRating[sortByString.toLowerCase()]) {
+                                ratingSum += parseInt(oneUserRating[sortByString.toLowerCase()][i])
+                            }
+                        }
+                        userCount ++
+                    }
+                    aSort = ratingSum / userCount
+                }
+
+                if(!b.rating) {
+                    bSort = 0 
+                } else {
+                    const ratingAry = Object.values(b.rating)
+                    let userCount = 0
+                    let ratingSum = 0
+                    for(let oneUserRating of ratingAry) {
+                        if(oneUserRating[sortByString.toLowerCase()]) {
+                            for(let i in oneUserRating[sortByString.toLowerCase()]) {
+                                ratingSum += parseInt(oneUserRating[sortByString.toLowerCase()][i])
+                            }
+                        }
+                        userCount ++
+                    }
+                    bSort = ratingSum / userCount
+                }
+
+                if(bSort > aSort) {
+                    return 1
+                } else if(bSort < aSort) {
+                    return -1 
+                } else {
+                    return 0
                 }
             } )
         }
@@ -271,8 +322,14 @@ const Home = (props) => {
                                 <Form.Group className="sort">
                                     <Form.Label>Sort by :&nbsp; </Form.Label>
                                     <Form.Select onChange={changeSort}>
-                                        <option value="1" selected={sort == 1 ? 'selected' : ''}>Newest</option>
-                                        <option value="2" selected={sort == 2 ? 'selected' : ''}>Most Upvotes</option>
+                                        <option value="6" selected={sort == 6 ? 'selected' : ''}>Newest</option>
+                                        <option value="7" selected={sort == 7 ? 'selected' : ''}>Most Upvotes</option>
+                                        <option value="0" selected={sort == 0 ? 'selected' : ''}>Art</option>
+                                        <option value="1" selected={sort == 1 ? 'selected' : ''}>Roadmap</option>
+                                        <option value="2" selected={sort == 2 ? 'selected' : ''}>Utility</option>
+                                        <option value="3" selected={sort == 3 ? 'selected' : ''}>Community</option>
+                                        <option value="4" selected={sort == 4 ? 'selected' : ''}>Team</option>
+                                        <option value="5" selected={sort == 5 ? 'selected' : ''}>Originality</option>
                                     </Form.Select>
                                 </Form.Group>
                             </Col>
