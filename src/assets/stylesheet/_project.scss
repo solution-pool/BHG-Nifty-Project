@@ -23,7 +23,10 @@
         .project-name {
             text-align: center;
             font-size: 2.5vw;
-            font-weight: 700;
+            font-weight: 700;    
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
         }
         .project-condition {
             white-space: nowrap;
@@ -44,7 +47,7 @@
             height: 20vw;
             width: 20vw;
             top: 8vw;
-            left : 6vw;
+            left : calc(50% - 9.5vw);
             img {
                 width: 100%;
                 height: 100%;
@@ -287,7 +290,7 @@
                 height: 40vw;
                 width: 40vw;
                 top: 16vw;
-                left : 19vw;
+                left : calc(50% - 19vw);
             }
             .project-upvote {
                 button {
@@ -476,7 +479,7 @@
                 height: 40vw;
                 width: 40vw;
                 top: 16vw;
-                left : 19vw;
+                left : calc(50% - 19vw);
             }
             .project-upvote {
                 button {

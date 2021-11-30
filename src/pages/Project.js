@@ -322,7 +322,7 @@ const Project = (props) => {
                         <Col lg={5} md={12} sm={12}>
                             <p className="panel-title">Project</p>
                             <div className="project-detail project-panel">
-                                <h1 className="project-name">{ project ? project.name : '' }</h1>
+                                <h1 className="project-name" title={project ? project.name : ''}>{ project ? project.name : '' }</h1>
                                 <p className="project-condition">
                                     <div className="supply">Supply: { project ? project.supply : '' }</div>
                                     <div className="price">Price: { project ? project.price : '' }</div>
