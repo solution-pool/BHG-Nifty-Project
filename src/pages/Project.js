@@ -100,20 +100,20 @@ const Project = (props) => {
                             }
                         }
                         let applicantCount = 0
-                        let applicantMember = ''
+                        let applicantMember = []
                         for(let j in team) {
                             const oneApplyData = team[j]
                             if(oneApplyData[oneInterest] == 1) {
                                 applicantCount ++
-                                applicantMember += (j + '<br />')
+                                applicantMember.push(j)
                             }
                         }
                         let one_container = <Col lg="6" md="12" sm="12" className="text-center team-member-button" >
                                                 <Button className={className} name={oneInterest} id={oneInterest} value={value} onClick={changeTeamMember}>
                                                     {PROPOSAL_INTEREST[oneInterest]}
-                                                    <Button className="applicants" name={applicantMember} onClick={showApplicants}>
-                                                        <div className="applicants-count" name={applicantMember}>{applicantCount}</div>
-                                                        <div className="applicants-applicants" name={applicantMember}>applicants</div>
+                                                    <Button className="applicants">
+                                                        <div className="applicants-count" data-applicants={JSON.stringify(applicantMember)} onClick={showApplicants}>{applicantCount}</div>
+                                                        <div className="applicants-applicants" data-applicants={JSON.stringify(applicantMember)} onClick={showApplicants}>applicants</div>
                                                     </Button>
                                                 </Button>
                                             </Col>
@@ -235,15 +235,27 @@ const Project = (props) => {
     }
 
     const showApplicants = (e) => {
-        console.log(e.target)
-        let content = ''
+        e.stopPropagation()
+        const applicantsData = e.target.getAttribute('data-applicants')
+        const applicantsAry  = JSON.parse(applicantsData)
         setOverlayShow(!overlayShow)
         setTarget(e.target)
-        let value = e.target.name
-        console.log(e.target)
-        // setApplicants('Hello')
 
-        e.stopPropagation()
+        database.ref('member_profile').get().then( (snapshot) => {
+            if(snapshot.exists) {
+                const allUserData = Object.values(snapshot.val())
+                let applicantsHtml =  ''
+                for(let i of applicantsAry) {
+                    const selUser = allUserData.find(element => element.wallet == i)
+
+                    if(!selUser) {
+                        continue
+                    }
+                    applicantsHtml += selUser.username + '<br />'
+                }
+                setApplicants(ReactHtmlParser(applicantsHtml))
+            }
+        } )
     }
 
     const changeTeamMember = (e) => {
