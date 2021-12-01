@@ -443,9 +443,15 @@
                     }
     
                     .discussion-content {
-                        div {
+                        .content {
                             padding: 2vw;
                             font-size: 2.4vw;
+                        }
+                        .reply {
+                            button {
+                                font-size: 2.4vw;
+                                padding: 1vw 1vw;
+                            }
                         }
                     }
                 }
@@ -468,6 +474,10 @@
             font: {
                 size: 3vw;
                 weight: 700;
+            }
+            .edit-proposal {
+                font-size: 2.4vw;
+                padding: 1vw 1vw;
             }
         }
         .project-panel {
@@ -614,6 +624,7 @@
                     .discussion-button {
                         .action {
                             button {
+                                font-size: 2.4vw;
                                 padding-top: 1vw;
                                 padding-bottom: 1vw;
                                 width: 6vw;
@@ -623,6 +634,7 @@
                         .vote-count {
                             margin-top: 1vw;
                             button {
+                                font-size: 2.4vw !important;
                                 padding-top: 1vw;
                                 padding-bottom: 1vw;
                                 width: 6vw;
@@ -633,10 +645,20 @@
                     }
     
                     .discussion-content {
-                        div {
+                        .content {
                             padding: 2vw;
                             font-size: 2.4vw;
                         }
+                        .reply {
+                            button {
+                                font-size: 2.4vw;
+                                padding: 1vw 1vw;
+                            }
+                        }
+                        // div {
+                        //     padding: 2vw;
+                        //     font-size: 2.4vw;
+                        // }
                     }
                 }
             }
