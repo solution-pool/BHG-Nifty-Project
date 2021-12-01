@@ -48,7 +48,9 @@ const Post = (props) => {
         // resetPostData()
     }
 
-    const sendReply = async (e, code) => {
+    const sendReply = async (e) => {
+        e.preventDefault()
+        const code = props.data.code
         const wallet = props.userInfo.wallet
         let tableName = (props.t == 1) ? 'project_proposal' : 'project_outside'
         const postRef = database.ref(tableName + '/' + props.id + '/post/')
@@ -139,16 +141,18 @@ const Post = (props) => {
                 : '' }
             </Col>
             <Modal show={show} size="lg" onHide={handleClose}>
-                <Modal.Body>
-                    <Form.Group>
-                        <Form.Control as="textarea" rows="10" placeholder="" value={reply} onChange={changeReply} />
-                    </Form.Group>
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button variant="primary" onClick={ e => sendReply(e, props.data.code) }>
-                        Reply
-                    </Button>
-                </Modal.Footer>
+                <Form onSubmit={sendReply}>
+                    <Modal.Body>
+                        <Form.Group>
+                            <Form.Control as="textarea" rows="10" placeholder="" value={reply} onChange={changeReply} required/>
+                        </Form.Group>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="primary" type="submit">
+                            Reply
+                        </Button>
+                    </Modal.Footer>
+                </Form>
             </Modal>
         </Row>
     );

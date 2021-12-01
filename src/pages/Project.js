@@ -303,7 +303,8 @@ const Project = (props) => {
         setPost(e.target.value)
     }
 
-    const handleSave = async () => {
+    const handleSave = async (e) => {
+        e.preventDefault();
         const wallet = props.userInfo.wallet
         let tableName = (t == 1) ? 'project_proposal' : 'project_outside'
         const postRef = database.ref(tableName + '/' + id + '/post/')
@@ -549,16 +550,18 @@ const Project = (props) => {
                 </Container>
             </BlockUi>
             <Modal show={show} size="lg" onHide={handleClose}>
-                <Modal.Body>
-                    <Form.Group>
-                        <Form.Control as="textarea" rows="10" placeholder="" value={post} onChange={changePost} />
-                    </Form.Group>
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button variant="primary" onClick={handleSave}>
-                        Add new post
-                    </Button>
-                </Modal.Footer>
+                <Form onSubmit={handleSave}>
+                    <Modal.Body>
+                        <Form.Group>
+                            <Form.Control as="textarea" rows="10" placeholder="" value={post} onChange={changePost} required />
+                        </Form.Group>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button type="submit" variant="primary">
+                            Add new post
+                        </Button>
+                    </Modal.Footer>
+                </Form>
             </Modal>
             
             <Overlay
