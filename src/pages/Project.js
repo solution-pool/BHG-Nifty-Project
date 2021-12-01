@@ -32,19 +32,20 @@ const Project = (props) => {
     const [overlayShow, setOverlayShow] = useState(false)
     const [target, setTarget] = useState(null)
     const [applicants, setApplicants] = useState('')
+    const [init, setInit] = useState(true)
     const navigate = useNavigate()
 
-    useEffect( async () => {
-        
+    useEffect(() => {
         if(props.userLoad) {
             if(props.userInfo.wallet) {
                 setBlock(true)
                 setMessage('')
-                await getProject()
+                getProject()
             } else {
                 setMessage(ReactHtmlParser("You are not registered as a Nifty member. Please sign up first. <a href='/'> Back </a>"))
                 setBlock(true)
             }
+            setInit(false)
         } else {
             setBlock(true)
             setMessage('')
@@ -69,8 +70,7 @@ const Project = (props) => {
     const getProject = async () => {
         let tableName = (t == 1) ? 'project_proposal' : 'project_outside'
         const proposalRef = database.ref(tableName + '/' + id)
-        await proposalRef.get().then( (snapshot) => {
-            setBlock(false)
+        await proposalRef.get().then( async (snapshot) => {
             if(snapshot.exists) {
                 const newAry = snapshot.val()
                 setProject(newAry)
@@ -86,40 +86,45 @@ const Project = (props) => {
                 const team = newAry.team
                 if(interest) {
                     let container = []
-                    for(let oneInterest in interest) {
-                        let className = 'no-selected team-member btn btn-primary';
-                        let value = 0
-                        if(team && team[props.userInfo.wallet]) {
-                            const teamData = team[props.userInfo.wallet]
-                            if(teamData[oneInterest]) {
-                                className = 'selected team-member'
-                                value = 1
-                            } else {
-                                className = 'no-selected team-member'
-                                value = 0
+                    await database.ref('member_profile').get().then( (snapshot) => {
+                        if(snapshot.exists()) {
+                            const users = Object.values(snapshot.val())
+                            for(let oneInterest in interest) {
+                                let className = 'no-selected team-member btn btn-primary';
+                                let value = 0
+                                if(team && team[props.userInfo.wallet]) {
+                                    const teamData = team[props.userInfo.wallet]
+                                    if(teamData[oneInterest]) {
+                                        className = 'selected team-member'
+                                        value = 1
+                                    } else {
+                                        className = 'no-selected team-member'
+                                        value = 0
+                                    }
+                                }
+                                let applicantCount = 0
+                                let applicantMember = []
+                                for(let j in team) {
+                                    const oneApplyData = team[j]
+                                    if(oneApplyData[oneInterest] == 1) {
+                                        applicantCount ++
+                                        const username = users.find( (e) => e.wallet == j ).username
+                                        applicantMember.push(username)
+                                    }
+                                }
+                                let one_container = <Col lg="6" md="12" sm="12" className="text-center team-member-button" >
+                                                        <Button className={className} name={oneInterest} id={oneInterest} value={value} onClick={changeTeamMember}>
+                                                            {PROPOSAL_INTEREST[oneInterest]}
+                                                            <Button className="applicants">
+                                                                <div className="applicants-count" data-applicants={JSON.stringify(applicantMember)} onClick={showApplicants}>{applicantCount}</div>
+                                                                <div className="applicants-applicants" data-applicants={JSON.stringify(applicantMember)} onClick={showApplicants}>applicants</div>
+                                                            </Button>
+                                                        </Button>
+                                                    </Col>
+                                container.push(one_container)
                             }
                         }
-                        let applicantCount = 0
-                        let applicantMember = []
-                        for(let j in team) {
-                            const oneApplyData = team[j]
-                            if(oneApplyData[oneInterest] == 1) {
-                                applicantCount ++
-                                applicantMember.push(j)
-                            }
-                        }
-                        let one_container = <Col lg="6" md="12" sm="12" className="text-center team-member-button" >
-                                                <Button className={className} name={oneInterest} id={oneInterest} value={value} onClick={changeTeamMember}>
-                                                    {PROPOSAL_INTEREST[oneInterest]}
-                                                    <Button className="applicants">
-                                                        <div className="applicants-count" data-applicants={JSON.stringify(applicantMember)} onClick={showApplicants}>{applicantCount}</div>
-                                                        <div className="applicants-applicants" data-applicants={JSON.stringify(applicantMember)} onClick={showApplicants}>applicants</div>
-                                                    </Button>
-                                                </Button>
-                                            </Col>
-                        container.push(one_container)
-                    }
-
+                    } )
                     setTeamContainer(container)
                 }
 
@@ -207,10 +212,12 @@ const Project = (props) => {
                     setVoteCount(Object.values(voteData).length)
                 }
             }
+            setBlock(false)
         } )
     }
 
     const changeRating = async (nextValue, prevValue, name) => {
+        setInit(true)
         switch(name) {
             case 'art':
                 setArtValue(nextValue)
@@ -254,36 +261,35 @@ const Project = (props) => {
         } )
     }
 
-    const showApplicants = (e) => {
+    const showApplicants = async (e) => {
         e.stopPropagation()
         const applicantsData = e.target.getAttribute('data-applicants')
         const applicantsAry  = JSON.parse(applicantsData)
-        setOverlayShow(!overlayShow)
-        setTarget(e.target)
-
-        database.ref('member_profile').get().then( (snapshot) => {
-            if(snapshot.exists) {
-                const allUserData = Object.values(snapshot.val())
-                let applicantsHtml =  ''
-                for(let i of applicantsAry) {
-                    const selUser = allUserData.find(element => element.wallet == i)
-
-                    if(!selUser) {
-                        continue
-                    }
-                    applicantsHtml += selUser.username + '<br />'
+        if(applicantsAry.length) {
+            let applicantsHtml =  ''
+            for(let i in applicantsAry) {
+                if( i == applicantsAry.length - 1) {
+                    applicantsHtml += applicantsAry[i];
+                } else {
+                    applicantsHtml += applicantsAry[i] + '<br />';
                 }
-                setApplicants(ReactHtmlParser(applicantsHtml))
             }
-        } )
+            setApplicants(ReactHtmlParser(applicantsHtml))
+            if(overlayShow == true) {
+                setOverlayShow(false)
+                setTarget(e.target)
+            } else {
+                setOverlayShow(true)
+                setTarget(e.target)
+            }
+        }
     }
 
     const changeTeamMember = (e) => {
+        setInit(true)
         const name = e.target.name
         const value = e.target.value
         let team = JSON.parse(JSON.stringify(teamMember))
-
-        console.log(e.target)
         team[name] = (1 - value)
         e.target.value = 1 - value
         if(value == 0) {
@@ -304,6 +310,7 @@ const Project = (props) => {
     }
 
     const handleSave = async (e) => {
+        setInit(true)
         e.preventDefault();
         const wallet = props.userInfo.wallet
         let tableName = (t == 1) ? 'project_proposal' : 'project_outside'
@@ -342,6 +349,7 @@ const Project = (props) => {
     const handleShow = () => setShow(true);
 
     const vote = () => {
+        setInit(true)
         let tableName = (t == 1) ? 'project_proposal' : 'project_outside'
         const voteRef = database.ref(tableName + '/' + id + '/vote/')
         voteRef.push().set(props.userInfo.wallet)
