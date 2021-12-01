@@ -1,6 +1,6 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import Header from '../components/Header';
-import { Container, Row, Col, Form, Button, Spinner, Modal, Overlay, Popover } from 'react-bootstrap';
+import { Container, Row, Col, Form, Button, Modal, Overlay, Popover } from 'react-bootstrap';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import StarRatingComponent from 'react-star-rating-component';
 import { database } from '../config/firebase';
@@ -32,8 +32,6 @@ const Project = (props) => {
     const [overlayShow, setOverlayShow] = useState(false)
     const [target, setTarget] = useState(null)
     const [applicants, setApplicants] = useState('')
-    const [init, setInit] = useState(true)
-    const navigate = useNavigate()
 
     useEffect(() => {
         if(props.userLoad) {
@@ -45,7 +43,6 @@ const Project = (props) => {
                 setMessage(ReactHtmlParser("You are not registered as a Nifty member. Please sign up first. <a href='/'> Back </a>"))
                 setBlock(true)
             }
-            setInit(false)
         } else {
             setBlock(true)
             setMessage('')
@@ -217,7 +214,6 @@ const Project = (props) => {
     }
 
     const changeRating = async (nextValue, prevValue, name) => {
-        setInit(true)
         switch(name) {
             case 'art':
                 setArtValue(nextValue)
@@ -286,7 +282,6 @@ const Project = (props) => {
     }
 
     const changeTeamMember = (e) => {
-        setInit(true)
         const name = e.target.name
         const value = e.target.value
         let team = JSON.parse(JSON.stringify(teamMember))
@@ -310,7 +305,6 @@ const Project = (props) => {
     }
 
     const handleSave = async (e) => {
-        setInit(true)
         e.preventDefault();
         const wallet = props.userInfo.wallet
         let tableName = (t == 1) ? 'project_proposal' : 'project_outside'
@@ -349,7 +343,6 @@ const Project = (props) => {
     const handleShow = () => setShow(true);
 
     const vote = () => {
-        setInit(true)
         let tableName = (t == 1) ? 'project_proposal' : 'project_outside'
         const voteRef = database.ref(tableName + '/' + id + '/vote/')
         voteRef.push().set(props.userInfo.wallet)
