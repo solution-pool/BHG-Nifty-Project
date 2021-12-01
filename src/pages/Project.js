@@ -87,6 +87,9 @@ const Project = (props) => {
                         if(snapshot.exists()) {
                             const users = Object.values(snapshot.val())
                             for(let oneInterest in interest) {
+                                if(interest[oneInterest] == 'A') {
+                                    continue; // role was selected as 'have'
+                                }
                                 let className = 'no-selected team-member btn btn-primary';
                                 let value = 0
                                 if(team && team[props.userInfo.wallet]) {
