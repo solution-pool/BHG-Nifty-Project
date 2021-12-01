@@ -9,7 +9,7 @@ const Post = (props) => {
     const [votes, setVotes] = useState([]) 
     const [show, setShow] = useState(false)
     const [reply, setReply] = useState('')
-    const [postID, setPostID] = useState('')
+    const [trigger, setTrigger] = useState(false)
 
     useEffect( () => {
         if((props.data.vote || votes.length)) {
@@ -27,25 +27,24 @@ const Post = (props) => {
                 } else {
                     downValue ++
                 }
-                setPostID(props.data.postID)
                 setUpCount(upValue)
                 setDownCount(downValue)
             }
         }
-    }, [upCount, downCount, votes.length, show, reply, props.data.postID])
+    }, [upCount, downCount, votes.length, show, reply, props.data.postID, trigger])
 
     const up = () => {
         let tableName = (props.data.t == 1) ? 'project_proposal' : 'project_outside'
         const votePostRef = database.ref(tableName + '/' + props.data.id + '/post/' + props.data.postID + '/vote/' + props.userInfo.wallet + '/')
         votePostRef.set(1)
-        // resetPostData()
+        resetPostData()
     }
 
     const down = () => {
         let tableName = (props.data.t == 1) ? 'project_proposal' : 'project_outside'
         const votePostRef = database.ref(tableName + '/' + props.data.id + '/post/' + props.data.postID + '/vote/' + props.userInfo.wallet + '/')
         votePostRef.set(-1)
-        // resetPostData()
+        resetPostData()
     }
 
     const sendReply = async (e) => {
@@ -103,6 +102,7 @@ const Post = (props) => {
 
         if(voteValues.length) {
             setVotes(voteValues)
+            setTrigger(!trigger)
         }
     }
 
