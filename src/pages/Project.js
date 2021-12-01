@@ -312,11 +312,14 @@ const Project = (props) => {
             if(snapshot.exists()) {
                 const allPosts = snapshot.val()
                 const allPostArry = Object.values(allPosts)
-                allPostArry.sort( (a, b) => {
+                const filtered = allPostArry.filter( e => {
+                    return e.code < 100
+                } )
+                filtered.sort( (a, b) => {
                     return a.code - b.code
                 } )
 
-                const lastPost = allPostArry[allPostArry.length - 1]
+                const lastPost = filtered[filtered.length - 1]
                 newCode = parseInt(lastPost.code) + 1
             } else {
                 newCode = 1
