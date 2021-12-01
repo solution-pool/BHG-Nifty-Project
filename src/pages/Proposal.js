@@ -18,6 +18,7 @@ const Proposal = (props) => {
     const [briefProjectSummary, setBriefProjectSummary] = useState('');
     const [supply, setSupply] = useState('');
     const [price, setPrice] = useState('');
+    const [blockchain, setBlockchain] = useState(1)
     const [detailedProjectDescription, setDetailedProjectDiscription] = useState('');
     const [interest, setInterest] = useState({});
     const [inputFile, setInputFile] = useState({});
@@ -60,6 +61,7 @@ const Proposal = (props) => {
                     setBriefProjectSummary(proposal.brief)
                     setSupply(proposal.supply)
                     setPrice(proposal.price)
+                    setBlockchain(proposal.blockchain)
                     setDetailedProjectDiscription(proposal.description)
                     
                     if(proposal.files) {
@@ -126,6 +128,10 @@ const Proposal = (props) => {
 
     const changePrice = (e) => {
         setPrice(e.target.value)
+    }
+
+    const changeBlockchain = (e) => {
+        setBlockchain(e.target.value)
     }
 
     const changeDetailedProjectDescription = (e) => {
@@ -241,6 +247,7 @@ const Proposal = (props) => {
             supply: supply,
             brief: briefProjectSummary,
             price: price,
+            blockchain: blockchain,
             description: detailedProjectDescription,
             interest: JSON.stringify(interest),
             creator: props.userInfo.wallet,
@@ -355,12 +362,30 @@ const Proposal = (props) => {
                                         <Form.Label>Supply</Form.Label>
                                         <Form.Control type="text" placeholder="How many items in your project?" required value={supply} onChange={changeSupply} />
                                     </Form.Group>
-                                    <Form.Group controlId="formPrice" className="control-bundle">
-                                        <Form.Label>Price</Form.Label>
-                                        <Form.Control type="text" placeholder="Your proposed selling price." required value={price} onChange={changePrice} />
-                                    </Form.Group>
+                                    <Row>
+                                        <Col lg="6" md="6" sm="12" xs="12">
+                                            <Form.Group controlId="formPrice" className="control-bundle">
+                                                <Form.Label>Price/ Floor</Form.Label>
+                                                <Form.Control type="text" placeholder="Your proposed selling price." required value={price} onChange={changePrice} />
+                                            </Form.Group>
+                                        </Col> 
+                                        <Col lg="6" md="6" sm="12" xs="12">
+                                            <Form.Group controlId="formBlockchain" className="control-bundle">
+                                                <Form.Label>Blockchain</Form.Label>
+                                                <Form.Select value={blockchain} onChange={changeBlockchain}>
+                                                    <option value="1">Ethereum</option>
+                                                    <option value="2">Cardano</option>
+                                                    <option value="3">Binance</option>
+                                                    <option value="4">Polygon</option>
+                                                    <option value="5">Solana</option>
+                                                    <option value="6">Immutable X</option>
+                                                    <option value="7">Other</option>
+                                                </Form.Select>
+                                            </Form.Group>
+                                        </Col> 
+                                    </Row>
                                 </Col>
-                                <Col lg="4" md="6" sm="12" className="main-col">
+                                <Col lg="4" md="12" sm="12" className="main-col">
                                     <Form.Group className="mb-4">
                                         <Form.Label>Files<small> (please provide art examples or any relevant files)</small></Form.Label>
                                         <div className="footer-element file-panel">
