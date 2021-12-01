@@ -243,10 +243,18 @@
                 }
 
                 .discussion-content {
-                    div {
+                    .content {
                         padding: 1vw;
                         font-size: 1.2vw;
                         background-color: #f2f2f2;
+                    }
+                    .reply {
+                        padding-top: 1vw;
+                        background-color: white;
+                        text-align: right;
+                        // button {
+
+                        // }
                     }
                 }
             }

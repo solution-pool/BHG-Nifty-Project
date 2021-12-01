@@ -20,7 +20,6 @@ const Project = (props) => {
     const [teamValue, setTeamValue] = useState(0)
     const { id, t } = useParams()
     const [show, setShow] = useState(false)
-    const [init, setInit] = useState(true)
     const [creator, setCreator] = useState({})
     const [teamMember, setTeamMember] = useState({})
     const [teamContainer, setTeamContainer] = useState([])
@@ -164,19 +163,41 @@ const Project = (props) => {
                         postAry.push(onePost)
                     }
 
-                    postAry.sort( (a, b) => {
+                    let parentPosts = postAry.filter( (e) => {
+                        return e.code < 100
+                    } )
+
+                    parentPosts.sort( (a, b) => {
                         let aVote = !a.vote ? 0 : Object.values(a.vote).length;
                         let bVote = !b.vote ? 0 : Object.values(b.vote).length;
 
                         return bVote - aVote;
                     } )
 
-                    postHtml = postAry.map( element => <Post data={element} userInfo={props.userInfo} />)
+                    for(let i  in parentPosts) {
+                        let childs = postAry.filter( (e) => {
+                            return e.code > parentPosts[i].code * 100 && e.code < (parentPosts[i].code + 1) * 100
+                        } )
+
+                        childs.sort( (a, b) => {
+                            let aVote = !a.vote ? 0 : Object.values(a.vote).length;
+                            let bVote = !b.vote ? 0 : Object.values(b.vote).length;
+    
+                            return bVote - aVote;
+                        } )
+                        postHtml.push(<Post data={parentPosts[i]} userInfo={props.userInfo} t={t} id={id} />)
+                        const childPosts = childs.map( (element) => 
+                            <div style={{ paddingLeft: '10vw' }}>
+                                <Post data={element} userInfo={props.userInfo} t={t} id={id} />
+                            </div> )
+                        postHtml.push(...childPosts)
+                    }
+                    getProject()
                     setPosts(postHtml)
                 }
 
                 const voteData = newAry.vote
-                if(voteData && init) {
+                if(voteData) {
                     for(let i in voteData) {
                         if(voteData[i] == props.userInfo.wallet) {
                             setVoteState(true)
@@ -185,8 +206,6 @@ const Project = (props) => {
                     }
                     setVoteCount(Object.values(voteData).length)
                 }
-                
-                // setInit(true)
             }
         } )
     }
@@ -284,19 +303,35 @@ const Project = (props) => {
         setPost(e.target.value)
     }
 
-    const handleSave = () => {
+    const handleSave = async () => {
         const wallet = props.userInfo.wallet
         let tableName = (t == 1) ? 'project_proposal' : 'project_outside'
         const postRef = database.ref(tableName + '/' + id + '/post/')
-        const newPostRef = postRef.push()
-        newPostRef.set({
-            up : 0,
-            down : 0,
-            content : post,
-            poster : wallet,
-        })
-        setPost('')
-        setShow(false);
+        await postRef.get().then( async (snapshot) => {
+            let newCode
+            if(snapshot.exists()) {
+                const allPosts = snapshot.val()
+                const allPostArry = Object.values(allPosts)
+                allPostArry.sort( (a, b) => {
+                    return a.code - b.code
+                } )
+
+                const lastPost = allPostArry[allPostArry.length - 1]
+                newCode = parseInt(lastPost.code) + 1
+            } else {
+                newCode = 1
+            }
+            const newPostRef = postRef.push()
+            await newPostRef.set({
+                up : 0,
+                down : 0,
+                content : post,
+                poster : wallet,
+                code : newCode
+            })
+            setPost('')
+            setShow(false);
+        } )
     }
 
     const handleClose = () => setShow(false)
