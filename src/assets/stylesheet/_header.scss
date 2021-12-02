@@ -1,6 +1,7 @@
 .navbar {
     background-color:  $content-background-color !important;
     .container {
+        max-width: 95% !important;
         .navbar-collapse {
             .me-auto {
                 img {

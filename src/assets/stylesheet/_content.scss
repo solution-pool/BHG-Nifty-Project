@@ -1,144 +1,147 @@
-.content {
-    background-color: $content-background-color;
-    .main-col {
-        padding: 2.5rem 2.5rem 0 2.5rem;
-    }
+.container {
+    max-width: 95% !important;
+    .content {
+        background-color: $content-background-color;
+        .main-col {
+            padding: 2.5rem 2.5rem 0 2.5rem;
+        }
 
-    .price {
-        padding-right: 1.25rem !important;
-    }
-    
-    .blockchain {
-        padding-left: 1.25rem !important;
-    }
+        .price {
+            padding-right: 1.25rem !important;
+        }
+        
+        .blockchain {
+            padding-left: 1.25rem !important;
+        }
 
-    .checkbox-panel {
-        padding: 2rem;
-        background-color: $white;
-        border-radius: 5px;
-        .checkbox-col {
-            padding-left: 6.5vw;
-            .form-check-label {
-                word-break: break-all !important;
+        .checkbox-panel {
+            padding: 2rem;
+            background-color: $white;
+            border-radius: 5px;
+            .checkbox-col {
+                padding-left: 6.5vw;
+                .form-check-label {
+                    word-break: break-all !important;
+                }
             }
         }
-    }
-    .footer-element {
-        height: 10rem;
-    }
-    .file-panel {
-        text-align: center;
-        margin: auto;
-        background-color: $white;
-        overflow: auto;
-
-        button {
-            top: 10%;
-            position: relative;
+        .footer-element {
+            height: 10rem;
         }
-        .selected-files {
-            width: 100%;
-            margin: 0px;
+        .file-panel {
+            text-align: center;
+            margin: auto;
+            background-color: $white;
+            overflow: auto;
+
+            button {
+                top: 10%;
+                position: relative;
+            }
+            .selected-files {
+                width: 100%;
+                margin: 0px;
+                position: relative;
+                button {
+                    position: relative;
+                    margin-top: 1vw;
+                    background-color: #f2f2f2;
+                    border-color: #f2f2f2;
+                    color: black ;
+                    width: 100%;
+                    padding: 0.375rem 0.75rem;
+                    .cross-content {
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                    }
+                    .cross {
+                        border: 1px solid #ced4da;
+                        position: absolute;
+                        width: 1rem;
+                        height: 1rem;
+                        top: -0.5rem;
+                        right: -0.5rem;
+                        border-radius: 50%;
+                        color: #ced4da;
+                        background-color: white;
+                        .close-button {
+                            position: absolute;
+                            font-size: 0.6rem;
+                            top: -0.01rem;
+                            left: 0.22rem;
+                        }
+                    }
+
+                }
+            }
+        }
+        .submit-panel {
+            text-align: center;
+            margin:auto;
             position: relative;
             button {
-                position: relative;
-                margin-top: 1vw;
-                background-color: #f2f2f2;
-                border-color: #f2f2f2;
-                color: black ;
-                width: 100%;
-                padding: 0.375rem 0.75rem;
-                .cross-content {
-                    overflow: hidden;
-                    text-overflow: ellipsis;
-                }
-                .cross {
-                    border: 1px solid #ced4da;
-                    position: absolute;
-                    width: 1rem;
-                    height: 1rem;
-                    top: -0.5rem;
-                    right: -0.5rem;
-                    border-radius: 50%;
-                    color: #ced4da;
-                    background-color: white;
-                    .close-button {
-                        position: absolute;
-                        font-size: 0.6rem;
-                        top: -0.01rem;
-                        left: 0.22rem;
-                    }
-                }
-
-            }
-        }
-    }
-    .submit-panel {
-        text-align: center;
-        margin:auto;
-        position: relative;
-        button {
-            bottom: 0;
-            position: absolute;
-            right: 0;
-        }
-    }
-    .form-label {
-        margin-bottom: 0.2rem;
-        font: {
-            weight: 500;
-            size: 1rem;
-            family : 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        small {
-            font-weight: 400;
-        }
-    }
-    .form-check-label:hover {
-        cursor: pointer;
-    }
-    .margin-top-30 {
-        margin-top: 30px;
-    }
-    #file-upload-button {
-        position: relative;
-        word-break: break-all;
-        margin: 10px;
-        z-index: 100;
-        background-color: #f2f2f2;
-        #plus {
-            background-color: white;
-            color: #ced4da;
-            z-index: 101;
-            position: absolute;
-            border-radius: 50%;
-            border: 1px solid #ced4da;
-            top : -0.5rem;
-            right: -0.5rem;
-            width: 1rem;
-            height: 1rem;
-            span {
+                bottom: 0;
                 position: absolute;
-                top: -0.44rem;
-                left: 0.13rem;
+                right: 0;
             }
         }
-    }
-    #file-upload-button:hover {
-        border: 1px solid $light-button-hover;
-    }
-    .pull-right {
-        float: right;
-    }
-    .padding-bottom-20 {
-        padding-bottom: 20px !important;
-    }
-    .back {
-        color: $black;
-        text-decoration: none;
-    }
-    .back:hover {
-        font-weight: 600;
+        .form-label {
+            margin-bottom: 0.2rem;
+            font: {
+                weight: 500;
+                size: 1rem;
+                family : 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            }
+            small {
+                font-weight: 400;
+            }
+        }
+        .form-check-label:hover {
+            cursor: pointer;
+        }
+        .margin-top-30 {
+            margin-top: 30px;
+        }
+        #file-upload-button {
+            position: relative;
+            word-break: break-all;
+            margin: 10px;
+            z-index: 100;
+            background-color: #f2f2f2;
+            #plus {
+                background-color: white;
+                color: #ced4da;
+                z-index: 101;
+                position: absolute;
+                border-radius: 50%;
+                border: 1px solid #ced4da;
+                top : -0.5rem;
+                right: -0.5rem;
+                width: 1rem;
+                height: 1rem;
+                span {
+                    position: absolute;
+                    top: -0.44rem;
+                    left: 0.13rem;
+                }
+            }
+        }
+        #file-upload-button:hover {
+            border: 1px solid $light-button-hover;
+        }
+        .pull-right {
+            float: right;
+        }
+        .padding-bottom-20 {
+            padding-bottom: 20px !important;
+        }
+        .back {
+            color: $black;
+            text-decoration: none;
+        }
+        .back:hover {
+            font-weight: 600;
+        }
     }
 }
 
