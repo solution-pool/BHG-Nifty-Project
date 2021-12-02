@@ -32,6 +32,7 @@ const Project = (props) => {
     const [overlayShow, setOverlayShow] = useState(false)
     const [target, setTarget] = useState(null)
     const [applicants, setApplicants] = useState('')
+    const [trigger, setTrigger] = useState(false)
 
     useEffect( async () => {
         if(props.userLoad) {
@@ -60,6 +61,7 @@ const Project = (props) => {
         project ? project.name : project, 
         creator ? creator.name : creator, 
         posts.length,
+        trigger,
         props.userInfo.wallet, 
         props.userLoad
     ] )
@@ -193,10 +195,10 @@ const Project = (props) => {
     
                             return bVote - aVote;
                         } )
-                        postHtml.push(<Post data={parentPosts[i]} userInfo={props.userInfo} t={t} id={id} />)
+                        postHtml.push(<Post data={parentPosts[i]} userInfo={props.userInfo} t={t} id={id} onChange={changeTrigger} trigger={trigger} />)
                         const childPosts = childs.map( (element) => 
                             <div style={{ paddingLeft: '10vw' }}>
-                                <Post data={element} userInfo={props.userInfo} t={t} id={id} />
+                                <Post data={element} userInfo={props.userInfo} t={t} id={id} onChange={changeTrigger} trigger={trigger} />
                             </div> )
                         postHtml.push(...childPosts)
                     }
@@ -308,6 +310,10 @@ const Project = (props) => {
 
     const changePost = (e) => {
         setPost(e.target.value)
+    }
+
+    const changeTrigger = (e) => {
+        setTrigger(e);
     }
 
     const handleSave = async (e) => {

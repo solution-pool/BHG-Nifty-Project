@@ -9,7 +9,6 @@ const Post = (props) => {
     const [votes, setVotes] = useState([]) 
     const [show, setShow] = useState(false)
     const [reply, setReply] = useState('')
-    const [trigger, setTrigger] = useState(false)
 
     useEffect( () => {
         if((props.data.vote || votes.length)) {
@@ -31,20 +30,20 @@ const Post = (props) => {
                 setDownCount(downValue)
             }
         }
-    }, [upCount, downCount, votes.length, show, reply, props.data.postID, trigger])
+    })
 
-    const up = () => {
+    const up = async () => {
         let tableName = (props.data.t == 1) ? 'project_proposal' : 'project_outside'
         const votePostRef = database.ref(tableName + '/' + props.data.id + '/post/' + props.data.postID + '/vote/' + props.userInfo.wallet + '/')
         votePostRef.set(1)
-        resetPostData()
+        props.onChange(!props.trigger)
     }
 
-    const down = () => {
+    const down = async () => {
         let tableName = (props.data.t == 1) ? 'project_proposal' : 'project_outside'
         const votePostRef = database.ref(tableName + '/' + props.data.id + '/post/' + props.data.postID + '/vote/' + props.userInfo.wallet + '/')
         votePostRef.set(-1)
-        resetPostData()
+        props.onChange(!props.trigger)
     }
 
     const sendReply = async (e) => {
@@ -79,6 +78,7 @@ const Post = (props) => {
             })
             setShow(false)
             setReply('')
+            props.onChange(!props.trigger)
         } )
     }
 
@@ -89,22 +89,6 @@ const Post = (props) => {
     const handleClose = () => setShow(false)
 
     const handleShow = () => setShow(true);
-
-    const resetPostData = async () => {
-        let tableName = (props.data.t == 1) ? 'project_proposal' : 'project_outside'
-        const votePostRef = database.ref(tableName + '/' + props.data.id + '/post/' + props.data.postID + '/vote')
-        let voteValues = []
-        await votePostRef.get().then( async (snapshot) => {
-            if(snapshot.exists) {
-                voteValues = Object.values(snapshot.val())
-            }
-        } )
-
-        if(voteValues.length) {
-            setVotes(voteValues)
-            setTrigger(!trigger)
-        }
-    }
 
     return (
         <Row>
