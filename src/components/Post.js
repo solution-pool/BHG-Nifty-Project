@@ -1,12 +1,10 @@
 import { Row, Col, Button, Modal, Form } from 'react-bootstrap';
 import { database } from '../config/firebase';
 import { useState, useEffect, useRef } from 'react';
+import Confirm from 'react-confirm-bootstrap';
 
 const Post = (props) => {
-
-    const [upCount, setUpCount] = useState(0)
-    const [downCount, setDownCount] = useState(0)
-    const [votes, setVotes] = useState([]) 
+    
     const [show, setShow] = useState(false)
     const [reply, setReply] = useState('')
 
@@ -72,13 +70,27 @@ const Post = (props) => {
         <Row>
             <Col lg="2" md="2" sm="2" xs="2" className="discussion-button">
                 <div className="action">
-                    <Button variant="success" onClick={up} disabled={ props.userInfo.wallet == props.data.poster ? true : false }>
-                        <i className="fa fa-arrow-up"></i>
-                    </Button>
                     
-                    <Button variant="primary" onClick={down} disabled={ props.userInfo.wallet == props.data.poster ? true : false }>
-                        <i className="fa fa-arrow-down"></i>
-                    </Button>
+                    <Confirm
+                        onConfirm={up}
+                        body="Are you sure you want to upvote this post?"
+                        confirmText="Yes"
+                        title="Upvote Proposal">
+                        <Button variant="success" disabled={ props.userInfo.wallet == props.data.poster ? true : false }>
+                            <i className="fa fa-arrow-up"></i>
+                        </Button>
+                    </Confirm>
+                    
+                    
+                    <Confirm
+                        onConfirm={down}
+                        body="Are you sure you want to downvote this post?"
+                        confirmText="Yes"
+                        title="Downvote Post">
+                        <Button variant="primary" disabled={ props.userInfo.wallet == props.data.poster ? true : false }>
+                            <i className="fa fa-arrow-down"></i>
+                        </Button>
+                    </Confirm>
                 </div>
                 <div className="vote-count">
                     <Button>
