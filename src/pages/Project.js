@@ -120,7 +120,7 @@ const Project = (props) => {
                                 let one_container = <Col lg="6" md="12" sm="12" className="text-center team-member-button" >
                                                         <Button className={className} name={oneInterest} id={oneInterest} value={value} onClick={changeTeamMember}>
                                                             {PROPOSAL_INTEREST[oneInterest]}
-                                                            <Button className="applicants">
+                                                            <Button className="applicants" data-applicants={JSON.stringify(applicantMember)} onClick={showApplicants}>
                                                                 <div className="applicants-count" data-applicants={JSON.stringify(applicantMember)} onClick={showApplicants}>{applicantCount}</div>
                                                                 <div className="applicants-applicants" data-applicants={JSON.stringify(applicantMember)} onClick={showApplicants}>applicants</div>
                                                             </Button>
