@@ -57,6 +57,13 @@ const Proposal = (props) => {
             proposalRef.get().then( (snapshot) => {
                 if(snapshot.exists) {
                     const proposal = snapshot.val()
+
+                    setDecliamer(true)
+                    
+                    for(let one of document.getElementsByClassName("decliamer-input")) {
+                        one.checked = true
+                    }
+
                     setProjectName(proposal.name)
                     setBriefProjectSummary(proposal.brief)
                     setSupply(proposal.supply)
@@ -519,7 +526,7 @@ const Proposal = (props) => {
                                     <div className="pull-right">
                                         <div>
                                             <div class="interest form-check">
-                                                <input type="checkbox" class="form-check-input" value={decliamer} onChange={changeDecliamer} />
+                                                <input type="checkbox" class="form-check-input decliamer-input" value={decliamer} onChange={changeDecliamer} />
                                                 <label title="" class="form-check-label">
                                                     I have read the <span class="disclaimer" onClick={handleClick}>disclaimer</span> and I agree to the terms.
                                                 </label>

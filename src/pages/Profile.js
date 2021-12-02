@@ -76,16 +76,15 @@ const Profile = (props) => {
         imageRef.current.src = url
     }
 
-    useEffect(() => {
+    useEffect( async () => {
       setInputFile(document.getElementById("input-file"));
       setImageFile(document.getElementById("input-image"));
       fillPrevFileContainer()
       fillFileContainer()
       let wallet = walletRef.current.value
-          console.log(wallet)
       if(wallet) {
             let niftyRef = database.ref('member_profile')
-            niftyRef.get().then( (snapshot) => {
+            await niftyRef.get().then( (snapshot) => {
                 if(snapshot.exists) {
                     const newArry = snapshot.val()
                     if (newArry) {
@@ -93,7 +92,10 @@ const Profile = (props) => {
                             let oneArry = newArry[i]
                             if(oneArry.wallet == wallet) {
                                 setID(i)
-
+                                setDecliamer(true)
+                                for(let one of document.getElementsByClassName("decliamer-input")) {
+                                    one.checked = true
+                                }
                                 imageRef.current.src = oneArry.image ? oneArry.image : require('../assets/img/avatar.png').default
                                 setHeld(oneArry.held)
                                 setEmail(oneArry.email)
@@ -541,7 +543,7 @@ const Profile = (props) => {
                                         <label title="" class="form-check-label">
                                             &nbsp;I have read the <span class="disclaimer" onClick={handleClick}>disclaimer</span> and I agree to the terms.
                                         </label>
-                                        <input type="checkbox" class="form-check-input" value={decliamer} onChange={changeDecliamer} required />
+                                        <input type="checkbox" class="form-check-input decliamer-input" value={decliamer} onChange={changeDecliamer} required />
                                     </span>
                                     <div className="footer-element file-panel">
                                         <input id="input-file" type="file" name="file" className="d-none" onChange={changeFile} multiple />
@@ -555,7 +557,7 @@ const Profile = (props) => {
                                         </Row>
                                     </div>
                                     <span id="down-decliamer">
-                                        <input type="checkbox" class="form-check-input" value={decliamer} onChange={changeDecliamer} />
+                                        <input type="checkbox" class="form-check-input decliamer-input" value={decliamer} onChange={changeDecliamer} />
                                         <label title="" class="form-check-label">
                                             &nbsp;I have read the <span class="disclaimer" onClick={handleClick}>disclaimer</span> and I agree to the terms.
                                         </label>
