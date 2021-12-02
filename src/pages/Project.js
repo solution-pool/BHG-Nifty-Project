@@ -33,12 +33,12 @@ const Project = (props) => {
     const [target, setTarget] = useState(null)
     const [applicants, setApplicants] = useState('')
 
-    useEffect(() => {
+    useEffect( async () => {
         if(props.userLoad) {
             if(props.userInfo.wallet) {
-                setBlock(true)
+                setBlock(false)
                 setMessage('')
-                getProject()
+                await getProject()
             } else {
                 setMessage(ReactHtmlParser("You are not registered as a Nifty member. Please sign up first. <a href='/'> Back </a>"))
                 setBlock(true)
@@ -79,7 +79,10 @@ const Project = (props) => {
                     }
                 })
 
-                const interest = JSON.parse(newAry.interest)
+                let interest = null;
+                if(newAry.interest) {
+                    interest = JSON.parse(newAry.interest)
+                }
                 const team = newAry.team
                 if(interest) {
                     let container = []
@@ -197,7 +200,7 @@ const Project = (props) => {
                             </div> )
                         postHtml.push(...childPosts)
                     }
-                    getProject()
+                    // getProject()
                     setPosts(postHtml)
                 }
 
