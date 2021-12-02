@@ -72,11 +72,11 @@ const Post = (props) => {
         <Row>
             <Col lg="2" md="2" sm="2" xs="2" className="discussion-button">
                 <div className="action">
-                    <Button variant="success" onClick={up}>
+                    <Button variant="success" onClick={up} disabled={ props.userInfo.wallet == props.data.poster ? true : false }>
                         <i className="fa fa-arrow-up"></i>
                     </Button>
                     
-                    <Button variant="primary" onClick={down}>
+                    <Button variant="primary" onClick={down} disabled={ props.userInfo.wallet == props.data.poster ? true : false }>
                         <i className="fa fa-arrow-down"></i>
                     </Button>
                 </div>
@@ -106,7 +106,7 @@ const Post = (props) => {
                 </div>
                 {/* { (props.data.code < 100) ?  */}
                 <div className="reply">
-                    <Button variant="secondary" size="sm" onClick={handleShow}>Reply</Button>
+                    <Button variant="secondary" size="sm" disabled={ props.userInfo.wallet == props.data.poster ? true : false } onClick={handleShow}>Reply</Button>
                 </div>
                 {/* // : '' } */}
             </Col>
