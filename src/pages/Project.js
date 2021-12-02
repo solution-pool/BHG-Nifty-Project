@@ -377,6 +377,9 @@ const Project = (props) => {
                             { (t == 1 && creator && props.userInfo && creator.wallet == props.userInfo.wallet) ? 
                                 <Link to={"/proposal/" + id} className="btn btn-secondary btn-sm edit-proposal">Edit your proposal</Link>
                              : '' }
+                             { (t == 2 && creator && props.userInfo && creator.wallet == props.userInfo.wallet) ? 
+                                 <Link to={"/outside/" + id} className="btn btn-secondary btn-sm edit-proposal">Edit this project</Link>
+                              : '' }
                             </p>
                             <div className="project-detail project-panel">
                                 <h1 className="project-name" title={project ? project.name : ''}>{ project ? project.name : '' }</h1>

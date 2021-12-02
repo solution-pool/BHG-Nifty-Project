@@ -2,7 +2,7 @@ import Header from '../components/Header';
 import Avatar from '../components/Avatar';
 import { Container, Row, Col, Form, Button, Spinner } from 'react-bootstrap';
 import { useState, useEffect, useRef } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { database, storage } from '../config/firebase';
 import {NotificationContainer, NotificationManager} from 'react-notifications';
 import 'react-notifications/lib/notifications.css';
@@ -26,31 +26,17 @@ const Outside = (props) => {
     const [description, setDescription] = useState('');
     const [inputFile, setInputFile] = useState({});
     const [files, setFiles] = useState([])
+    const [prevFiles, setPrevFiles] = useState([])
+    const [prevFileContainer, setPrevFileContainer] = useState([])
     const [selFileContainer, setFileContainer] = useState(null)
     const [isLoading, setLoading] = useState(false);
     const [btnTitle, setBtnTitle] = useState('Choose File');
     const [blocking, setBlock] = useState(false)
     const [message, setMessage] = useState('Checking connnection...')
     const [blockchain, setBlockchain] = useState(1)
+    const { id } = useParams()
+    const [init, setInit] = useState(true)
     const navigate = useNavigate()
-
-    const reset = () => {
-        setProjectName('')
-        setSupply('')
-        setWebsite('')
-        setHighlight('')
-        setPrice('')
-        setDropDate('')
-        setDiscord('')
-        setTwitter('')
-        setOpensea('')
-        setDescription('')
-        setInputFile(document.getElementById('input-file'))
-        setFiles([])
-        setFileContainer(null)        
-        setLoading(false)
-        setBtnTitle('Choose File')
-    }
 
     useEffect( () => {
 
@@ -66,9 +52,54 @@ const Outside = (props) => {
             setBlock(true)
             setMessage('Checking connnection...')
         }
+        
+        if(id && init) {
+            const outsideRef = database.ref('project_outside/' + id)
+            outsideRef.get().then( (snapshot) => {
+                if(snapshot.exists) {
+                    const outside = snapshot.val()
+                    setProjectName(outside.name)
+                    setSupply(outside.supply)
+                    setWebsite(outside.website)
+                    setHighlight(outside.highlight)
+                    setPrice(outside.price)
+                    setDropDate(outside.dropDate)
+                    setDiscord(outside.discord)
+                    setTwitter(outside.twitter)
+                    setOpensea(outside.opensea)
+                    setDescription(outside.description)
+                    setBlockchain(outside.blockchain)
+                    
+                    if(outside.files) {
+                        let container = [];
+                        let prevFile = []
+                        for(let i in outside.fileNames) {
+                            const oneFileName = outside.fileNames[i]
+                            const element = 
+                                    <Col lg="4" md="4" sm="6" xs="12" className="one-file"> 
+                                        <Button title={oneFileName} variant="secondary">
+                                            <div className="cross-content"> {oneFileName}</div>
+                                            <div className="cross">
+                                                <span onClick={deletePrevFile} title={oneFileName} className="close-button">
+                                                    &#10005;
+                                                </span>
+                                            </div> 
+                                        </Button>
+                                    </Col> 
+                            container.push(element)
+                            prevFile[i] = {name : oneFileName}
+                        }
+                        setPrevFileContainer(container)
+                        setPrevFiles(prevFile)
+                    }
+                    setInit(false)
+                }
+            } )
+        }
         setInputFile(document.getElementById('input-file'))
         fillFileContainer()
-    }, [props.userLoad, files] )
+        fillPrevFileContainer()
+    }, [props.userLoad, files, prevFiles] )
 
     const changeProjectName = (e) => {
         setProjectName(e.target.value)
@@ -113,6 +144,57 @@ const Outside = (props) => {
     const changeDescription = (e) => {
         setDescription(e.target.value)
     }
+      
+    const fillPrevFileContainer = () => {
+        let container = [];
+        for(let i in prevFiles) {
+            const oneFile = prevFiles[i]
+            const element = <Col lg="4" md="4" sm="6" xs="12" className="one-file"> 
+                                <Button title={oneFile.name} variant="secondary"> 
+                                    <div className="cross-content">{oneFile.name}</div>
+                                    <div className="cross">
+                                        <span onClick={deletePrevFile} title={oneFile.name} className="close-button">&#10005;</span>
+                                    </div> 
+                                </Button>
+                            </Col> 
+            container.push(element)
+        }
+
+        setPrevFileContainer(container)
+    }
+    
+    const deletePrevFile = async (e) => {
+        const fileName = e.target.title
+
+        console.log('Hello')
+        let removeID = -1
+        let fileContainer = []
+
+        for(let i in prevFiles) {
+            const oneFile = prevFiles[i]
+            if(fileName.trim() == oneFile.name.trim()) {
+                removeID = i
+                break;
+            }
+        }
+
+        if(removeID > -1) {
+            const fileNameRef = database.ref('project_outside/' + id + '/fileNames/' + removeID)
+            fileNameRef.remove()
+            const filesRef = database.ref('project_outside/' + id + '/files/' + removeID)
+            filesRef.remove()
+            storage.ref('project_outside/file/' + fileName).delete()
+        }
+        
+        
+        for(let i in prevFiles) {
+            if(i == removeID) {
+                continue;
+            }
+            fileContainer[i] = prevFiles[i]
+        }
+        setPrevFiles(fileContainer)
+    } 
 
     const changeFile = (e) => {
         const newFile = e.target.files[0]
@@ -142,8 +224,6 @@ const Outside = (props) => {
     
     const deleteFile = async (e) => {
         const fileName = e.target.title
-
-        console.log(fileName)
         let removeID = -1
         let fileContainer = []
 
@@ -197,6 +277,7 @@ const Outside = (props) => {
         }
 
         let fileUrl = []
+        let fileNames = []
         if(files){
             for(let i = 0; i < files.length; i ++ ) {
                 let file = files[i]
@@ -217,29 +298,46 @@ const Outside = (props) => {
                 })
 
                 fileUrl.push(fileLink)
+                fileNames.push(file.name)
             }   
         }
 
         load.files = fileUrl
+        load.fileNames = fileNames
         
-        
-        const outsideRef   = database.ref('project_outside')
-        const newOutsideRef    = outsideRef.push()
-        newOutsideRef.set(load) 
-        
-        const memberRef = database.ref('member_profile/' + props.userInfo.id)
-        let prevProjectCount = props.userInfo.project
-        let projectCount
-        let updateData = {}
-
-        if(prevProjectCount == undefined) {
-            projectCount = 1
-        } else {
-            projectCount = parseInt(prevProjectCount) + 1
+        if(id && !init) {
+            const outsideRef = database.ref('project_outside/' + id + '/')
+            outsideRef.get().then( (snapshot) => {
+                if(snapshot.exists) {
+                    const prevOutside = snapshot.val()
+                    if(prevOutside.files) {
+                        prevOutside.files.push(...load.files)
+                        prevOutside.fileNames.push(...load.fileNames)
+                        load.files = prevOutside.files
+                        load.fileNames = prevOutside.fileNames
+                    }
+                    outsideRef.update(load) 
+                }
+            } )
         }
-        updateData['project'] = projectCount
-        memberRef.update(updateData)
+        else {
+            const outsideRef   = database.ref('project_outside')
+            const newOutsideRef    = outsideRef.push()
+            newOutsideRef.set(load) 
+            
+            const memberRef = database.ref('member_profile/' + props.userInfo.id)
+            let prevProjectCount = props.userInfo.project
+            let projectCount
+            let updateData = {}
 
+            if(prevProjectCount == undefined) {
+                projectCount = 1
+            } else {
+                projectCount = parseInt(prevProjectCount) + 1
+            }
+            updateData['project'] = projectCount
+            memberRef.update(updateData)
+        }
         setLoading(false)
         navigate('/2', {replace:true})
         // reset()
@@ -339,6 +437,7 @@ const Outside = (props) => {
                                                 Add File
                                             </Button>
                                             <Row className="selected-files">
+                                                {prevFileContainer}
                                                 {selFileContainer}
                                             </Row>
                                         </div>

@@ -69,6 +69,7 @@ function App() {
         <Route path="proposal" element={<Proposal walletConnect={walletConnect} walletAddress={walletAddress} userInfo={userInfo} userLoad={userLoad} />} />
         <Route path="proposal/:id" element={<Proposal walletConnect={walletConnect} walletAddress={walletAddress} userInfo={userInfo} userLoad={userLoad} />} />
         <Route path="outside" element={<Outside walletConnect={walletConnect} walletAddress={walletAddress} userInfo={userInfo} userLoad={userLoad} />} />      
+        <Route path="outside/:id" element={<Outside walletConnect={walletConnect} walletAddress={walletAddress} userInfo={userInfo} userLoad={userLoad} />} />      
         <Route path="profile" element={<Profile walletConnect={walletConnect} walletAddress={walletAddress} userInfo={userInfo} userLoad={userLoad} />} />
       </Routes>
     </BrowserRouter>
