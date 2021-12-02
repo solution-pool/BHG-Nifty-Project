@@ -391,7 +391,7 @@ const Project = (props) => {
                                 <div className="project-thumbnail">
                                     {
                                         (project && project.files) ? 
-                                        (<img src={project.files[0]} />) :
+                                        (<img src={Object.values(project.files).shift()} />) :
                                         (<div className="default-image"></div>)
                                     }
                                 </div>
