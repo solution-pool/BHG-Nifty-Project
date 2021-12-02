@@ -77,6 +77,9 @@ const Project = (props) => {
                 creatorRef.get().then((snap) => {
                     if(snap.exists) {
                         const creatorData = snap.val()
+                        if(creatorData.wallet == props.userInfo.wallet) {
+                            setVoteState(true);
+                        }
                         setCreator(creatorData)
                     }
                 })
