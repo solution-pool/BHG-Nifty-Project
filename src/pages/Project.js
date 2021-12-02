@@ -123,9 +123,9 @@ const Project = (props) => {
                                 let one_container = <Col lg="6" md="12" sm="12" className="text-center team-member-button" >
                                                         <Button className={className} name={oneInterest} id={oneInterest} value={value} onClick={changeTeamMember}>
                                                             {PROPOSAL_INTEREST[oneInterest]}
-                                                            <Button className="applicants" data-applicants={JSON.stringify(applicantMember)} onClick={showApplicants}>
-                                                                <div className="applicants-count" data-applicants={JSON.stringify(applicantMember)} onClick={showApplicants}>{applicantCount}</div>
-                                                                <div className="applicants-applicants" data-applicants={JSON.stringify(applicantMember)} onClick={showApplicants}>applicants</div>
+                                                            <Button className="applicants" data-applicants={JSON.stringify(applicantMember)} onBlur={hideOver} onClick={showApplicants}>
+                                                                <div className="applicants-count" data-applicants={JSON.stringify(applicantMember)} onBlur={hideOver} onClick={showApplicants}>{applicantCount}</div>
+                                                                <div className="applicants-applicants" data-applicants={JSON.stringify(applicantMember)} onBlur={hideOver} onClick={showApplicants}>applicants</div>
                                                             </Button>
                                                         </Button>
                                                     </Col>
@@ -318,6 +318,11 @@ const Project = (props) => {
                 setTarget(e.target)
             }
         }
+    }
+
+    const hideOver = () => {
+        setOverlayShow(false)
+        console.log('Hello')
     }
 
     const changeTeamMember = (e) => {
