@@ -9,6 +9,7 @@ import BlockUi from 'react-block-ui';
 import 'react-block-ui/style.css';
 import ReactHtmlParser from 'react-html-parser';
 import { PROPOSAL_INTEREST } from '../config/constants';
+import Confirm from 'react-confirm-bootstrap';
 
 const Project = (props) => {
     const [project, setProject] = useState({})
@@ -432,9 +433,15 @@ const Project = (props) => {
                                     }
                                 </div>
                                 <div className="project-upvote">
-                                    <Button variant={'warning'} disabled={voteState} onClick={vote}>Upvote this project &nbsp;
-                                        <i className="fa fa-chevron-up"></i>
-                                    </Button>
+                                    <Confirm
+                                        onConfirm={vote}
+                                        body="Are you sure you want to upvote this proposal?"
+                                        confirmText="Yes"
+                                        title="Upvote Proposal">
+                                        <Button variant={'warning'} disabled={voteState} onClick={vote}>Upvote this project &nbsp;
+                                            <i className="fa fa-chevron-up"></i>
+                                        </Button>
+                                    </Confirm>
                                 </div>
                             </div>
                         </Col>

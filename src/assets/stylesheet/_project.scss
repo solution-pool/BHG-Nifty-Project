@@ -270,7 +270,18 @@
         }
     }
 }
-
+.modal {
+    top: 20% !important;
+    .modal-dialog {
+        margin-top: 3.75rem;
+    }
+}
+.modal-backdrop {
+    background-color: transparent !important;
+}
+.fade:not(.show) {
+    opacity: 1 !important;
+}
 @media only screen and (max-width: 991px) and (min-width: 768px) {
     .project {
         .panel-title {
