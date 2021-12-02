@@ -217,8 +217,24 @@
                     height: 24vw;
                     border-radius: 1vw;
                     h3 {
+                        text-align: left;
                         color: $white;
                         font-size: 2vw;
+                        display: flex;
+                        .project-name {
+                            flex: 0 0 auto;
+                            width: 70%;
+                        }
+                        .upvote {
+                            flex: 0 0 auto;
+                            font-size : 1vw;
+                            margin: auto;
+                            text-align: right;
+                            margin-right: 0;
+                            i {
+                                transform: rotate(270deg);
+                            }
+                        }
                     }
                     .question {
                         position: absolute;
@@ -347,6 +363,9 @@
                         height: 39vw;
                         h3 {
                             font-size: 1.6rem;
+                            .upvote {
+                                font-size: 0.8rem;
+                            }
                         }
                         .icon-section {
                             position: absolute;
@@ -590,6 +609,9 @@
                         h3 {
                             color: $white;
                             font-size: 5vw;
+                            .upvote {
+                                font-size: 2.5vw;
+                            }
                         }
                         .icon-section {
                             position: absolute;

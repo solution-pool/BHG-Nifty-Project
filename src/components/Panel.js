@@ -110,7 +110,10 @@ const Panel = (props) => {
                                 }}
                             >
                                 <div className="gradient">
-                                    <h3>{props.proposal.name}</h3>
+                                    <h3>
+                                        <div className="project-name">{props.proposal.name}</div>
+                                        <div className="upvote">{props.proposal.vote ? Object.values(props.proposal.vote).length : 0 }&nbsp;upvotes&nbsp;<i className="fa fa-play"></i></div>
+                                    </h3>
                                     <p className="question">
                                         {props.proposal.brief}
                                     </p>
