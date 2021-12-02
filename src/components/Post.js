@@ -10,28 +10,6 @@ const Post = (props) => {
     const [show, setShow] = useState(false)
     const [reply, setReply] = useState('')
 
-    useEffect( () => {
-        if((props.data.vote || votes.length)) {
-            let voteValues
-            if(votes.length) {
-                voteValues = votes
-            } else {
-                voteValues = Object.values(props.data.vote)
-            }
-            let upValue = 0 
-            let downValue = 0
-            for(let i = 0; i < voteValues.length; i ++ ) {
-               if(voteValues[i] == 1) {
-                    upValue ++
-                } else {
-                    downValue ++
-                }
-                setUpCount(upValue)
-                setDownCount(downValue)
-            }
-        }
-    })
-
     const up = async () => {
         let tableName = (props.data.t == 1) ? 'project_proposal' : 'project_outside'
         const votePostRef = database.ref(tableName + '/' + props.data.id + '/post/' + props.data.postID + '/vote/' + props.userInfo.wallet + '/')
@@ -104,11 +82,19 @@ const Post = (props) => {
                 </div>
                 <div className="vote-count">
                     <Button>
-                        {upCount}
+                        {
+                            !props.data.vote ? 0 : (
+                                Object.values(props.data.vote).filter( element => element == 1 ).length
+                            )
+                        }
                     </Button>
                     
                     <Button variant="primary">
-                        {downCount}
+                        {
+                            !props.data.vote ? 0 : (
+                                Object.values(props.data.vote).filter( element => element == -1 ).length
+                            )
+                        }
                     </Button>
                 </div>
             </Col>
@@ -118,11 +104,11 @@ const Post = (props) => {
                         {props.data.content}
                     </p>
                 </div>
-                { (props.data.code < 100) ? 
+                {/* { (props.data.code < 100) ?  */}
                 <div className="reply">
                     <Button variant="secondary" size="sm" onClick={handleShow}>Reply</Button>
                 </div>
-                : '' }
+                {/* // : '' } */}
             </Col>
             <Modal show={show} size="lg" onHide={handleClose}>
                 <Form onSubmit={sendReply}>

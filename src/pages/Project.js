@@ -163,7 +163,6 @@ const Project = (props) => {
 
                 const postData = newAry.post
                 if(postData) {
-                    let postHtml = []
                     let postAry = []
                     for(let i in postData) {
                         let onePost = postData[i]
@@ -173,37 +172,31 @@ const Project = (props) => {
                         postAry.push(onePost)
                     }
 
-                    let parentPosts = postAry.filter( (e) => {
-                        return e.code < 100
+                    postAry.sort( (a, b) => {
+                        return b.code -  a.code
                     } )
 
-                    parentPosts.sort( (a, b) => {
-                        let aVote = !a.vote ? 0 : Object.values(a.vote).length;
-                        let bVote = !b.vote ? 0 : Object.values(b.vote).length;
+                    for(let i = 0; i < postAry.length; i ++) {
+                        if(postAry[i].code < 100) {
+                            break;
+                        } else {
+                            const parentCode = (postAry[i].code - postAry[i].code % 100) / 100
+                            const parent = postAry.find( element => element.code == parentCode )
+                            if(parent.child) {
+                                parent.child.push(postAry[i])
+                                parent.child.sort( (a, b) => {
+                                    let aVote = !a.vote ? 0 : Object.values(a.vote).length;
+                                    let bVote = !b.vote ? 0 : Object.values(b.vote).length;
 
-                        return bVote - aVote;
-                    } )
-
-                    for(let i  in parentPosts) {
-                        let childs = postAry.filter( (e) => {
-                            return e.code > parentPosts[i].code * 100 && e.code < (parentPosts[i].code + 1) * 100
-                        } )
-
-                        childs.sort( (a, b) => {
-                            let aVote = !a.vote ? 0 : Object.values(a.vote).length;
-                            let bVote = !b.vote ? 0 : Object.values(b.vote).length;
-    
-                            return bVote - aVote;
-                        } )
-                        postHtml.push(<Post data={parentPosts[i]} userInfo={props.userInfo} t={t} id={id} onChange={changeTrigger} trigger={trigger} />)
-                        const childPosts = childs.map( (element) => 
-                            <div style={{ paddingLeft: '10vw' }}>
-                                <Post data={element} userInfo={props.userInfo} t={t} id={id} onChange={changeTrigger} trigger={trigger} />
-                            </div> )
-                        postHtml.push(...childPosts)
+                                    return bVote - aVote;
+                                } )
+                            } else {
+                                parent.child = [postAry[i]]
+                            }
+                        }
                     }
-                    // getProject()
-                    setPosts(postHtml)
+
+                    drawPost(postAry)
                 }
 
                 const voteData = newAry.vote
@@ -219,6 +212,41 @@ const Project = (props) => {
             }
             setBlock(false)
         } )
+    }
+
+    const drawPost = (postAry) => {
+        const draw = (postOne) => {
+            postHTML.push(
+                <div style={{ paddingLeft: 3 * (Math.floor(Math.log10(postOne.code))) + "vw" }}>
+                    <Post data={postOne} userInfo={props.userInfo} t={t} id={id} onChange={changeTrigger} trigger={trigger} />
+                </div>
+            );
+            if(postOne.child) {
+                for(let i = 0; i < postOne.child.length; i ++ ) {
+                    draw(postOne.child[i])
+                }
+            } else {
+                return
+            }
+        }
+
+        let postHTML = []
+        postAry.sort( (a, b) => {
+            let aVote = !a.vote ? 0 : Object.values(a.vote).length;
+            let bVote = !b.vote ? 0 : Object.values(b.vote).length;
+
+            return bVote - aVote;
+        } )
+
+        for(let i = 0 ; i < postAry.length ; i ++ ) {
+            if(postAry[i].code > 100) {
+                continue
+            } else {
+                draw(postAry[i])
+            }
+        }
+
+        setPosts(postHTML)
     }
 
     const changeRating = async (nextValue, prevValue, name) => {
