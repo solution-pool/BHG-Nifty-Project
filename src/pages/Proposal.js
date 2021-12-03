@@ -12,7 +12,7 @@ import ReactHtmlParser from 'react-html-parser'
 
 const Proposal = (props) => {
     const title = "Project Proposal";
-    const content = "Share alpha with the nifty fam by submitting an outside project that you think has potential!";
+    const content = "Share alpha with the nifty fam by submitting a project proposal that you think has potential!";
 
     const [projectName, setProjectName] = useState('');
     const [briefProjectSummary, setBriefProjectSummary] = useState('');
