@@ -36,15 +36,14 @@ const Outside = (props) => {
     const [blockchain, setBlockchain] = useState(1)
     const { id } = useParams()
     const [init, setInit] = useState(true)
+    const [messageHandler, setMessageHandler] = useState(true)
     const navigate = useNavigate()
 
     useEffect( () => {
 
-        setInit(false)
         if(props.userLoad == true) {
             if(props.userInfo.wallet) {
                 setBlock(false)
-                display()
             } else {
                 setBlock(true)
                 if(messageHandler) {

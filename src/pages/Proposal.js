@@ -34,6 +34,7 @@ const Proposal = (props) => {
     const [message, setMessage] = useState('Checking connnection...')
     const { id } = useParams()
     const [init, setInit] = useState(true)
+    const [messageHandler, setMessageHandler] = useState(false)
     const navigate = useNavigate();
     
 
@@ -43,7 +44,6 @@ const Proposal = (props) => {
         if(props.userLoad == true) {
             if(props.userInfo.wallet) {
                 setBlock(false)
-                display()
             } else {
                 setBlock(true)
                 if(messageHandler) {

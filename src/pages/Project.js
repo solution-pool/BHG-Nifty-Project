@@ -10,6 +10,8 @@ import 'react-block-ui/style.css';
 import ReactHtmlParser from 'react-html-parser';
 import { PROPOSAL_INTEREST } from '../config/constants';
 import Confirm from 'react-confirm-bootstrap';
+import {NotificationContainer, NotificationManager} from 'react-notifications';
+import 'react-notifications/lib/notifications.css';
 
 const Project = (props) => {
     const [project, setProject] = useState({})
@@ -34,12 +36,12 @@ const Project = (props) => {
     const [target, setTarget] = useState(null)
     const [applicants, setApplicants] = useState('')
     const [trigger, setTrigger] = useState(false)
+    const [messageHandler, setMessageHandler] = useState(true)
 
     useEffect( async () => {
         if(props.userLoad == true) {
             if(props.userInfo.wallet) {
                 setBlock(false)
-                display()
             } else {
                 setBlock(true)
                 if(messageHandler) {
