@@ -40,17 +40,33 @@ const Outside = (props) => {
 
     useEffect( () => {
 
-        if(props.userLoad) {
+        setInit(false)
+        if(props.userLoad == true) {
             if(props.userInfo.wallet) {
                 setBlock(false)
-                setMessage('Loading...')
+                display()
             } else {
-                setMessage(ReactHtmlParser("You are not registered as a Nifty member. Please sign up first. <a href='/'> Back </a>"))
                 setBlock(true)
+                if(messageHandler) {
+                    NotificationManager.error('You are not registered as a Nifty member. Please sign up first.', 'Error', 5000)
+                    setMessageHandler(false)
+                }
             }
+        } else if(props.userLoad == -1) {
+            setBlock(true)
+            if(messageHandler) {
+                NotificationManager.error('You are not registered as a Nifty member. Please sign up first.', 'Error', 5000)
+                setMessageHandler(false)
+            }
+        } else if(props.userLoad == -2) {
+            setBlock(true)
+            if(messageHandler) {
+                NotificationManager.error('Network connection Failed!', 'Error', 5000)
+                setMessageHandler(false)
+            }
+ 
         } else {
             setBlock(true)
-            setMessage('Checking connnection...')
         }
         
         if(id && init) {

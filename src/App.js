@@ -64,7 +64,7 @@ function App() {
         setUserLoad(-1)
       }
     }).catch(e => {
-      setUserLoad(-1)
+      setUserLoad(-2)
     })
   }
   return (

@@ -357,7 +357,7 @@ const Profile = (props) => {
                 setLoading(false)
             }
   
-        reset()
+        // reset()
     }
 
     const reset = () => {
