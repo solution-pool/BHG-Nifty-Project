@@ -169,7 +169,7 @@ const Home = (props) => {
                 }
             } )
         }
-        const panels = container.map( (element) => <Panel proposal={element} userInfo={props.userInfo} userLoad={props.userLoad} />)
+        const panels = container.map( (element) => <Panel key={element.id} proposal={element} userInfo={props.userInfo} userLoad={props.userLoad} />)
         setProposalContainer(panels)
     }
 
@@ -391,7 +391,7 @@ const Home = (props) => {
                                             <Col lg="4" md="4" sm="4" xs="4" className="rating-star">
                                                 <div className="one-col">
                                                     <p>Art</p>
-                                                    <div>
+                                                    <div className="star-section">
                                                         <StarRatingComponent 
                                                             name="rate1" 
                                                             starCount={5}
@@ -404,7 +404,7 @@ const Home = (props) => {
                                             <Col lg="4" md="4" sm="4" xs="4" className="rating-star">
                                                 <div className="one-col">
                                                     <p>Roadmap</p>
-                                                    <div>
+                                                    <div className="star-section">
                                                         <StarRatingComponent 
                                                             name="rate1" 
                                                             starCount={5}
@@ -417,7 +417,7 @@ const Home = (props) => {
                                             <Col lg="4" md="4" sm="4" xs="4" className="rating-star">
                                                 <div className="one-col">
                                                     <p>Utility</p>
-                                                    <div>
+                                                    <div className="star-section">
                                                         <StarRatingComponent 
                                                             name="rate1" 
                                                             starCount={5}
@@ -430,7 +430,7 @@ const Home = (props) => {
                                             <Col lg="4" md="4" sm="4" xs="4" className="rating-star">
                                                 <div className="one-col">
                                                     <p>Community</p>
-                                                    <div>
+                                                    <div className="star-section">
                                                         <StarRatingComponent 
                                                             name="rate1" 
                                                             starCount={5}
@@ -443,7 +443,7 @@ const Home = (props) => {
                                             <Col lg="4" md="4" sm="4" xs="4" className="rating-star">
                                                 <div className="one-col">
                                                     <p>Team</p>
-                                                    <div>
+                                                    <div className="star-section">
                                                         <StarRatingComponent 
                                                             name="rate1" 
                                                             starCount={5}
@@ -456,7 +456,7 @@ const Home = (props) => {
                                             <Col lg="4" md="4" sm="4" xs="4" className="rating-star">
                                                 <div className="one-col">
                                                     <p>Originality</p>
-                                                    <div>
+                                                    <div className="star-section">
                                                         <StarRatingComponent 
                                                             name="rate1" 
                                                             starCount={5}

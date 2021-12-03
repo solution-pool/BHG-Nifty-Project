@@ -247,12 +247,6 @@
             }
             .rating-section {
                 margin-top: 0.2vw;
-                p {
-                    margin: .15vw 0 0.2vw 0;
-                    font-size: 0.6rem;
-                    font-weight: 800;
-                    line-height: 0.6rem;
-                }
                 .rating-star {
                     margin-left: 0;
                     margin-right: 0;
@@ -261,11 +255,23 @@
                         // padding-bottom: 0.5rem;
                         border: 1px solid #ababab;
                         border-radius: 1rem;
-                        .dv-star-rating {
-                            .dv-star-rating-star {
-                                i {
-                                    font-size: 0.8rem;
-                                    padding: .03vw;
+                        p {
+                            margin: .15vw 0 0.2vw 0;
+                            font-size: 0.6rem;
+                            font-weight: 800;
+                            line-height: 0.6rem;
+                        }
+                        .star-section {
+                            margin: .15vw 0 0.2vw 0;
+                            font-size: 0.6rem;
+                            font-weight: 800;
+                            line-height: 0.6rem;
+                            .dv-star-rating {
+                                .dv-star-rating-star {
+                                    i {
+                                        font-size: 0.8rem;
+                                        padding: .03vw;
+                                    }
                                 }
                             }
                         }
@@ -381,16 +387,16 @@
                     }
                 }
                 .rating-section {
-                    p {
-                    }
                     .rating-star {
                         .one-col {
-                            .dv-star-rating {
-                                .dv-star-rating-star {
-                                    i {
-                                        font-size: 0.9rem;
-                                        padding-left: .2vw;
-                                        padding-right: .2vw;
+                            .star-section {
+                                .dv-star-rating {
+                                    .dv-star-rating-star {
+                                        i {
+                                            font-size: 0.9rem;
+                                            padding-left: .2vw;
+                                            padding-right: .2vw;
+                                        }
                                     }
                                 }
                             }
@@ -633,12 +639,6 @@
                 }
                 .rating-section {
                     margin-top: 0.2vw;
-                    p {
-                        margin-bottom: .15vw 0 0.2vw 0;
-                        font-size: 2vw;
-                        font-weight: 700;
-                        line-height: 2vw;
-                    }
                     .rating-star {
                         padding-left: 0.5vw;
                         padding-right: 0.5vw;
@@ -649,11 +649,23 @@
                             // padding-bottom: 0.5rem;
                             border: 1px solid gray;
                             border-radius: 1rem;
-                            .dv-star-rating {
-                                .dv-star-rating-star {
-                                    i {
-                                        font-size: 2.5vw;
-                                        padding: 0.75vw;
+                            p {
+                                margin-bottom: .15vw 0 0.2vw 0;
+                                font-size: 2vw;
+                                font-weight: 700;
+                                line-height: 2vw;
+                            }
+                            .star-section {
+                                margin-bottom: .15vw 0 0.2vw 0;
+                                font-size: 2vw;
+                                font-weight: 700;
+                                line-height: 2vw;
+                                .dv-star-rating {
+                                    .dv-star-rating-star {
+                                        i {
+                                            font-size: 2.5vw;
+                                            padding: 0.75vw;
+                                        }
                                     }
                                 }
                             }
