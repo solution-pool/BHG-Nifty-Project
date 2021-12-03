@@ -188,7 +188,9 @@ const Home = (props) => {
                     }
                 }
             }
-        } )
+        } ).catch(e => {
+
+        })
         return proposalContainer
     }
 
@@ -211,6 +213,8 @@ const Home = (props) => {
                     }
                 }
             }
+        } ).catch( e => {
+            
         } )
         return outsideContainer;
     }

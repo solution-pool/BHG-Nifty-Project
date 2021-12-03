@@ -594,7 +594,7 @@ const Profile = (props) => {
                     <Popover id="popover-contained">
                     <Popover.Body>
                         <p>IMPORTANT NOTICE*</p>
-                        <p>MAKING A SUBMISSION, YOU ARE ACCEPTING AND AGREEING TO THE Nify, LLC TERMS OF USE. 
+                        <p>MAKING A SUBMISSION, YOU ARE ACCEPTING AND AGREEING TO THE Nifty, LLC TERMS OF USE. 
                             You understand that your submission is not confidential nor submitted in confidence or 
                             trust and do confidential or fiduciary relationship is intended or created by making an email
                             submission. You understand that Nifty may possess or come to possess information similar or
