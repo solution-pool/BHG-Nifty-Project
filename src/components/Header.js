@@ -37,12 +37,10 @@ const Header = (props) => {
                         </Nav.Link> */}
                     </Nav>
                     <Nav>
-                        <Nav.Link>
-                            <Link to="/profile">
-                                <img id="avatar-image-expand" src={props.userInfo.image ? props.userInfo.image : require('../assets/img/avatar.png').default} alt="User avatar" />
-                            </Link>
-                            <Button variant="light" id="connect-wallet" onClick={props.walletConnect}>{props.walletAddress ? props.walletAddress : 'Connect Wallet'}</Button>
-                        </Nav.Link>
+                        <Link to="/profile">
+                            <img id="avatar-image-expand" src={props.userInfo.image ? props.userInfo.image : require('../assets/img/avatar.png').default} alt="User avatar" />
+                        </Link>
+                        <Button variant="light" id="connect-wallet" onClick={props.walletConnect}>{props.walletAddress ? props.walletAddress : 'Connect Wallet'}</Button>
                     </Nav>
                 </Navbar.Collapse>
             </Container>
