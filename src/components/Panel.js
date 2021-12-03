@@ -125,79 +125,79 @@ const Panel = (props) => {
                                 <Col lg="4" md="4" sm="4" xs="4" className="rating-star">
                                     <div className="one-col">
                                         <p>Art</p>
-                                        <p>
+                                        <div>
                                             <StarRatingComponent 
                                                 name="rate1" 
                                                 starCount={5}
                                                 value={art}
                                                 emptyStarColor={'#e5e5e5'}
                                             />
-                                        </p>
+                                        </div>
                                     </div>
                                 </Col>
                                 <Col lg="4" md="4" sm="4" xs="4" className="rating-star">
                                     <div className="one-col">
                                         <p>Roadmap</p>
-                                        <p>
+                                        <div>
                                             <StarRatingComponent 
                                                 name="rate1" 
                                                 starCount={5}
                                                 value={roadmap}
                                                 emptyStarColor={'#e5e5e5'}
                                             />
-                                        </p>
+                                        </div>
                                     </div>
                                 </Col>
                                 <Col lg="4" md="4" sm="4" xs="4" className="rating-star">
                                     <div className="one-col">
                                         <p>Utility</p>
-                                        <p>
+                                        <div>
                                             <StarRatingComponent 
                                                 name="rate1" 
                                                 starCount={5}
                                                 value={utility}
                                                 emptyStarColor={'#e5e5e5'}
                                             />
-                                        </p>
+                                        </div>
                                     </div>
                                 </Col>
                                 <Col lg="4" md="4" sm="4" xs="4" className="rating-star">
                                     <div className="one-col">
                                         <p>Community</p>
-                                        <p>
+                                        <div>
                                             <StarRatingComponent 
                                                 name="rate1" 
                                                 starCount={5}
                                                 value={community}
                                                 emptyStarColor={'#e5e5e5'}
                                             />
-                                        </p>
+                                        </div>
                                     </div>
                                 </Col>
                                 <Col lg="4" md="4" sm="4" xs="4" className="rating-star">
                                     <div className="one-col">
                                         <p>Team</p>
-                                        <p>
+                                        <div>
                                             <StarRatingComponent 
                                                 name="rate1" 
                                                 starCount={5}
                                                 value={team}
                                                 emptyStarColor={'#e5e5e5'}
                                             />
-                                        </p>
+                                        </div>
                                     </div>
                                 </Col>
                                 <Col lg="4" md="4" sm="4" xs="4" className="rating-star">
                                     <div className="one-col">
                                         <p>Originality</p>
-                                        <p>
+                                        <div>
                                             <StarRatingComponent 
                                                 name="rate1" 
                                                 starCount={5}
                                                 value={originality}
                                                 emptyStarColor={'#e5e5e5'}
                                             />
-                                        </p>
+                                        </div>
                                     </div>
                                 </Col>
                             </Row>
