@@ -107,14 +107,6 @@
 
     .project-rate {
         padding-bottom: 0 !important;
-        p {
-            margin-top: 0.3vw;
-            margin-bottom: 0.3vw;
-            text-align: center;
-            font-size: 1vw;
-            font-weight: 800;
-            line-height: 1.2vw;
-        }
         .one-col {
             margin-bottom: 1vw;
             background-color: #f6f6f6;
@@ -123,11 +115,27 @@
             padding: 0rem;
             line-height: 1.3vw;
             text-align: center;
-            .dv-star-rating {
-                .dv-star-rating-star {
-                    i {
-                        font-size: 1.9vw;
-                        padding: .2vw;
+            p {
+                margin-top: 0.3vw;
+                margin-bottom: 0.3vw;
+                text-align: center;
+                font-size: 1vw;
+                font-weight: 800;
+                line-height: 1.2vw;
+            }
+            .star-section {
+                margin-top: 0.3vw;
+                margin-bottom: 0.3vw;
+                text-align: center;
+                font-size: 1vw;
+                font-weight: 800;
+                line-height: 1.2vw;
+                .dv-star-rating {
+                    .dv-star-rating-star {
+                        i {
+                            font-size: 1.9vw;
+                            padding: .2vw;
+                        }
                     }
                 }
             }
@@ -345,21 +353,27 @@
     
     
         .project-rate {
-            p {
-                margin-top: 0.6vw;
-                margin-bottom: 0.6vw;
-                font-size: 2vw;
-                line-height: 2.4vw;
-            }
             .one-col {
                 margin-bottom: 2vw;
                 border-radius: 1vw;
-                line-height: 2.6vw;
-                .dv-star-rating {
-                    .dv-star-rating-star {
-                        i {
-                            font-size: 3.4vw;
-                            padding: .4vw;
+                line-height: 2.6vw;            
+                p {
+                    margin-top: 0.6vw;
+                    margin-bottom: 0.6vw;
+                    font-size: 2vw;
+                    line-height: 2.4vw;
+                }
+                .star-section {
+                    margin-top: 0.6vw;
+                    margin-bottom: 0.6vw;
+                    font-size: 2vw;
+                    line-height: 2.4vw;
+                    .dv-star-rating {
+                        .dv-star-rating-star {
+                            i {
+                                font-size: 3.4vw;
+                                padding: .4vw;
+                            }
                         }
                     }
                 }
@@ -544,21 +558,27 @@
     
     
         .project-rate {
-            p {
-                margin-top: 0.6vw;
-                margin-bottom: 0.6vw;
-                font-size: 2.5vw;
-                line-height: 2.4vw;
-            }
             .one-col {
                 margin-bottom: 2vw;
                 border-radius: 1vw;
                 line-height: 2.6vw;
-                .dv-star-rating {
-                    .dv-star-rating-star {
-                        i {
-                            font-size: 4.2vw;
-                            padding: 1vw;
+                p {
+                    margin-top: 0.6vw;
+                    margin-bottom: 0.6vw;
+                    font-size: 2.5vw;
+                    line-height: 2.4vw;
+                }
+                .star-section {
+                    margin-top: 0.6vw;
+                    margin-bottom: 0.6vw;
+                    font-size: 2.5vw;
+                    line-height: 2.4vw;
+                    .dv-star-rating {
+                        .dv-star-rating-star {
+                            i {
+                                font-size: 4.2vw;
+                                padding: 1vw;
+                            }
                         }
                     }
                 }

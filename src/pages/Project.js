@@ -121,7 +121,7 @@ const Project = (props) => {
                                         applicantMember.push(username)
                                     }
                                 }
-                                let one_container = <Col lg="6" md="12" sm="12" className="text-center team-member-button" >
+                                let one_container = <Col lg="6" md="12" sm="12" key={oneInterest} className="text-center team-member-button" >
                                                         <Button className={className} name={oneInterest} id={oneInterest} value={value} onClick={changeTeamMember}>
                                                             {PROPOSAL_INTEREST[oneInterest]}
                                                             <Button className="applicants" data-applicants={JSON.stringify(applicantMember)} onBlur={hideOver} onClick={showApplicants}>
@@ -221,7 +221,7 @@ const Project = (props) => {
     const drawPost = (postAry) => {
         const draw = (postOne) => {
             postHTML.push(
-                <div style={{ paddingLeft: 3 * (Math.floor(Math.log10(postOne.code))) + "vw" }}>
+                <div key={postOne.postID} style={{ paddingLeft: 3 * (Math.floor(Math.log10(postOne.code))) + "vw" }}>
                     <Post data={postOne} userInfo={props.userInfo} t={t} id={id} onChange={changeTrigger} trigger={trigger} />
                 </div>
             );
@@ -420,11 +420,11 @@ const Project = (props) => {
                             </p>
                             <div className="project-detail project-panel">
                                 <h1 className="project-name" title={project ? project.name : ''}>{ project ? project.name : '' }</h1>
-                                <p className="project-condition">
+                                <div className="project-condition">
                                     <div className="supply">Supply: { project ? project.supply : '' }</div>
                                     <div className="price">Price: { project ? project.price : '' }</div>
                                     <div className="votes">Votes: {voteCount}</div>
-                                </p>
+                                </div>
                                 <div className="project-thumbnail">
                                     {
                                         (project && project.files) ? 
@@ -474,7 +474,7 @@ const Project = (props) => {
                                     <Col lg={2} md={4} sm={6}>
                                         <div className="one-col">
                                             <p>Art</p>
-                                            <div>
+                                            <div className="star-section">
                                                 <StarRatingComponent 
                                                     name="art" 
                                                     starCount={5}
@@ -488,7 +488,7 @@ const Project = (props) => {
                                     <Col lg={2} md={4} sm={6}>
                                         <div className="one-col">
                                             <p>Roadmap</p>
-                                            <div>
+                                            <div className="star-section">
                                                 <StarRatingComponent 
                                                     name="roadmap" 
                                                     starCount={5}
@@ -502,7 +502,7 @@ const Project = (props) => {
                                     <Col lg={2} md={4} sm={6}>
                                         <div className="one-col">
                                             <p>Utility</p>
-                                            <div>
+                                            <div className="star-section">
                                                 <StarRatingComponent 
                                                     name="utility" 
                                                     starCount={5}
@@ -516,7 +516,7 @@ const Project = (props) => {
                                     <Col lg={2} md={4} sm={6}>
                                         <div className="one-col">
                                             <p>Community</p>
-                                            <div>
+                                            <div className="star-section">
                                                 <StarRatingComponent 
                                                     name="community" 
                                                     starCount={5}
@@ -530,7 +530,7 @@ const Project = (props) => {
                                     <Col lg={2} md={4} sm={6}>
                                         <div className="one-col">
                                             <p>Team</p>
-                                            <div>
+                                            <div className="star-section">
                                                 <StarRatingComponent 
                                                     name="team" 
                                                     starCount={5}
@@ -544,7 +544,7 @@ const Project = (props) => {
                                     <Col lg={2} md={4} sm={6}>
                                         <div className="one-col">
                                             <p>Originality</p>
-                                            <div>
+                                            <div className="star-section">
                                                 <StarRatingComponent 
                                                     name="originality" 
                                                     starCount={5}
