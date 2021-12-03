@@ -44,7 +44,7 @@ function App() {
   const getUserInfo = (accountAddress) => {
     const userRef = database.ref('member_profile')
     userRef.get().then( (snapshot) => {
-      if(snapshot.exists) {
+      if(snapshot.exists()) {
         const newAry = snapshot.val()
         if(newAry) {
             for(let i in newAry) {
@@ -56,8 +56,15 @@ function App() {
                 }
             }
             setUserLoad(true)
+        } else {
+          setUserLoad(-1)
         }
-    }
+        
+      } else {
+        setUserLoad(-1)
+      }
+    }).catch(e => {
+      setUserLoad(-1)
     })
   }
   return (

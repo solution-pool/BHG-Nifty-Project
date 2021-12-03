@@ -26,9 +26,11 @@ const Home = (props) => {
 
     useEffect( async () => {
         setInit(false)
-        if(props.userLoad) {
+        if(props.userLoad == true) {
+            console.log(true)
             if(props.userInfo.wallet) {
                 setBlock(false)
+                display()
             } else {
                 setBlock(true)
                 if(messageHandler) {
@@ -36,7 +38,15 @@ const Home = (props) => {
                     setMessageHandler(false)
                 }
             }
+        } else if(props.userLoad == -1) {
+            console.log(-1)
+            setBlock(true)
+            if(messageHandler) {
+                NotificationManager.error('You are not registered as a Nifty member. Please sign up first.', 'Error', 5000)
+                setMessageHandler(false)
+            }
         } else {
+            console.log(false)
             setBlock(true)
         }
 
@@ -51,7 +61,6 @@ const Home = (props) => {
             setInit(false)
             navigate('/')
         }
-        display()
     }, [projectContainer.length, props.userInfo.wallet, props.userLoad, sort, type, init, messageHandler])
 
     const changeSort = (e) => {
