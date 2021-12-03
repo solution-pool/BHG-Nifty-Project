@@ -532,10 +532,10 @@ const Proposal = (props) => {
                                     <Link to="/" id="link">&lt;&lt;-back to projects</Link>
                                     <div className="pull-right">
                                         <div>
-                                            <div class="interest form-check">
-                                                <input type="checkbox" class="form-check-input decliamer-input" value={decliamer} onChange={changeDecliamer} />
-                                                <label title="" class="form-check-label">
-                                                    I have read the <span class="disclaimer" onClick={handleClick}>disclaimer</span> and I agree to the terms.
+                                            <div className="interest form-check">
+                                                <input type="checkbox" className="form-check-input decliamer-input" value={decliamer} onChange={changeDecliamer} />
+                                                <label title="" className="form-check-label">
+                                                    I have read the <span className="disclaimer" onClick={handleClick}>disclaimer</span> and I agree to the terms.
                                                 </label>
                                             </div>
                                         </div>
