@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { Container, Row, Col, Button, Spinner, Overlay, Popover } from 'react-bootstrap';
 import Form from 'react-bootstrap/Form';
-import { Link } from 'react-router-dom'; 
+import { Link, useNavigate } from 'react-router-dom'; 
 import {NotificationContainer, NotificationManager} from 'react-notifications';
 import 'react-notifications/lib/notifications.css';
 import Header from '../components/Header';
@@ -26,6 +26,7 @@ const Profile = (props) => {
     const [target, setTarget] = useState(null)
     const [decliamer, setDecliamer] = useState(false)
     const [id, setID] = useState(0)
+    const navigate = useNavigate()
 
     const imageRef = useRef(null)
     const walletRef = useRef(null)
@@ -139,6 +140,8 @@ const Profile = (props) => {
                         }
                     }
                 }
+            } ).catch( e => {
+                NotificationManager.error('Network connection Failed.', 'Error', 5000)
             } )
       }
     }, [props.walletAddress, files.length, prevFiles.length]);
@@ -356,30 +359,9 @@ const Profile = (props) => {
                 NotificationManager.success('The member profile was successfully submitted.', 'Success', 5000)
                 setLoading(false)
             }
-  
-        // reset()
-    }
 
-    const reset = () => {
-        setUsername('')
-        setHeld('')
-        setEmail('')
-        setTwitter('')
-        setBio('')
-        setFiles([])
-        setFileContainer(null)
-        setPrevFileContainer([])
-        setPrevFiles([])
-        setInputFile(document.getElementById("input-file"));
-        setInterest({})
-        setDecliamer(false)
-
-        imageRef.current.src = require('../assets/img/avatar.png').default
-        let interests = document.getElementsByClassName('form-check-input')
-
-        for(let i = 0; i < interests.length; i ++ ) {
-            interests[i].checked = false
-        }
+            props.changeReload()
+            navigate('/')
     }
 
     const handleClick = (e) => {
@@ -540,10 +522,10 @@ const Profile = (props) => {
                                 <Form.Group className="mb-4">
                                     <Form.Label>Files</Form.Label>
                                     <span id="up-decliamer">
-                                        <label title="" class="form-check-label">
-                                            &nbsp;I have read the <span class="disclaimer" onClick={handleClick}>disclaimer</span> and I agree to the terms.
+                                        <label title="" className="form-check-label">
+                                            &nbsp;I have read the <span className="disclaimer" onClick={handleClick}>disclaimer</span> and I agree to the terms.
                                         </label>
-                                        <input type="checkbox" class="form-check-input decliamer-input" value={decliamer} onChange={changeDecliamer} required />
+                                        <input type="checkbox" className="form-check-input decliamer-input" value={decliamer} onChange={changeDecliamer} required />
                                     </span>
                                     <div className="footer-element file-panel">
                                         <input id="input-file" type="file" name="file" className="d-none" onChange={changeFile} multiple />
@@ -557,9 +539,9 @@ const Profile = (props) => {
                                         </Row>
                                     </div>
                                     <span id="down-decliamer">
-                                        <input type="checkbox" class="form-check-input decliamer-input" value={decliamer} onChange={changeDecliamer} />
-                                        <label title="" class="form-check-label">
-                                            &nbsp;I have read the <span class="disclaimer" onClick={handleClick}>disclaimer</span> and I agree to the terms.
+                                        <input type="checkbox" className="form-check-input decliamer-input" value={decliamer} onChange={changeDecliamer} />
+                                        <label title="" className="form-check-label">
+                                            &nbsp;I have read the <span className="disclaimer" onClick={handleClick}>disclaimer</span> and I agree to the terms.
                                         </label>
                                     </span>
                                 </Form.Group>

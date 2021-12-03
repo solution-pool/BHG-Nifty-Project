@@ -15,10 +15,11 @@ function App() {
   const [walletAddress, setAddress] = useState('');
   const [userInfo, setUserInfo] = useState({})
   const [userLoad, setUserLoad] = useState(false) 
+  const [reload, setReload] = useState(true)
     
   useEffect( () => {
       walletConnect()
-  }, [walletAddress, userInfo ? userInfo.username : userInfo] )
+  }, [walletAddress, userInfo ? userInfo.username : userInfo, reload] )
 
   const walletConnect = async () => {
       if(window.ethereum) {
@@ -39,6 +40,10 @@ function App() {
       } else {
           window.alert('Non-Ethereum browser detected. You should consider trying MetaMask!')
       }
+  }
+
+  const changeReload = () => {
+    setReload(!reload)
   }
 
   const getUserInfo = (accountAddress) => {
@@ -70,14 +75,14 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Home walletConnect={walletConnect} walletAddress={walletAddress} userInfo={userInfo} userLoad={userLoad} />} />
-        <Route path="/:t" element={<Home walletConnect={walletConnect} walletAddress={walletAddress} userInfo={userInfo} userLoad={userLoad} />} />
-        <Route path="project/:id/:t" element={<Project walletConnect={walletConnect} walletAddress={walletAddress} userInfo={userInfo} userLoad={userLoad} />} />
-        <Route path="proposal" element={<Proposal walletConnect={walletConnect} walletAddress={walletAddress} userInfo={userInfo} userLoad={userLoad} />} />
-        <Route path="proposal/:id" element={<Proposal walletConnect={walletConnect} walletAddress={walletAddress} userInfo={userInfo} userLoad={userLoad} />} />
-        <Route path="outside" element={<Outside walletConnect={walletConnect} walletAddress={walletAddress} userInfo={userInfo} userLoad={userLoad} />} />      
-        <Route path="outside/:id" element={<Outside walletConnect={walletConnect} walletAddress={walletAddress} userInfo={userInfo} userLoad={userLoad} />} />      
-        <Route path="profile" element={<Profile walletConnect={walletConnect} walletAddress={walletAddress} userInfo={userInfo} userLoad={userLoad} />} />
+        <Route path="/" element={<Home walletConnect={walletConnect} walletAddress={walletAddress} userInfo={userInfo} userLoad={userLoad} reload={reload} changeReload={changeReload} />} />
+        <Route path="/:t" element={<Home walletConnect={walletConnect} walletAddress={walletAddress} userInfo={userInfo} userLoad={userLoad} reload={reload} changeReload={changeReload} />} />
+        <Route path="project/:id/:t" element={<Project walletConnect={walletConnect} walletAddress={walletAddress} userInfo={userInfo} userLoad={userLoad} reload={reload} changeReload={changeReload} />} />
+        <Route path="proposal" element={<Proposal walletConnect={walletConnect} walletAddress={walletAddress} userInfo={userInfo} userLoad={userLoad} reload={reload} changeReload={changeReload} />}  />
+        <Route path="proposal/:id" element={<Proposal walletConnect={walletConnect} walletAddress={walletAddress} userInfo={userInfo} userLoad={userLoad} reload={reload} changeReload={changeReload} />} />
+        <Route path="outside" element={<Outside walletConnect={walletConnect} walletAddress={walletAddress} userInfo={userInfo} userLoad={userLoad} reload={reload} changeReload={changeReload} />}/>      
+        <Route path="outside/:id" element={<Outside walletConnect={walletConnect} walletAddress={walletAddress} userInfo={userInfo} userLoad={userLoad} reload={reload} changeReload={changeReload} />} />      
+        <Route path="profile" element={<Profile walletConnect={walletConnect} walletAddress={walletAddress} userInfo={userInfo} userLoad={userLoad} reload={reload} changeReload={changeReload} />} />
       </Routes>
     </BrowserRouter>
   );
