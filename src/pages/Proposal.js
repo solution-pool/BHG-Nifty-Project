@@ -31,16 +31,13 @@ const Proposal = (props) => {
     const [target, setTarget] = useState(null)
     const [decliamer, setDecliamer] = useState(false)
     const [blocking, setBlock] = useState(false)
-    const [message, setMessage] = useState('Checking connnection...')
     const { id } = useParams()
     const [init, setInit] = useState(true)
-    const [messageHandler, setMessageHandler] = useState(false)
+    const [messageHandler, setMessageHandler] = useState(true)
     const navigate = useNavigate();
     
 
-    useEffect( async () => {
-        
-        setInit(false)
+    useEffect( () => {
         if(props.userLoad == true) {
             if(props.userInfo.wallet) {
                 setBlock(false)
@@ -374,7 +371,7 @@ const Proposal = (props) => {
                 <NotificationContainer />
                 <Avatar title={title} content={content} userInfo={props.userInfo} />
                 <Row className="content">
-                    <BlockUi tag="div" blocking={blocking} message={message}>
+                    <BlockUi tag="div" blocking={blocking}>
                         <Form onSubmit={handleSubmit} encType="multipart/form-data">
                             <Row>
                                 <Col lg="4" md="6" sm="12" className="main-col">

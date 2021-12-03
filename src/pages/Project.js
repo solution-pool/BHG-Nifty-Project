@@ -42,6 +42,7 @@ const Project = (props) => {
         if(props.userLoad == true) {
             if(props.userInfo.wallet) {
                 setBlock(false)
+                await getProject();
             } else {
                 setBlock(true)
                 if(messageHandler) {
@@ -424,6 +425,7 @@ const Project = (props) => {
             <Header walletAddress={props.walletAddress} walletConnect={props.walletConnect} userInfo={props.userInfo} />
             <BlockUi tag="div" blocking={blocking} message={message} keepInView>
                 <Container className="project">
+                    <NotificationContainer />
                     <Row>
                         <Col lg={5} md={12} sm={12}>
                             <p className="panel-title">Project
