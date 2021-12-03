@@ -387,6 +387,9 @@
         display: inline;
         display: inline-flex;
     }
+    .notification-container {
+        width: 100% !important;
+    }
 
     .navbar-collapse { 
     /* left: 15rem; */
