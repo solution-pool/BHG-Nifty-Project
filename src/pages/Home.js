@@ -17,6 +17,7 @@ const Home = (props) => {
     const [blocking, setBlock] = useState(false)
     const [init, setInit] = useState(true)
     const { t } = useParams()
+    const [messageHandler, setMessageHandler] = useState(true)
     const navigate = useNavigate()
 
     const ratingString = [
@@ -30,7 +31,10 @@ const Home = (props) => {
                 setBlock(false)
             } else {
                 setBlock(true)
-                NotificationManager.error('You are not registered as a Nifty member. Please sign up first.', 'Error', 5000)
+                if(messageHandler) {
+                    NotificationManager.error('You are not registered as a Nifty member. Please sign up first.', 'Error', 5000)
+                    setMessageHandler(false)
+                }
             }
         } else {
             setBlock(true)
@@ -48,7 +52,7 @@ const Home = (props) => {
             navigate('/')
         }
         display()
-    }, [projectContainer.length, props.userInfo.wallet, props.userLoad, sort, type, init])
+    }, [projectContainer.length, props.userInfo.wallet, props.userLoad, sort, type, init, messageHandler])
 
     const changeSort = (e) => {
         setSort(e.target.value)
@@ -188,8 +192,11 @@ const Home = (props) => {
                     }
                 }
             }
-        } ).catch(e => {
-
+        } ).catch(e => {                
+            if(messageHandler) {
+                NotificationManager.error('Network connection failed. Please check if you are connected to the network correctly.', 'Error', 5000)
+                setMessageHandler(false)
+            }
         })
         return proposalContainer
     }
@@ -214,7 +221,10 @@ const Home = (props) => {
                 }
             }
         } ).catch( e => {
-            
+            if(messageHandler) {
+                NotificationManager.error('Network connection failed. Please check if you are connected to the network correctly.', 'Error', 5000)
+                setMessageHandler(false)
+            }
         } )
         return outsideContainer;
     }
@@ -324,15 +334,15 @@ const Home = (props) => {
                             <Col lg="4" md="12" sm="12">
                                 <Form.Group className="sort">
                                     <Form.Label>Sort by :&nbsp; </Form.Label>
-                                    <Form.Select onChange={changeSort}>
-                                        <option value="6" selected={sort == 6 ? 'selected' : ''}>Newest</option>
-                                        <option value="7" selected={sort == 7 ? 'selected' : ''}>Most Upvotes</option>
-                                        <option value="0" selected={sort == 0 ? 'selected' : ''}>Art</option>
-                                        <option value="1" selected={sort == 1 ? 'selected' : ''}>Roadmap</option>
-                                        <option value="2" selected={sort == 2 ? 'selected' : ''}>Utility</option>
-                                        <option value="3" selected={sort == 3 ? 'selected' : ''}>Community</option>
-                                        <option value="4" selected={sort == 4 ? 'selected' : ''}>Team</option>
-                                        <option value="5" selected={sort == 5 ? 'selected' : ''}>Originality</option>
+                                    <Form.Select onChange={changeSort} value={sort}>
+                                        <option value="6">Newest</option>
+                                        <option value="7">Most Upvotes</option>
+                                        <option value="0">Art</option>
+                                        <option value="1">Roadmap</option>
+                                        <option value="2">Utility</option>
+                                        <option value="3">Community</option>
+                                        <option value="4">Team</option>
+                                        <option value="5">Originality</option>
                                     </Form.Select>
                                 </Form.Group>
                             </Col>
@@ -381,79 +391,79 @@ const Home = (props) => {
                                             <Col lg="4" md="4" sm="4" xs="4" className="rating-star">
                                                 <div className="one-col">
                                                     <p>Art</p>
-                                                    <p>
+                                                    <div>
                                                         <StarRatingComponent 
                                                             name="rate1" 
                                                             starCount={5}
                                                             value={0}
                                                             emptyStarColor={'#e5e5e5'}
                                                         />
-                                                    </p>
+                                                    </div>
                                                 </div>
                                             </Col>
                                             <Col lg="4" md="4" sm="4" xs="4" className="rating-star">
                                                 <div className="one-col">
                                                     <p>Roadmap</p>
-                                                    <p>
+                                                    <div>
                                                         <StarRatingComponent 
                                                             name="rate1" 
                                                             starCount={5}
                                                             value={0}
                                                             emptyStarColor={'#e5e5e5'}
                                                         />
-                                                    </p>
+                                                    </div>
                                                 </div>
                                             </Col>
                                             <Col lg="4" md="4" sm="4" xs="4" className="rating-star">
                                                 <div className="one-col">
                                                     <p>Utility</p>
-                                                    <p>
+                                                    <div>
                                                         <StarRatingComponent 
                                                             name="rate1" 
                                                             starCount={5}
                                                             value={0}
                                                             emptyStarColor={'#e5e5e5'}
                                                         />
-                                                    </p>
+                                                    </div>
                                                 </div>
                                             </Col>
                                             <Col lg="4" md="4" sm="4" xs="4" className="rating-star">
                                                 <div className="one-col">
                                                     <p>Community</p>
-                                                    <p>
+                                                    <div>
                                                         <StarRatingComponent 
                                                             name="rate1" 
                                                             starCount={5}
                                                             value={0}
                                                             emptyStarColor={'#e5e5e5'}
                                                         />
-                                                    </p>
+                                                    </div>
                                                 </div>
                                             </Col>
                                             <Col lg="4" md="4" sm="4" xs="4" className="rating-star">
                                                 <div className="one-col">
                                                     <p>Team</p>
-                                                    <p>
+                                                    <div>
                                                         <StarRatingComponent 
                                                             name="rate1" 
                                                             starCount={5}
                                                             value={0}
                                                             emptyStarColor={'#e5e5e5'}
                                                         />
-                                                    </p>
+                                                    </div>
                                                 </div>
                                             </Col>
                                             <Col lg="4" md="4" sm="4" xs="4" className="rating-star">
                                                 <div className="one-col">
                                                     <p>Originality</p>
-                                                    <p>
+                                                    <div>
                                                         <StarRatingComponent 
                                                             name="rate1" 
                                                             starCount={5}
                                                             value={0}
                                                             emptyStarColor={'#e5e5e5'}
                                                         />
-                                                    </p>
+                                                    </div>
                                                 </div>
                                             </Col>
                                         </Row>
