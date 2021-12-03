@@ -435,93 +435,138 @@ const Proposal = (props) => {
                                                 have / need
                                             </Col>
                                             <Col lg={4} md={6} sm={12}>
-                                                <Form.Group className="mb-3" controlId="formInterestDataA">
-                                                    <Form.Check type="checkbox" type="radio" label="" className="interest" id="checkbox_interest_A_A" name="A" value="A" onClick={changeInterest} />
-                                                    <Form.Check type="checkbox" type="radio" label="Artist" className="interest" id="checkbox_interest_A_B" name="A" value="B" onClick={changeInterest} />
+                                                <Form.Group className="mb-3">
+                                                    <div class="interest">
+                                                        <input name="A" type="radio" id="checkbox_interest_A_A" className="form-check-input first" value="A" onClick={changeInterest} />
+                                                        <input name="A" type="radio" id="checkbox_interest_A_B" className="form-check-input second" value="B" onClick={changeInterest} />
+                                                    </div>
+                                                    <label title="" className="form-check-label">Artist</label>
                                                 </Form.Group>
                                             </Col>
                                             <Col lg={4} md={6} sm={12}>
-                                                <Form.Group className="mb-3" controlId="formInterestDataB">
-                                                    <Form.Check type="checkbox" type="radio" label="" className="interest" id="checkbox_interest_B_A" name="B" value="A" onClick={changeInterest} />
-                                                    <Form.Check type="checkbox" type="radio" label="Game Developer" className="interest" id="checkbox_interest_B_B" name="B" value="B" onClick={changeInterest} />
+                                                <Form.Group className="mb-3">
+                                                    <div class="interest">
+                                                        <input name="B" type="radio" id="checkbox_interest_B_A" className="form-check-input first" value="A" onClick={changeInterest} />
+                                                        <input name="B" type="radio" id="checkbox_interest_B_B" className="form-check-input second" value="B" onClick={changeInterest} />
+                                                    </div>
+                                                    <label title="" className="form-check-label">Game Developer</label>
                                                 </Form.Group>
                                             </Col>
                                             <Col lg={4} md={6} sm={12}>
                                                 <Form.Group className="mb-3" controlId="formInterestDataC">
-                                                    <Form.Check type="checkbox" type="radio" label="" className="interest" id="checkbox_interest_C_A" name="C" value="A" onClick={changeInterest} />
-                                                    <Form.Check type="checkbox" type="radio" label="Community Manager" className="interest" id="checkbox_interest_C_B" name="C" value="B" onClick={changeInterest} />
+                                                    <div class="interest">
+                                                        <input name="C" type="radio" id="checkbox_interest_C_A" className="form-check-input first" value="A" onClick={changeInterest} />
+                                                        <input name="C" type="radio" id="checkbox_interest_C_B" className="form-check-input second" value="B" onClick={changeInterest} />
+                                                    </div>
+                                                    <label title="" className="form-check-label">Community Manager</label>
                                                 </Form.Group>
                                             </Col>
                                             <Col lg={4} md={6} sm={12}>
                                                 <Form.Group className="mb-3" controlId="formInterestDataD">
-                                                    <Form.Check type="checkbox" type="radio" label="" className="interest" id="checkbox_interest_D_A" name="D" value="A" onClick={changeInterest} />
-                                                    <Form.Check type="checkbox" type="radio" label="Project Manager" className="interest" id="checkbox_interest_D_B" name="D" value="B" onClick={changeInterest} />
+                                                    <div class="interest">
+                                                        <input name="D" type="radio" id="checkbox_interest_D_A" className="form-check-input first" value="A" onClick={changeInterest} />
+                                                        <input name="D" type="radio" id="checkbox_interest_D_B" className="form-check-input second" value="B" onClick={changeInterest} />
+                                                    </div>
+                                                    <label title="" className="form-check-label">Project Manager</label>
                                                 </Form.Group>
                                             </Col>
                                             <Col lg={4} md={6} sm={12}>
                                                 <Form.Group className="mb-3" controlId="formInterestDataE">
-                                                    <Form.Check type="checkbox" type="radio" label="" className="interest" id="checkbox_interest_E_A" name="E" value="A" onClick={changeInterest} />
-                                                    <Form.Check type="checkbox" type="radio" label="Musician" className="interest" id="checkbox_interest_E_B" name="E" value="B" onClick={changeInterest} />
+                                                    <div class="interest">
+                                                        <input name="E" type="radio" id="checkbox_interest_E_A" className="form-check-input first" value="A" onClick={changeInterest} />
+                                                        <input name="E" type="radio" id="checkbox_interest_E_B" className="form-check-input second" value="B" onClick={changeInterest} />
+                                                    </div>
+                                                    <label title="" className="form-check-label">Musician</label>
                                                 </Form.Group>
                                             </Col>
                                             <Col lg={4} md={6} sm={12}>
                                                 <Form.Group className="mb-3" controlId="formInterestDataF">
-                                                    <Form.Check type="checkbox" type="radio" label="" className="interest" id="checkbox_interest_F_A" name="F" value="A" onClick={changeInterest} />
-                                                    <Form.Check type="checkbox" type="radio" label="Photographer" className="interest" id="checkbox_interest_F_B" name="F" value="B" onClick={changeInterest} />
+                                                    <div class="interest">
+                                                        <input name="F" type="radio" id="checkbox_interest_F_A" className="form-check-input first" value="A" onClick={changeInterest} />
+                                                        <input name="F" type="radio" id="checkbox_interest_F_B" className="form-check-input second" value="B" onClick={changeInterest} />
+                                                    </div>
+                                                    <label title="" className="form-check-label">Photographer</label>
                                                 </Form.Group>
                                             </Col>
                                             <Col lg={4} md={6} sm={12}>
                                                 <Form.Group className="mb-3" controlId="formInterestDataG">
-                                                    <Form.Check type="checkbox" type="radio" label="" className="interest" id="checkbox_interest_G_A" name="G" value="A" onClick={changeInterest} />
-                                                    <Form.Check type="checkbox" type="radio" label="Marketing Plan/ Manager" className="interest" id="checkbox_interest_G_B" name="G" value="B" onClick={changeInterest} />
+                                                    <div class="interest">
+                                                        <input name="G" type="radio" id="checkbox_interest_G_A" className="form-check-input first" value="A" onClick={changeInterest} />
+                                                        <input name="G" type="radio" id="checkbox_interest_G_B" className="form-check-input second" value="B" onClick={changeInterest} />
+                                                    </div>
+                                                    <label title="" className="form-check-label">Marketing Plan/ Manager</label>
                                                 </Form.Group>
                                             </Col>
                                             <Col lg={4} md={6} sm={12}>
                                                 <Form.Group className="mb-3" controlId="formInterestDataH">
-                                                    <Form.Check type="checkbox" type="radio" label="" className="interest" id="checkbox_interest_H_A" name="H" value="A" onClick={changeInterest} />
-                                                    <Form.Check type="checkbox" type="radio" label="Business Developer" className="interest" id="checkbox_interest_H_B" name="H" value="B" onClick={changeInterest} />
+                                                    <div class="interest">
+                                                        <input name="H" type="radio" id="checkbox_interest_H_A" className="form-check-input first" value="A" onClick={changeInterest} />
+                                                        <input name="H" type="radio" id="checkbox_interest_H_B" className="form-check-input second" value="B" onClick={changeInterest} />
+                                                    </div>
+                                                    <label title="" className="form-check-label">Business Developer</label>
                                                 </Form.Group>
                                             </Col>
                                             <Col lg={4} md={6} sm={12}>
                                                 <Form.Group className="mb-3" controlId="formInterestDataI">
-                                                    <Form.Check type="checkbox" type="radio" label="" className="interest" id="checkbox_interest_I_A" name="I" value="A" onClick={changeInterest} />
-                                                    <Form.Check type="checkbox" type="radio" label="Social Media Manager" className="interest" id="checkbox_interest_I_B" name="I" value="B" onClick={changeInterest} />
+                                                    <div class="interest">
+                                                        <input name="I" type="radio" id="checkbox_interest_I_A" className="form-check-input first" value="A" onClick={changeInterest} />
+                                                        <input name="I" type="radio" id="checkbox_interest_I_B" className="form-check-input second" value="B" onClick={changeInterest} />
+                                                    </div>
+                                                    <label title="" className="form-check-label">Social Media Manager</label>
                                                 </Form.Group>
                                             </Col>
                                             <Col lg={4} md={6} sm={12}>
                                                 <Form.Group className="mb-3" controlId="formInterestDataJ">
-                                                    <Form.Check type="checkbox" type="radio" label="" className="interest" id="checkbox_interest_J_A" name="J" value="A" onClick={changeInterest} />
-                                                    <Form.Check type="checkbox" type="radio" label="Smart Contract Developer" className="interest" id="checkbox_interest_J_B" name="J" value="B" onClick={changeInterest} />
+                                                    <div class="interest">
+                                                        <input name="J" type="radio" id="checkbox_interest_J_A" className="form-check-input first" value="A" onClick={changeInterest} />
+                                                        <input name="J" type="radio" id="checkbox_interest_J_B" className="form-check-input second" value="B" onClick={changeInterest} />
+                                                    </div>
+                                                    <label title="" className="form-check-label">Smart Contract Developer</label>
                                                 </Form.Group>
                                             </Col>
                                             <Col lg={4} md={6} sm={12}>
                                                 <Form.Group className="mb-3" controlId="formInterestDataK">
-                                                    <Form.Check type="checkbox" type="radio" label="" className="interest" id="checkbox_interest_K_A" name="K" value="A" onClick={changeInterest} />
-                                                    <Form.Check type="checkbox" type="radio" label="Data Analyst" className="interest" id="checkbox_interest_K_B" name="K" value="B" onClick={changeInterest} />
+                                                    <div class="interest">
+                                                        <input name="K" type="radio" id="checkbox_interest_K_A" className="form-check-input first" value="A" onClick={changeInterest} />
+                                                        <input name="K" type="radio" id="checkbox_interest_K_B" className="form-check-input second" value="B" onClick={changeInterest} />
+                                                    </div>
+                                                    <label title="" className="form-check-label">Data Analyst</label>
                                                 </Form.Group>
                                             </Col>
                                             <Col lg={4} md={6} sm={12}>
                                                 <Form.Group className="mb-3" controlId="formInterestDataL">
-                                                    <Form.Check type="checkbox" type="radio" label="" className="interest" id="checkbox_interest_L_A" name="L" value="A" onClick={changeInterest} />
-                                                    <Form.Check type="checkbox" type="radio" label="Discord Moderator" className="interest" id="checkbox_interest_L_B" name="L" value="B" onClick={changeInterest} />
+                                                    <div class="interest">
+                                                        <input name="L" type="radio" id="checkbox_interest_L_A" className="form-check-input first" value="A" onClick={changeInterest} />
+                                                        <input name="L" type="radio" id="checkbox_interest_L_B" className="form-check-input second" value="B" onClick={changeInterest} />
+                                                    </div>
+                                                    <label title="" className="form-check-label">Discord Moderator</label>
                                                 </Form.Group>
                                             </Col>
                                             <Col lg={4} md={6} sm={12}>
-                                                <Form.Group className="mb-3" controlId="formInterestDataM">
-                                                    <Form.Check type="checkbox" type="radio" label="" className="interest" id="checkbox_interest_M_A" name="M" value="A" onClick={changeInterest} />
-                                                    <Form.Check type="checkbox" type="radio" label="Web Developer" className="interest" id="checkbox_interest_M_B" name="M" value="B" onClick={changeInterest} />
+                                                <Form.Group className="mb-3" controlId="formInterestDataM"> 
+                                                    <div class="interest">
+                                                        <input name="M" type="radio" id="checkbox_interest_M_A" className="form-check-input first" value="A" onClick={changeInterest} />
+                                                        <input name="M" type="radio" id="checkbox_interest_M_B" className="form-check-input second" value="B" onClick={changeInterest} />
+                                                    </div>
+                                                    <label title="" className="form-check-label">Web Developer</label>
                                                 </Form.Group>
                                             </Col>
                                             <Col lg={4} md={6} sm={12}>
                                                 <Form.Group className="mb-3" controlId="formInterestDataN">
-                                                    <Form.Check type="checkbox" type="radio" label="" className="interest" id="checkbox_interest_N_A" name="N" value="A" onClick={changeInterest} />
-                                                    <Form.Check type="checkbox" type="radio" label="AI Developer" className="interest" id="checkbox_interest_N_B" name="N" value="B" onClick={changeInterest} />
+                                                    <div class="interest">
+                                                        <input name="N" type="radio" id="checkbox_interest_N_A" className="form-check-input first" value="A" onClick={changeInterest} />
+                                                        <input name="N" type="radio" id="checkbox_interest_N_B" className="form-check-input second" value="B" onClick={changeInterest} />
+                                                    </div>
+                                                    <label title="" className="form-check-label">AI Developer</label>
                                                 </Form.Group>
                                             </Col>
                                             <Col lg={4} md={6} sm={12}>
                                                 <Form.Group className="mb-3" controlId="formInterestDataO">
-                                                    <Form.Check type="checkbox" type="radio" label="" className="interest" id="checkbox_interest_O_A" name="O" value="A" onClick={changeInterest} />
-                                                    <Form.Check type="checkbox" type="radio" label="Other" className="interest" id="checkbox_interest_O_B" name="O" value="B" onClick={changeInterest} />
+                                                    <div class="interest">
+                                                        <input name="O" type="radio" id="checkbox_interest_O_A" className="form-check-input first" value="A" onClick={changeInterest} />
+                                                        <input name="O" type="radio" id="checkbox_interest_O_B" className="form-check-input second" value="B" onClick={changeInterest} />
+                                                    </div>
+                                                    <label title="" className="form-check-label">Other</label>
                                                 </Form.Group>
                                             </Col>
                                         </Row>
