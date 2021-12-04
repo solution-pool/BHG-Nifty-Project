@@ -434,7 +434,7 @@ const Profile = (props) => {
                                     <Col lg="12" md="12" sm="12" className="sub-main-col">
                                         <Form.Group controlId="formHeld">
                                             <Form.Label>Nodestone(s) Held</Form.Label>
-                                            <Form.Control as="textarea" rows="5" disabled={true} placeholder="Nodestone(s) Held" defaultValue={held} />
+                                            <Form.Control as="textarea" rows="5" disabled={true} placeholder="Nodestone(s) Held" value={held} />
                                         </Form.Group>
                                     </Col>
                                 </Row>
