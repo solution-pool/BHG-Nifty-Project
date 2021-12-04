@@ -15,10 +15,10 @@ function App() {
   const [walletAddress, setAddress] = useState('');
   const [userInfo, setUserInfo] = useState({})
   const [userLoad, setUserLoad] = useState(false) 
-  const [reload, setReload] = useState(true)
+  const [reload, setReload] = useState(false)
     
-  useEffect( () => {
-      walletConnect()
+  useEffect( async () => {
+    await walletConnect()
   }, [walletAddress, userInfo ? userInfo.username : userInfo, reload] )
 
   const walletConnect = async () => {
@@ -42,8 +42,12 @@ function App() {
       }
   }
 
-  const changeReload = () => {
-    setReload(!reload)
+  const changeReload = (e) => {
+    setReload(e)
+  }
+
+  const changeUserLoad = (e) => {
+    setUserLoad(e)
   }
 
   const getUserInfo = (accountAddress) => {
@@ -52,15 +56,21 @@ function App() {
       if(snapshot.exists()) {
         const newAry = snapshot.val()
         if(newAry) {
+          let existUser = false
             for(let i in newAry) {
                 let data = newAry[i]
                 if(data.wallet == accountAddress) {
                   data.id = i
+                  existUser = true
                   setUserInfo(data)
+                  setUserLoad(true)
                   break
                 }
             }
-            setUserLoad(true)
+
+            if(!existUser) {
+              setUserLoad(-1)
+            }
         } else {
           setUserLoad(-1)
         }
@@ -82,7 +92,7 @@ function App() {
         <Route path="proposal/:id" element={<Proposal walletConnect={walletConnect} walletAddress={walletAddress} userInfo={userInfo} userLoad={userLoad} reload={reload} changeReload={changeReload} />} />
         <Route path="outside" element={<Outside walletConnect={walletConnect} walletAddress={walletAddress} userInfo={userInfo} userLoad={userLoad} reload={reload} changeReload={changeReload} />}/>      
         <Route path="outside/:id" element={<Outside walletConnect={walletConnect} walletAddress={walletAddress} userInfo={userInfo} userLoad={userLoad} reload={reload} changeReload={changeReload} />} />      
-        <Route path="profile" element={<Profile walletConnect={walletConnect} walletAddress={walletAddress} userInfo={userInfo} userLoad={userLoad} reload={reload} changeReload={changeReload} />} />
+        <Route path="profile" element={<Profile walletConnect={walletConnect} walletAddress={walletAddress} userInfo={userInfo} userLoad={userLoad} reload={reload} changeReload={changeReload} changeUserLoad={changeUserLoad} />} />
       </Routes>
     </BrowserRouter>
   );

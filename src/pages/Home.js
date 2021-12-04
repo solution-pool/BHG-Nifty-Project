@@ -27,9 +27,9 @@ const Home = (props) => {
     useEffect( async () => {
         setInit(false)
         if(props.userLoad == true) {
-            if(props.userInfo.wallet) {
+            if(props.userInfo.wallet || props.reload == true ) {
                 setBlock(false)
-                display()
+                await display()
             } else {
                 setBlock(true)
                 if(messageHandler) {

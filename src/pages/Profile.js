@@ -334,10 +334,13 @@ const Profile = (props) => {
                                 let updates = {}
                                 updates['member_profile/' + i] = load
 
-                                database.ref().update(updates).then(function(){
-                                    window.scrollTo(0, 0)
-                                    NotificationManager.success('The member profile was successfully submitted.', 'Success', 5000)
+                                database.ref().update(updates).then(async function(){
+                                    await props.changeUserLoad(false)
+                                    await props.changeReload(true)
                                     setLoading(false)
+                                    navigate('/')
+                                    NotificationManager.success('The member profile was successfully updated.', 'Success', 5000)
+                                    window.scrollTo(0, 0)
                                 }).catch(function(error) {
                                     window.scrollTo(0, 0)
                                     NotificationManager.error('The member profile submission failed.', 'Error', 5000)
@@ -354,14 +357,15 @@ const Profile = (props) => {
             if(!updateFlag) {
                 const userListRef   = database.ref('member_profile')
                 const newUserRef    = userListRef.push()
-                newUserRef.set(load)  
-                window.scrollTo(0, 0)
-                NotificationManager.success('The member profile was successfully submitted.', 'Success', 5000)
-                setLoading(false)
+                await newUserRef.set(load).then( async () => {
+                    await props.changeUserLoad(false)
+                    await props.changeReload(true)
+                    setLoading(false)
+                    navigate('/')
+                    NotificationManager.success('The member profile was successfully submitted.', 'Success', 5000)
+                    window.scrollTo(0, 0)
+                } )  
             }
-
-            props.changeReload()
-            navigate('/')
     }
 
     const handleClick = (e) => {
