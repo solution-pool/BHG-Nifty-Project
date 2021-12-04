@@ -26,6 +26,7 @@ const Home = (props) => {
 
     useEffect( async () => {
         setInit(false)
+        window.scrollTo(0, 0)
         if(props.userLoad == true) {
             if(props.userInfo.wallet || props.reload == true ) {
                 setBlock(false)

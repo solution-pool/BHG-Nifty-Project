@@ -38,6 +38,8 @@ const Proposal = (props) => {
     
 
     useEffect( () => {
+        
+        window.scrollTo(0, 0)
         if(props.userLoad == true) {
             if(props.userInfo.wallet) {
                 setBlock(false)

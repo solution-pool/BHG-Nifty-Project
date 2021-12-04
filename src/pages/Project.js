@@ -39,6 +39,7 @@ const Project = (props) => {
     const [messageHandler, setMessageHandler] = useState(true)
 
     useEffect( async () => {
+        window.scrollTo(0, 0)
         if(props.userLoad == true) {
             if(props.userInfo.wallet) {
                 setBlock(false)
