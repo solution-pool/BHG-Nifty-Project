@@ -5,7 +5,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import {NotificationContainer, NotificationManager} from 'react-notifications';
 import 'react-notifications/lib/notifications.css';
 import Header from '../components/Header';
-import { database, storage } from '../config/firebase'
+import { database, storage } from '../config/firebase';
+import {getHeldAmount} from '../helpers/contract'
 
 const Profile = (props) => {
     const [username, setUsername] = useState('')
@@ -76,12 +77,18 @@ const Profile = (props) => {
         const url = URL.createObjectURL(e.target.files[0])
         imageRef.current.src = url
     }
+    
+    const loadHeld = async() => {
+        const amnt = await getHeldAmount(props.address);
+        setHeld(amnt);
+    }
 
     useEffect( async () => {
       setInputFile(document.getElementById("input-file"));
       setImageFile(document.getElementById("input-image"));
       fillPrevFileContainer()
       fillFileContainer()
+      loadHeld()
       let wallet = walletRef.current.value
       if(wallet) {
             let niftyRef = database.ref('member_profile')
