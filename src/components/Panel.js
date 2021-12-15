@@ -90,7 +90,7 @@ const Panel = (props) => {
                         <div className="panel-title">
                             <span className="submit">
                                 <span className="title-label">Submitted by:&nbsp;</span> 
-                                <small>{props.proposal.creator}</small>
+                                <small>{props.proposal.creatorName ? props.proposal.creatorName : props.proposal.creator}</small>
                             </span>
                             <span className="price">
                                 <span className="title-label">Price:&nbsp;</span>

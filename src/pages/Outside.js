@@ -278,6 +278,7 @@ const Outside = (props) => {
             opensea: opensea,
             description: description,
             creator: props.userInfo.wallet,
+            creatorName: props.userInfo.username,
             creatorPath: props.userInfo.id,
             createDate: today.getFullYear() + ' / ' +  (today.getMonth() + 1) + ' / ' + today.getDate()
         }
