@@ -13,6 +13,9 @@ import Confirm from 'react-confirm-bootstrap';
 import {NotificationContainer, NotificationManager} from 'react-notifications';
 import 'react-notifications/lib/notifications.css';
 
+const prices = [
+    '', 'ETH', 'Ada', 'BNB', 'MATIC', 'SOL', 'IMX'
+]
 const Project = (props) => {
     const [project, setProject] = useState({})
     const [artValue, setArtValue] = useState(0)
@@ -445,7 +448,7 @@ const Project = (props) => {
                                 <h1 className="project-name" title={project ? project.name : ''}>{ project ? project.name : '' }</h1>
                                 <div className="project-condition">
                                     <div className="supply">Supply: { project ? project.supply : '' }</div>
-                                    <div className="price">Price: { project ? project.price : '' }</div>
+                                    <div className="price">Price: { project ? (project.price + ' ' + (prices[project.blockchain] ? prices[project.blockchain] : '')) : '' }</div>
                                     <div className="votes">Votes: {voteCount}</div>
                                 </div>
                                 <div className="project-thumbnail">

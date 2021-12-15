@@ -5,6 +5,9 @@ import { useEffect, useState } from 'react';
 import BlockUi from 'react-block-ui';
 import 'react-block-ui/style.css';
 
+const prices = [
+    '', 'ETH', 'Ada', 'BNB', 'MATIC', 'SOL', 'IMX'
+]
 const Panel = (props) => {
     const [art, setArt] = useState(0)
     const [roadmap, setRoadMap] = useState(0)
@@ -94,7 +97,7 @@ const Panel = (props) => {
                             </span>
                             <span className="price">
                                 <span className="title-label">Price:&nbsp;</span>
-                                <small>{props.proposal.price}</small>
+                                <small>{props.proposal.price ? (props.proposal.price + ' ' + (prices[props.proposal.blockchain] ? prices[props.proposal.blockchain] : '')) : ''}</small>
                             </span>
                             <span className="supply">
                                 <span className="title-label">Supply:&nbsp;</span>
