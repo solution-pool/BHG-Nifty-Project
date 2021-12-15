@@ -277,7 +277,7 @@ const Home = (props) => {
                     </Col>
                     <Col lg="6" md="6" sm="12">
                         <div className="idea">
-                            <img src={require('../assets/img/idea.png').default} className="idea-image" />
+                            <img src={require('../assets/img/idea.svg').default} className="idea-image" />
                         </div>
                         <div>
                             <ul id="down-ul">
