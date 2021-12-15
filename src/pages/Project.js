@@ -346,7 +346,6 @@ const Project = (props) => {
 
     const hideOver = () => {
         setOverlayShow(false)
-        console.log('Hello')
     }
 
     const changeTeamMember = (e) => {

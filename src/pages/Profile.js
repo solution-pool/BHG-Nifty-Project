@@ -331,7 +331,6 @@ const Profile = (props) => {
                                     load.files = oneArry.files
                                     load.fileNames = oneArry.fileNames
                                 }
-                                console.log(load.files, load.fileNames)
 
                                 if(!image) {
                                     load.image = oneArry.image ? oneArry.image : ''
